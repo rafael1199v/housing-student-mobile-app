@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Networking (Retrofit over Dio)
+  dio: ^5.7.0
+  retrofit: ^4.9.0
+  json_annotation: ^4.9.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
