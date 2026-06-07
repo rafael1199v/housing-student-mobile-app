@@ -1,0 +1,8 @@
+name:  itersapiens_mobile_app
+publish_to: 'none'
+environment: 
+  sdk: ^3.11.5
+
+workspace:
+  - app/householder_app
+  - packages/householder_design_system
