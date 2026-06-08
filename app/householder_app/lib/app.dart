@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:householder_design_system/theme/app_theme.dart';
+
+import 'core/core.dart';
 
 class ItersapiensHouseholderApp extends StatefulWidget {
   const ItersapiensHouseholderApp({super.key});
@@ -9,10 +12,15 @@ class ItersapiensHouseholderApp extends StatefulWidget {
 }
 
 class _ItersapiensHouseholderAppState extends State<ItersapiensHouseholderApp> {
+  late final _router = createAppRouter(getIt<SessionNotifier>());
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp.router(
+      title: 'Itersapiens',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      routerConfig: _router,
     );
   }
 }
