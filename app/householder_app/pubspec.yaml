@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  householder_design_system:
+    path: ../../packages/householder_design_system
+
   # Networking (Retrofit over Dio)
   dio: ^5.7.0
   retrofit: ^4.9.0
@@ -23,10 +26,22 @@ dependencies:
   # Dependency injection
   get_it: ^8.0.3
 
+  # State management
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # Routing
+  go_router: ^16.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+  # Code generation
+  build_runner: ^2.4.13
+  retrofit_generator: ^10.2.3
+  json_serializable: ^6.9.0
 
 flutter:
   uses-material-design: true
