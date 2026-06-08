@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../features/auth/di/auth_module.dart';
 import '../network/dio_client.dart';
 import '../session/session_notifier.dart';
 import '../storage/secure_token_storage.dart';
@@ -24,4 +25,6 @@ Future<void> configureDependencies() async {
       onSessionExpired: () => getIt<SessionNotifier>().signedOut(),
     ),
   );
+
+  registerAuthDependencies(getIt);
 }
