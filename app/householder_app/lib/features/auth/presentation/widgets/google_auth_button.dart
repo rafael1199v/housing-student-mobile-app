@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:householder_design_system/householder_design_system.dart';
 
-import '../../../../../core/core.dart';
+import '../../../../core/core.dart';
 
 class GoogleAuthButton extends StatelessWidget {
   const GoogleAuthButton({
