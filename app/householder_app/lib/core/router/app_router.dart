@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/auth.dart';
 import '../../features/home/home.dart';
 import '../session/session_notifier.dart';
+import 'main_shell.dart';
 
 const _publicRoutes = {LoginPage.routeName, '/register', '/confirm-email'};
+
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 GoRouter createAppRouter(SessionNotifier session) {
   return GoRouter(
@@ -23,9 +27,37 @@ GoRouter createAppRouter(SessionNotifier session) {
         path: LoginPage.routeName,
         builder: (context, state) => const LoginPage(),
       ),
-      GoRoute(
-        path: HomePage.routeName,
-        builder: (context, state) => const HomePage(),
+    
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+          MainShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorKey,
+            routes: [
+              GoRoute(
+                path: HomePage.routeName,
+                builder: (context, state) => const HomePage()
+              )
+            ]
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/messages',
+                builder: (context, state) => const HomePage()
+              )
+            ]
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/profile',
+                builder: (context, state) => const HomePage()
+              )
+            ]
+          )
+        ]
       )
     ],
   );
