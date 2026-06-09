@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/auth.dart';
 import '../../features/home/home.dart';
+import '../../features/profile/profile.dart';
 import '../session/session_notifier.dart';
 import 'main_shell.dart';
 
@@ -27,38 +28,38 @@ GoRouter createAppRouter(SessionNotifier session) {
         path: LoginPage.routeName,
         builder: (context, state) => const LoginPage(),
       ),
-    
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
-          MainShell(navigationShell: navigationShell),
+            MainShell(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
             navigatorKey: _shellNavigatorKey,
             routes: [
               GoRoute(
                 path: HomePage.routeName,
-                builder: (context, state) => const HomePage()
-              )
-            ]
+                builder: (context, state) => const HomePage(),
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/messages',
-                builder: (context, state) => const HomePage()
-              )
-            ]
+                builder: (context, state) => const HomePage(),
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/profile',
-                builder: (context, state) => const HomePage()
-              )
-            ]
-          )
-        ]
-      )
+                path: ProfilePage.routeName,
+                builder: (context, state) => const ProfilePage(),
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   );
 }
