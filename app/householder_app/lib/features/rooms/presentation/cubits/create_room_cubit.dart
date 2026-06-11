@@ -39,11 +39,15 @@ class CreateRoomCubit extends Cubit<CreateRoomState> {
   }
 
   Future<bool> useCurrentLocation() async {
-    final granted = await _locationService.ensurePermission();
-    if (!granted) return false;
-    final pos = await _locationService.getCurrentPosition();
-    await setLocation(pos.latitude, pos.longitude);
-    return true;
+    try {
+      final granted = await _locationService.ensurePermission();
+      if (!granted) return false;
+      final pos = await _locationService.getCurrentPosition();
+      await setLocation(pos.latitude, pos.longitude);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   void addImages(List<RoomImage> images) =>
