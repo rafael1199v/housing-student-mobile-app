@@ -33,6 +33,19 @@ dependencies:
   # Routing
   go_router: ^16.0.0
 
+  # Launch external apps/URLs (e.g. "Open in Maps" from room detail).
+  url_launcher: ^6.3.0
+
+  # Maps + location. Web support for maps is
+  # endorsed via google_maps_flutter_web; geolocator works web+mobile;
+  # geocoding is mobile-only (guarded with kIsWeb).
+  google_maps_flutter: ^2.9.0
+  geolocator: ^13.0.0
+  geocoding: ^3.0.0
+
+  # web support (secret injection)
+  web: ^1.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
