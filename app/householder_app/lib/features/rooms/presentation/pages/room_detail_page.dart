@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:householder_design_system/householder_design_system.dart';
 
+import '../../../booking/booking.dart';
 import '../../domain/entities/room_detail.dart';
 import '../cubits/room_detail_cubit.dart';
 import '../utils/room_status_ui.dart';
@@ -60,7 +61,8 @@ class _RoomDetailView extends StatelessWidget {
               detail: detail,
               address: address,
               onEdit: () => _comingSoon(context, 'Editing a room'),
-              onViewRequests: () => context.push('/rooms/$roomId/bookings'),
+              onViewRequests: () =>
+                  context.push(BookingRequestsPage.pathTo(roomId)),
             ),
             RoomDetailFailureState(:final code) => _RoomDetailError(
               code: code,

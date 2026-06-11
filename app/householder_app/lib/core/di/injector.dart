@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/di/auth_module.dart';
+import '../../features/booking/booking.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
@@ -31,6 +32,7 @@ Future<void> configureDependencies() async {
 
   registerAuthDependencies(getIt);
   registerProfileDependencies(getIt);
+  registerBookingDependencies(getIt);
   registerHomeDependencies(getIt);
   registerRoomDependencies(getIt);
 }
