@@ -52,14 +52,6 @@ class _RoomDetailView extends StatelessWidget {
             context,
           ).textTheme.displaySmall?.copyWith(fontSize: 20),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert, color: AppColors.primary),
-            tooltip: 'More',
-            onPressed: () => _comingSoon(context, 'More options'),
-          ),
-          const SizedBox(width: AppSpacing.xs),
-        ],
       ),
       body: BlocBuilder<RoomDetailCubit, RoomDetailState>(
         builder: (context, state) {
