@@ -2,25 +2,25 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
+import '../../../booking/booking.dart';
 import '../../domain/entities/dashboard_summary.dart';
 import '../../domain/usecases/get_dashboard_summary_usecase.dart';
-import '../../domain/usecases/respond_booking_request_usecase.dart';
 
 part 'dashboard_state.dart';
 
 class DashboardCubit extends Cubit<DashboardState> {
   DashboardCubit({
     required GetDashboardSummaryUseCase getSummaryUseCase,
-    required AcceptBookingRequestUseCase acceptBookingUseCase,
-    required RejectBookingRequestUseCase rejectBookingUseCase,
+    required ApproveBookingUseCase acceptBookingUseCase,
+    required RejectBookingUseCase rejectBookingUseCase,
   })  : _getSummaryUseCase = getSummaryUseCase,
         _acceptBookingUseCase = acceptBookingUseCase,
         _rejectBookingUseCase = rejectBookingUseCase,
         super(const DashboardInitial());
 
   final GetDashboardSummaryUseCase _getSummaryUseCase;
-  final AcceptBookingRequestUseCase _acceptBookingUseCase;
-  final RejectBookingRequestUseCase _rejectBookingUseCase;
+  final ApproveBookingUseCase _acceptBookingUseCase;
+  final RejectBookingUseCase _rejectBookingUseCase;
 
   Future<void> load() async {
     emit(const DashboardLoading());

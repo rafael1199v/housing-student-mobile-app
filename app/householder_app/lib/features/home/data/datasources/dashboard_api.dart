@@ -11,10 +11,4 @@ abstract class DashboardApi {
 
   @GET('/api/dashboard/summary')
   Future<DashboardSummaryDto> getDashboardSummary();
-
-  @PUT('/api/bookings/approve/{bookingId}')
-  Future<bool> approveBooking(@Path('bookingId') String bookingId);
-
-  @PUT('/api/bookings/reject/{bookingId}')
-  Future<bool> rejectBooking(@Path('bookingId') String bookingId);
 }

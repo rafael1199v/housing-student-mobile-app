@@ -18,20 +18,4 @@ class DashboardRepositoryImpl implements DashboardRepository {
       throw ErrorMapper.map(error);
     }
   }
-
-  @override
-  Future<void> acceptRequest(String bookingId) =>
-      _respond(() => _api.approveBooking(bookingId));
-
-  @override
-  Future<void> rejectRequest(String bookingId) =>
-      _respond(() => _api.rejectBooking(bookingId));
-
-  Future<void> _respond(Future<bool> Function() call) async {
-    try {
-      await call();
-    } catch (error) {
-      throw ErrorMapper.map(error);
-    }
-  }
 }
