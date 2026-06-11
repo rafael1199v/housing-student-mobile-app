@@ -87,22 +87,6 @@ class _Avatar extends StatelessWidget {
                     ),
             ),
           ),
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: Material(
-              color: AppColors.primary,
-              shape: const CircleBorder(),
-              child: InkWell(
-                customBorder: const CircleBorder(),
-                onTap: onEdit,
-                child: const Padding(
-                  padding: EdgeInsets.all(AppSpacing.xs),
-                  child: Icon(Icons.edit, size: 16, color: AppColors.onPrimary),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
