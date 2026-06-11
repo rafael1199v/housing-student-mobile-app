@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:householder_design_system/householder_design_system.dart';
 
+import '../../../rooms/rooms.dart';
 import '../../domain/entities/dashboard_summary.dart';
 import '../../domain/entities/property_summary.dart';
 import '../cubits/dashboard_cubit.dart';
@@ -105,7 +106,7 @@ class _DashboardContent extends StatelessWidget {
 
   Future<void> _onManage(BuildContext context, PropertySummary property) async {
     final cubit = context.read<DashboardCubit>();
-    await context.push('/rooms/${property.id}');
+    await context.push(RoomDetailPage.pathTo(property.id));
     await cubit.refresh();
   }
 }
