@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../models/created_room_dto.dart';
 import '../models/room_householder_detail_dto.dart';
 
 part 'room_api.g.dart';
@@ -13,4 +14,7 @@ abstract class RoomApi {
   Future<RoomHouseholderDetailDto> getHouseholderRoomDetail(
     @Path('roomId') int roomId,
   );
+
+  @POST('/api/rooms')
+  Future<CreatedRoomDto> createRoom(@Body() FormData body);
 }

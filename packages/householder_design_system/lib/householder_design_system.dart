@@ -6,6 +6,8 @@ export 'components/buttons/primary_button.dart';
 export 'components/feedback/status_badge.dart';
 export 'components/inputs/app_text_field.dart';
 export 'components/inputs/field_label.dart';
+export 'components/inputs/segmented_toggle.dart';
+export 'components/inputs/selectable_option.dart';
 export 'components/layout/app_card.dart';
 export 'components/layout/auth_card.dart';
 export 'components/layout/labeled_divider.dart';

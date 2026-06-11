@@ -31,6 +31,11 @@ GoRouter createAppRouter(SessionNotifier session) {
       ),
 
       GoRoute(
+        path: CreateRoomPage.routeName,
+        builder: (context, state) => const CreateRoomPage(),
+      ),
+
+      GoRoute(
         path: RoomDetailPage.routeName,
         builder: (context, state) =>
             RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),

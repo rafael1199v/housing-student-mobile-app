@@ -31,7 +31,7 @@ class _HomeView extends StatelessWidget {
 
   Future<void> _openCreateRoom(BuildContext context) async {
     final cubit = context.read<DashboardCubit>();
-    await context.push('/rooms/new');
+    await context.push(CreateRoomPage.routeName);
     await cubit.refresh();
   }
 
@@ -41,7 +41,7 @@ class _HomeView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-        title: const BrandLogo()
+        title: const BrandLogo(),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
@@ -52,8 +52,9 @@ class _HomeView extends StatelessWidget {
       body: BlocBuilder<DashboardCubit, DashboardState>(
         builder: (context, state) {
           return switch (state) {
-            DashboardLoaded(:final summary) =>
-              _DashboardContent(summary: summary),
+            DashboardLoaded(:final summary) => _DashboardContent(
+              summary: summary,
+            ),
             DashboardFailureState(:final code) => _DashboardError(code: code),
             _ => const Center(child: CircularProgressIndicator()),
           };
@@ -117,10 +118,10 @@ class _DashboardError extends StatelessWidget {
   final String code;
 
   String get _message => switch (code) {
-        'network.error' => 'No connection. Check your network and try again.',
-        'server.error' => 'Something went wrong on our side. Please try again.',
-        _ => 'We could not load your dashboard. Please try again.',
-      };
+    'network.error' => 'No connection. Check your network and try again.',
+    'server.error' => 'Something went wrong on our side. Please try again.',
+    _ => 'We could not load your dashboard. Please try again.',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +131,11 @@ class _DashboardError extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.cloud_off_outlined,
-                size: 56, color: AppColors.textHint),
+            const Icon(
+              Icons.cloud_off_outlined,
+              size: 56,
+              color: AppColors.textHint,
+            ),
             AppSpacing.gapM,
             Text(
               _message,

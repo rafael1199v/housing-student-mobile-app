@@ -1,0 +1,213 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:householder_design_system/householder_design_system.dart';
+
+import '../../../home/home.dart';
+
+import '../cubits/create_room_cubit.dart';
+import '../widgets/basic_details_step.dart';
+import '../widgets/review_step.dart';
+import '../widgets/services_policies_step.dart';
+import '../widgets/step_indicator.dart';
+
+class CreateRoomPage extends StatelessWidget {
+  static const String routeName = '/rooms/new';
+  const CreateRoomPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<CreateRoomCubit>(
+      create: (_) => GetIt.I<CreateRoomCubit>(),
+      child: const _CreateRoomView(),
+    );
+  }
+}
+
+class _CreateRoomView extends StatelessWidget {
+  const _CreateRoomView();
+
+  void _exit(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(HomePage.routeName);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<CreateRoomCubit, CreateRoomState>(
+      listenWhen: (prev, curr) => prev.status != curr.status,
+      listener: (context, state) {
+        if (state.status == CreateRoomStatus.success) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('Room published successfully.')),
+            );
+          _exit(context);
+        } else if (state.status == CreateRoomStatus.failure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                backgroundColor: AppColors.error,
+                content: Text(_errorMessage(state.errorCode)),
+              ),
+            );
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<CreateRoomCubit>();
+        final isLast = state.currentStep == CreateRoomState.lastStep;
+        final submitting = state.status == CreateRoomStatus.submitting;
+
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                _Header(
+                  step: state.currentStep,
+                  onBack: () =>
+                      state.currentStep == 0 ? _exit(context) : cubit.back(),
+                  onClose: () => _exit(context),
+                ),
+                const Divider(height: 1),
+                Expanded(
+                  child: switch (state.currentStep) {
+                    0 => const BasicDetailsStep(),
+                    1 => const ServicesPoliciesStep(),
+                    _ => const ReviewStep(),
+                  },
+                ),
+                _BottomBar(
+                  isLast: isLast,
+                  submitting: submitting,
+                  onBack: () =>
+                      state.currentStep == 0 ? _exit(context) : cubit.back(),
+                  onNext: isLast ? cubit.submit : cubit.next,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  String _errorMessage(String? code) => switch (code) {
+    'network.error' => 'No connection. Check your network and try again.',
+    'server.error' => 'Something went wrong on our side. Please try again.',
+    'validation.failed' => 'Some fields are invalid. Please review them.',
+    _ => 'Could not publish the room. Please try again.',
+  };
+}
+
+class _Header extends StatelessWidget {
+  const _Header({
+    required this.step,
+    required this.onBack,
+    required this.onClose,
+  });
+
+  final int step;
+  final VoidCallback onBack;
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.s,
+        AppSpacing.s,
+        AppSpacing.s,
+        AppSpacing.m,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(icon: const Icon(Icons.arrow_back), onPressed: onBack),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Add New Room',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.displaySmall?.copyWith(fontSize: 18),
+                    ),
+                    Text(
+                      'Step ${step + 1} of 3',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(icon: const Icon(Icons.close), onPressed: onClose),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
+            child: StepIndicator(currentStep: step),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BottomBar extends StatelessWidget {
+  const _BottomBar({
+    required this.isLast,
+    required this.submitting,
+    required this.onBack,
+    required this.onNext,
+  });
+
+  final bool isLast;
+  final bool submitting;
+  final VoidCallback onBack;
+  final VoidCallback onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.l),
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        border: Border(top: BorderSide(color: AppColors.border)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: submitting ? null : onBack,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.textPrimary,
+                side: const BorderSide(color: AppColors.border),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusPill),
+                ),
+              ),
+              child: const Text('Back'),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.m),
+          Expanded(
+            child: PrimaryButton(
+              label: isLast ? 'Publish' : 'Next Step',
+              isLoading: submitting,
+              trailingIcon: isLast ? Icons.check : Icons.arrow_forward,
+              onPressed: onNext,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

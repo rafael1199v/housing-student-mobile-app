@@ -46,6 +46,9 @@ dependencies:
   # web support (secret injection)
   web: ^1.1.1
 
+  # Image selection for room photos (gallery/camera, handles web).
+  image_picker: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
