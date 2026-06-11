@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/auth.dart';
+import '../../features/booking/booking.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
@@ -39,6 +40,13 @@ GoRouter createAppRouter(SessionNotifier session) {
         path: RoomDetailPage.routeName,
         builder: (context, state) =>
             RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),
+      ),
+
+      GoRoute(
+        path: BookingRequestsPage.routeName,
+        builder: (context, state) => BookingRequestsPage(
+          roomId: int.parse(state.pathParameters['roomId']!),
+        ),
       ),
 
       StatefulShellRoute.indexedStack(
