@@ -49,14 +49,23 @@ class _LocationMapState extends State<LocationMap> {
 
   Future<void> _useCurrent() async {
     setState(() => _locating = true);
-    final ok = await widget.onUseCurrentLocation();
+    bool ok = false;
+    try {
+      ok = await widget.onUseCurrentLocation();
+    } finally {
+      if (mounted) setState(() => _locating = false);
+    }
     if (!mounted) return;
-    setState(() => _locating = false);
     if (!ok) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('Location permission denied.')),
+          const SnackBar(
+            content: Text(
+              'Could not get your location. Check permissions and that '
+              'location services are enabled.',
+            ),
+          ),
         );
     }
   }
