@@ -7,7 +7,7 @@ import '../data/datasources/auth_api.dart';
 import '../data/repositories/auth_repository_impl.dart';
 import '../domain/repositories/auth_repository.dart';
 import '../domain/usecases/login_usecase.dart';
-import '../presentation/bloc/auth_bloc.dart';
+import '../presentation/blocs/auth_bloc.dart';
 
 void registerAuthDependencies(GetIt getIt) {
   getIt
