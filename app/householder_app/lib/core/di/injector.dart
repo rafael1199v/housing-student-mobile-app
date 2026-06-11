@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/di/auth_module.dart';
+import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../network/dio_client.dart';
 import '../session/session_notifier.dart';
@@ -29,4 +30,5 @@ Future<void> configureDependencies() async {
 
   registerAuthDependencies(getIt);
   registerProfileDependencies(getIt);
+  registerHomeDependencies(getIt);
 }
