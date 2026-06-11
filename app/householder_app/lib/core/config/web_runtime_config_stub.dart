@@ -1,0 +1,1 @@
+Future<void> applyWebRuntimeConfig({String? mapsKey, String? googleClientId}) async {}
