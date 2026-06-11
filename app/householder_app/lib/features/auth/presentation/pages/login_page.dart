@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:householder_design_system/householder_design_system.dart';
 
 import '../../../../core/core.dart';
-import '../bloc/auth_bloc.dart';
+import '../blocs/auth_bloc.dart';
 import '../utils/auth_error_messages.dart';
 import '../widgets/google_auth_button.dart';
 import '../widgets/login_form.dart';

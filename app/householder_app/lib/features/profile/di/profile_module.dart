@@ -6,7 +6,7 @@ import '../data/datasources/profile_api.dart';
 import '../data/repositories/profile_repository_impl.dart';
 import '../domain/repositories/profile_repository.dart';
 import '../domain/usecases/get_profile_usecase.dart';
-import '../presentation/cubit/profile_cubit.dart';
+import '../presentation/cubits/profile_cubit.dart';
 
 void registerProfileDependencies(GetIt getIt) {
   getIt

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:householder_design_system/householder_design_system.dart';
 
 import '../../domain/entities/user_profile.dart';
-import '../cubit/profile_cubit.dart';
+import '../cubits/profile_cubit.dart';
 import '../widgets/personal_details_card.dart';
 import '../widgets/preferences_card.dart';
 import '../widgets/profile_header.dart';
