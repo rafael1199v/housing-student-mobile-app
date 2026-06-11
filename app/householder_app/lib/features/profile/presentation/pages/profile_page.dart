@@ -44,7 +44,7 @@ class _ProfileView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-        title: const BrandLogo(brandName: 'Sanctuary Housing'),
+        title: const BrandLogo(),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_outlined, color: AppColors.primary),
