@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/auth.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
+import '../../features/rooms/rooms.dart';
 import '../session/session_notifier.dart';
 import 'main_shell.dart';
 
@@ -27,6 +28,12 @@ GoRouter createAppRouter(SessionNotifier session) {
       GoRoute(
         path: LoginPage.routeName,
         builder: (context, state) => const LoginPage(),
+      ),
+
+      GoRoute(
+        path: RoomDetailPage.routeName,
+        builder: (context, state) =>
+            RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),
       ),
 
       StatefulShellRoute.indexedStack(
