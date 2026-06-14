@@ -6,9 +6,11 @@ import '../../../core/core.dart';
 import '../data/datasources/auth_api.dart';
 import '../data/repositories/auth_repository_impl.dart';
 import '../domain/repositories/auth_repository.dart';
+import '../domain/usecases/confirm_email_usecase.dart';
 import '../domain/usecases/login_usecase.dart';
 import '../domain/usecases/register_usecase.dart';
 import '../presentation/blocs/auth_bloc.dart';
+import '../presentation/blocs/confirm_email_bloc.dart';
 import '../presentation/blocs/register_bloc.dart';
 
 void registerAuthDependencies(GetIt getIt) {
@@ -36,10 +38,16 @@ void registerAuthDependencies(GetIt getIt) {
     ..registerLazySingleton<RegisterUseCase>(
       () => RegisterUseCase(getIt<AuthRepository>()),
     )
+    ..registerLazySingleton<ConfirmEmailUseCase>(
+      () => ConfirmEmailUseCase(getIt<AuthRepository>()),
+    )
     ..registerFactory<AuthBloc>(
       () => AuthBloc(loginUseCase: getIt<LoginUseCase>()),
     )
     ..registerFactory<RegisterBloc>(
       () => RegisterBloc(registerUseCase: getIt<RegisterUseCase>()),
+    )
+    ..registerFactory<ConfirmEmailBloc>(
+      () => ConfirmEmailBloc(confirmEmailUseCase: getIt<ConfirmEmailUseCase>()),
     );
 }
