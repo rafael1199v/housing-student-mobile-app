@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../home/home.dart';
 
@@ -53,7 +53,7 @@ class _CreateRoomView extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                backgroundColor: AppColors.error,
+                backgroundColor: Theme.of(context).colorScheme.error,
                 content: Text(_errorMessage(state.errorCode)),
               ),
             );
@@ -120,10 +120,10 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        AppSpacing.s,
-        AppSpacing.s,
-        AppSpacing.s,
-        AppSpacing.m,
+        AppSpacing.md,
+        AppSpacing.md,
+        AppSpacing.md,
+        AppSpacing.lg,
       ),
       child: Column(
         children: [
@@ -149,9 +149,9 @@ class _Header extends StatelessWidget {
               IconButton(icon: const Icon(Icons.close), onPressed: onClose),
             ],
           ),
-          const SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.sm),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: StepIndicator(currentStep: step),
           ),
         ],
@@ -175,11 +175,12 @@ class _BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.l),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(top: BorderSide(color: AppColors.border)),
+      padding: const EdgeInsets.all(AppSpacing.xl),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLowest,
+        border: Border(top: BorderSide(color: cs.outlineVariant)),
       ),
       child: Row(
         children: [
@@ -187,20 +188,21 @@ class _BottomBar extends StatelessWidget {
             child: OutlinedButton(
               onPressed: submitting ? null : onBack,
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.textPrimary,
-                side: const BorderSide(color: AppColors.border),
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
+                foregroundColor: cs.onSurface,
+                side: BorderSide(color: cs.outlineVariant),
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusPill),
+                  borderRadius: BorderRadius.circular(AppRadii.pillValue),
                 ),
               ),
               child: const Text('Back'),
             ),
           ),
-          const SizedBox(width: AppSpacing.m),
+          const SizedBox(width: AppSpacing.lg),
           Expanded(
-            child: PrimaryButton(
+            child: AppPrimaryButton(
               label: isLast ? 'Publish' : 'Next Step',
+              expanded: true,
               isLoading: submitting,
               trailingIcon: isLast ? Icons.check : Icons.arrow_forward,
               onPressed: onNext,
