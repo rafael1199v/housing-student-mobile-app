@@ -545,13 +545,11 @@ packages:
     source: hosted
     version: "2.0.2"
   housing_design_system:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "502033b5f225850d55cea8bedcde6d15114ed26b"
-      url: "https://github.com/rafael1199v/housing-design-system.git"
-    source: git
+      path: "../proyecto-final-design-system"
+      relative: true
+    source: path
     version: "1.0.0"
   html:
     dependency: transitive
