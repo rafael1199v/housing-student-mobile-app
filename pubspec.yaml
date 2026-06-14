@@ -5,4 +5,3 @@ environment:
 
 workspace:
   - app/householder_app
-  - packages/householder_design_system
