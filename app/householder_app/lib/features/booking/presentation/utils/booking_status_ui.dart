@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/booking_status.dart';
 
-({Color fg, Color bg}) bookingStatusBadgeColors(BookingStatus status) {
+({Color fg, Color bg}) bookingStatusBadgeColors(
+  BuildContext context,
+  BookingStatus status,
+) {
+  final cs = Theme.of(context).colorScheme;
+  final sem = Theme.of(context).extension<AppSemanticColors>()!;
   switch (status) {
     case BookingStatus.pending:
-      return (fg: AppColors.accent, bg: AppColors.accentSurface);
+      return (fg: sem.accent, bg: sem.accentContainer);
     case BookingStatus.confirmed:
     case BookingStatus.completed:
-      return (fg: AppColors.success, bg: AppColors.successSurface);
+      return (fg: sem.success, bg: sem.successContainer);
     case BookingStatus.cancelled:
     case BookingStatus.unknown:
-      return (fg: AppColors.textSecondary, bg: AppColors.neutralSurface);
+      return (fg: cs.onSurfaceVariant, bg: cs.surfaceContainer);
   }
 }
 
