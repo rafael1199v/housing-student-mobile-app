@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/booking_request.dart';
 import '../cubits/dashboard_cubit.dart';
@@ -71,7 +71,7 @@ class _ActionNeededSectionState extends State<ActionNeededSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: 'Action Needed', onViewAll: () {}),
-        AppSpacing.gapM,
+        AppSpacing.gapLg,
         _buildCarousel(context, requests),
       ],
     );
@@ -84,9 +84,9 @@ class _ActionNeededSectionState extends State<ActionNeededSection> {
       child: ListView.separated(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.only(bottom: showScrollbar ? AppSpacing.s : 0),
+        padding: EdgeInsets.only(bottom: showScrollbar ? AppSpacing.md : 0),
         itemCount: requests.length,
-        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.m),
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.lg),
         itemBuilder: (context, index) => _card(requests[index]),
       ),
     );
