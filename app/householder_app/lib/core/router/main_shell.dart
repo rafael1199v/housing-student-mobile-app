@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
 
 class MainShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -16,28 +15,29 @@ class MainShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: _onTap,
-        backgroundColor: AppColors.surface,
-        indicatorColor: AppColors.primary.withValues(alpha: 0.12),
-        destinations: const [
+        backgroundColor: cs.surfaceContainerLowest,
+        indicatorColor: cs.primary.withValues(alpha: 0.12),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
+            icon: const Icon(Icons.home_outlined),
             label: 'Home',
-            selectedIcon: Icon(Icons.home, color: AppColors.primary),
+            selectedIcon: Icon(Icons.home, color: cs.primary),
           ),
           NavigationDestination(
-            icon: Icon(Icons.chat_bubble_outline),
+            icon: const Icon(Icons.chat_bubble_outline),
             label: 'Messages',
-            selectedIcon: Icon(Icons.chat_bubble, color: AppColors.primary),
+            selectedIcon: Icon(Icons.chat_bubble, color: cs.primary),
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outline),
+            icon: const Icon(Icons.person_outline),
             label: 'Profile',
-            selectedIcon: Icon(Icons.person, color: AppColors.primary),
+            selectedIcon: Icon(Icons.person, color: cs.primary),
           )
         ],
       ),
