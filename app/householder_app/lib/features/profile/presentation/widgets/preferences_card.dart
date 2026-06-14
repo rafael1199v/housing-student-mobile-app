@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import 'theme_mode_selector.dart';
 
@@ -20,21 +20,21 @@ class PreferencesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const FieldLabel(text: 'Language'),
-          const SizedBox(height: AppSpacing.xs),
+          const AppFieldLabel(text: 'Language'),
+          const SizedBox(height: AppSpacing.sm),
           _LanguageField(onTap: () => onComingSoon('Changing the language')),
-          const SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             'Available in English, Portuguese, and Spanish.',
             style: theme.textTheme.bodyMedium?.copyWith(fontSize: 13),
           ),
-          AppSpacing.gapL,
-          const FieldLabel(text: 'Theme Mode'),
-          const SizedBox(height: AppSpacing.xs),
+          AppSpacing.gapXl,
+          const AppFieldLabel(text: 'Theme Mode'),
+          const SizedBox(height: AppSpacing.sm),
           ThemeModeSelector(onSelect: (mode) => onComingSoon('$mode theme')),
-          AppSpacing.gapL,
+          AppSpacing.gapXl,
           const Divider(height: 1),
-          AppSpacing.gapL,
+          AppSpacing.gapXl,
           _SignOutButton(onPressed: onSignOut),
         ],
       ),
@@ -49,37 +49,38 @@ class _LanguageField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return InkWell(
-      borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+      borderRadius: BorderRadius.circular(AppRadii.mdValue),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.m,
-          vertical: AppSpacing.s,
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.md,
         ),
         decoration: BoxDecoration(
-          color: AppColors.fieldFill,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusM),
-          border: Border.all(color: AppColors.border),
+          color: cs.surfaceContainerLow,
+          borderRadius: BorderRadius.circular(AppRadii.mdValue),
+          border: Border.all(color: cs.outlineVariant),
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.translate,
               size: 20,
-              color: AppColors.textSecondary,
+              color: cs.onSurfaceVariant,
             ),
-            const SizedBox(width: AppSpacing.s),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Text(
                 'English (US)',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.keyboard_arrow_down,
               size: 22,
-              color: AppColors.textSecondary,
+              color: cs.onSurfaceVariant,
             ),
           ],
         ),
@@ -95,6 +96,7 @@ class _SignOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return SizedBox(
       width: double.infinity,
       height: 56,
@@ -103,11 +105,11 @@ class _SignOutButton extends StatelessWidget {
         icon: const Icon(Icons.logout, size: 20),
         label: const Text('Sign Out'),
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.error,
-          side: const BorderSide(color: AppColors.error),
+          foregroundColor: cs.error,
+          side: BorderSide(color: cs.error),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+            borderRadius: BorderRadius.circular(AppRadii.mdValue),
           ),
         ),
       ),

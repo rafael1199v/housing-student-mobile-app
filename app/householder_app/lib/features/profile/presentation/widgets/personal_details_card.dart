@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/user_profile.dart';
 import '../utils/profile_format.dart';
@@ -21,19 +21,19 @@ class PersonalDetailsCard extends StatelessWidget {
             value: profileValueOrDash(profile.gender),
             icon: Icons.wc_outlined,
           ),
-          AppSpacing.gapM,
+          AppSpacing.gapLg,
           InfoField(
             label: 'Telephone Number',
             value: profileValueOrDash(profile.phoneNumber),
             icon: Icons.phone_outlined,
           ),
-          AppSpacing.gapM,
+          AppSpacing.gapLg,
           InfoField(
             label: 'Nationality',
             value: profileValueOrDash(profile.nationality),
             icon: Icons.public_outlined,
           ),
-          AppSpacing.gapM,
+          AppSpacing.gapLg,
           InfoField(
             label: 'Date of Birth',
             value: formatBirthDate(profile.birthDate),

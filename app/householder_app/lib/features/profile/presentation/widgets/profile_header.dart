@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String fullName;
@@ -21,13 +21,13 @@ class ProfileHeader extends StatelessWidget {
     return Column(
       children: [
         _Avatar(imageUrl: imageUrl, onEdit: onEdit),
-        AppSpacing.gapM,
+        AppSpacing.gapLg,
         Text(
           fullName,
           textAlign: TextAlign.center,
           style: theme.textTheme.displaySmall?.copyWith(fontSize: 28),
         ),
-        const SizedBox(height: AppSpacing.xxs),
+        const SizedBox(height: AppSpacing.xs),
         Text(
           email,
           textAlign: TextAlign.center,
@@ -48,6 +48,7 @@ class _Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     final url = imageUrl?.trim() ?? '';
     return SizedBox(
       width: _size,
@@ -59,8 +60,8 @@ class _Avatar extends StatelessWidget {
             height: _size,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.fieldFill,
-              border: Border.all(color: AppColors.surface, width: 3),
+              color: cs.surfaceContainerLow,
+              border: Border.all(color: cs.surfaceContainerLowest, width: 3),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.06),
@@ -71,18 +72,18 @@ class _Avatar extends StatelessWidget {
             ),
             child: ClipOval(
               child: url.isEmpty
-                  ? const Icon(
+                  ? Icon(
                       Icons.person,
                       size: 52,
-                      color: AppColors.textHint,
+                      color: cs.outline,
                     )
                   : Image.network(
                       url,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => const Icon(
+                      errorBuilder: (_, _, _) => Icon(
                         Icons.person,
                         size: 52,
-                        color: AppColors.textHint,
+                        color: cs.outline,
                       ),
                     ),
             ),
