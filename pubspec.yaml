@@ -5,3 +5,7 @@ environment:
 
 workspace:
   - app/householder_app
+
+dependency_overrides:
+  housing_design_system:
+    path: ../proyecto-final-design-system
