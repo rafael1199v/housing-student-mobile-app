@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/theme/app_theme.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import 'core/core.dart';
 
@@ -19,7 +19,7 @@ class _ItersapiensHouseholderAppState extends State<ItersapiensHouseholderApp> {
     return MaterialApp.router(
       title: 'Itersapiens',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.householder,
       routerConfig: _router,
     );
   }
