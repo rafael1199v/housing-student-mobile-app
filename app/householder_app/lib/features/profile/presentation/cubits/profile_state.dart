@@ -12,12 +12,25 @@ class ProfileLoading extends ProfileState {
 }
 
 class ProfileLoaded extends ProfileState {
-  const ProfileLoaded(this.profile);
+  const ProfileLoaded(this.profile, {this.avatarUploading = false});
 
   final UserProfile profile;
+  final bool avatarUploading;
 
   @override
-  List<Object?> get props => [profile];
+  List<Object?> get props => [profile, avatarUploading];
+}
+
+class ProfileAvatarError extends ProfileState {
+  ProfileAvatarError(this.profile, this.code)
+      : errorId = DateTime.now().microsecondsSinceEpoch;
+
+  final UserProfile profile;
+  final String code;
+  final int errorId;
+
+  @override
+  List<Object?> get props => [profile, code, errorId];
 }
 
 class ProfileFailureState extends ProfileState {
