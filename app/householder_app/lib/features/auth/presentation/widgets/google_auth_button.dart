@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../../core/core.dart';
 
@@ -33,7 +33,7 @@ class GoogleAuthButton extends StatelessWidget {
     if (service.usesRenderedButton) {
       return service.buildButton(onIdToken: onIdToken);
     }
-    return GoogleButton(
+    return AppGoogleButton(
       label: label,
       onPressed: enabled ? _signInImperative : null,
     );

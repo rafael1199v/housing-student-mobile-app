@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../utils/auth_validators.dart';
 
@@ -50,13 +50,15 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppTextField(
           label: 'Email address',
           hintText: 'name@example.com',
-          icon: Icons.mail_outline,
+          prefixIcon: Icons.mail_outline,
+          uppercaseLabel: true,
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
@@ -66,11 +68,12 @@ class _LoginFormState extends State<LoginForm> {
             if (_emailError != null) setState(() => _emailError = null);
           },
         ),
-        AppSpacing.gapM,
+        AppSpacing.gapLg,
         AppTextField(
           label: 'Password',
           hintText: '••••••••',
-          icon: Icons.lock_outline,
+          prefixIcon: Icons.lock_outline,
+          uppercaseLabel: true,
           controller: _passwordController,
           obscureText: _obscurePassword,
           textInputAction: TextInputAction.done,
@@ -79,14 +82,14 @@ class _LoginFormState extends State<LoginForm> {
           onChanged: (_) {
             if (_passwordError != null) setState(() => _passwordError = null);
           },
-          onSubmitted: (_) => _submit(),
+          onFieldSubmitted: (_) => _submit(),
           suffixIcon: IconButton(
             icon: Icon(
               _obscurePassword
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
               size: 20,
-              color: AppColors.textHint,
+              color: cs.outline,
             ),
             tooltip: _obscurePassword ? 'Show password' : 'Hide password',
             onPressed: widget.isLoading
@@ -94,9 +97,10 @@ class _LoginFormState extends State<LoginForm> {
                 : () => setState(() => _obscurePassword = !_obscurePassword),
           ),
         ),
-        AppSpacing.gapXL,
-        PrimaryButton(
+        const SizedBox(height: AppSpacing.xxl),
+        AppPrimaryButton(
           label: 'Sign In',
+          expanded: true,
           isLoading: widget.isLoading,
           onPressed: _submit,
         ),
