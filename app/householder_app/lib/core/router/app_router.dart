@@ -74,6 +74,12 @@ GoRouter createAppRouter(SessionNotifier session) {
       ),
 
       GoRoute(
+        path: EditProfilePage.routeName,
+        builder: (context, state) =>
+            EditProfilePage(profile: state.extra as UserProfile),
+      ),
+
+      GoRoute(
         path: RoomDetailPage.routeName,
         builder: (context, state) =>
             RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),
