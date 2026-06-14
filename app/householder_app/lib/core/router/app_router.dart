@@ -9,7 +9,12 @@ import '../../features/rooms/rooms.dart';
 import '../session/session_notifier.dart';
 import 'main_shell.dart';
 
-const _publicRoutes = {LoginPage.routeName, '/register', '/confirm-email'};
+const _publicRoutes = {
+  LoginPage.routeName,
+  RegisterPage.routeName,
+  RegistrationEmailSentPage.routeName,
+  '/confirm-email',
+};
 
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -29,6 +34,18 @@ GoRouter createAppRouter(SessionNotifier session) {
       GoRoute(
         path: LoginPage.routeName,
         builder: (context, state) => const LoginPage(),
+      ),
+
+      GoRoute(
+        path: RegisterPage.routeName,
+        builder: (context, state) => const RegisterPage(),
+      ),
+
+      GoRoute(
+        path: RegistrationEmailSentPage.routeName,
+        builder: (context, state) => RegistrationEmailSentPage(
+          email: state.extra is String ? state.extra as String : '',
+        ),
       ),
 
       GoRoute(
