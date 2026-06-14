@@ -27,7 +27,22 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                      android:host="itersapiens.rafael-vargas.dev"
+                      android:pathPrefix="/confirm-email" />
+            </intent-filter>
         </activity>
+        <!-- Enables Flutter/go_router to handle incoming App Links
+             (e.g. the email confirmation deep link). -->
+        <meta-data
+            android:name="flutter_deeplinking_enabled"
+            android:value="true" />
+
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

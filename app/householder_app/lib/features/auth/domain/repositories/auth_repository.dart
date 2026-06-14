@@ -17,5 +17,10 @@ abstract interface class AuthRepository {
     required String birthDate,
   });
 
+  Future<void> confirmEmail({
+    required String userId,
+    required String token,
+  });
+
   Future<void> logout();
 }
