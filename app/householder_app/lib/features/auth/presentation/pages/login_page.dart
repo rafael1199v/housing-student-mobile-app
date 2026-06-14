@@ -9,6 +9,7 @@ import '../blocs/auth_bloc.dart';
 import '../utils/auth_error_messages.dart';
 import '../widgets/google_auth_button.dart';
 import '../widgets/login_form.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {
   static const routeName = '/login';
@@ -110,7 +111,7 @@ class _LoginView extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       GestureDetector(
-                        onTap: () => context.go(LoginPage.routeName),
+                        onTap: () => context.go(RegisterPage.routeName),
                         child: Text(
                           'Sign up as a Host',
                           style: Theme.of(context).textTheme.bodyMedium
