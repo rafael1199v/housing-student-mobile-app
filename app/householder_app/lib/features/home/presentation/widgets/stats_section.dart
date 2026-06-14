@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/dashboard_summary.dart';
 import 'stat_card.dart';
@@ -11,6 +11,7 @@ class StatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sem = Theme.of(context).extension<AppSemanticColors>()!;
     final cards = <Widget>[
       StatCard(
         label: 'Total Listings',
@@ -21,16 +22,16 @@ class StatsSection extends StatelessWidget {
         label: 'Active Bookings',
         value: '${summary.activeBookings}',
         icon: Icons.event_available_outlined,
-        valueColor: AppColors.success,
+        valueColor: sem.success,
       ),
       StatCard(
         label: 'Pending Requests',
         value: '${summary.pendingRequests}',
         icon: Icons.mark_email_unread_outlined,
-        valueColor: AppColors.accent,
-        backgroundColor: AppColors.accentSurface,
-        borderColor: AppColors.accentSurface,
-        iconColor: AppColors.accent,
+        valueColor: sem.accent,
+        backgroundColor: sem.accentContainer,
+        bordered: false,
+        iconColor: sem.accent,
       ),
     ];
 
@@ -39,7 +40,7 @@ class StatsSection extends StatelessWidget {
       return Column(
         children: [
           for (var i = 0; i < cards.length; i++) ...[
-            if (i > 0) AppSpacing.gapM,
+            if (i > 0) AppSpacing.gapLg,
             cards[i],
           ],
         ],
@@ -51,7 +52,7 @@ class StatsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for (var i = 0; i < cards.length; i++) ...[
-            if (i > 0) const SizedBox(width: AppSpacing.m),
+            if (i > 0) const SizedBox(width: AppSpacing.lg),
             Expanded(child: cards[i]),
           ],
         ],

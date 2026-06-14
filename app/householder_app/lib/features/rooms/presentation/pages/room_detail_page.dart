@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../booking/booking.dart';
 import '../../domain/entities/room_detail.dart';
@@ -45,7 +45,7 @@ class _RoomDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Text(
           'Room Details',
@@ -97,7 +97,8 @@ class _Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = roomStatusBadgeColors(detail.status);
+    final cs = theme.colorScheme;
+    final colors = roomStatusBadgeColors(context, detail.status);
     final serviceTags = detail.services.map(resolveServiceTag).toList();
     final policyTags = detail.policies.map(resolvePolicyTag).toList();
 
@@ -114,7 +115,7 @@ class _Content extends StatelessWidget {
               children: [
                 RoomImageCarousel(imageUrls: detail.imageUrls, onEdit: onEdit),
                 Padding(
-                  padding: const EdgeInsets.all(AppSpacing.l),
+                  padding: const EdgeInsets.all(AppSpacing.xl),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -129,10 +130,10 @@ class _Content extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: AppSpacing.s),
+                          const SizedBox(width: AppSpacing.md),
                           Padding(
-                            padding: const EdgeInsets.only(top: AppSpacing.xxs),
-                            child: StatusBadge(
+                            padding: const EdgeInsets.only(top: AppSpacing.xs),
+                            child: AppStatusBadge(
                               label: roomStatusLabel(context, detail.status),
                               foregroundColor: colors.fg,
                               backgroundColor: colors.bg,
@@ -140,16 +141,16 @@ class _Content extends StatelessWidget {
                           ),
                         ],
                       ),
-                      AppSpacing.gapXS,
+                      AppSpacing.gapSm,
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.location_on_outlined,
                             size: 18,
-                            color: AppColors.textSecondary,
+                            color: cs.onSurfaceVariant,
                           ),
-                          const SizedBox(width: AppSpacing.xxs),
+                          const SizedBox(width: AppSpacing.xs),
                           Expanded(
                             child: Text(
                               _addressLabel,
@@ -158,38 +159,31 @@ class _Content extends StatelessWidget {
                           ),
                         ],
                       ),
-                      AppSpacing.gapL,
+                      AppSpacing.gapXl,
                       Text(
                         'Description',
                         style: theme.textTheme.displaySmall?.copyWith(
                           fontSize: 18,
                         ),
                       ),
-                      AppSpacing.gapS,
+                      AppSpacing.gapMd,
                       Text(
                         detail.description.trim().isEmpty
                             ? 'No description provided.'
                             : detail.description.trim(),
                         style: theme.textTheme.bodyMedium,
                       ),
-                      AppSpacing.gapL,
-                      Text(
-                        'Amenities & Policies',
-                        style: theme.textTheme.displaySmall?.copyWith(
-                          fontSize: 18,
-                        ),
-                      ),
-                      AppSpacing.gapM,
+                      AppSpacing.gapXl,
                       AmenitiesGrid(
                         serviceTags: serviceTags,
                         policyTags: policyTags,
                       ),
-                      AppSpacing.gapL,
+                      AppSpacing.gapXl,
                       RoomLocationSection(
                         latitude: detail.latitude,
                         longitude: detail.longitude,
                       ),
-                      AppSpacing.gapL,
+                      AppSpacing.gapXl,
                       BookingRequestsCard(
                         pendingCount: detail.pendingBookingsCount,
                         onViewRequests: onViewRequests,
@@ -223,24 +217,25 @@ class _RoomDetailError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.l),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.cloud_off_outlined,
               size: 56,
-              color: AppColors.textHint,
+              color: Theme.of(context).colorScheme.outline,
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Text(
               _message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AppSpacing.gapL,
-            PrimaryButton(
+            AppSpacing.gapXl,
+            AppPrimaryButton(
               label: 'Retry',
+              expanded: true,
               trailingIcon: null,
               onPressed: onRetry,
             ),

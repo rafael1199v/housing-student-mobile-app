@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/booking_request.dart';
 
@@ -21,6 +21,7 @@ class RequestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
     return SizedBox(
       width: 300,
       child: AppCard(
@@ -30,12 +31,12 @@ class RequestCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 22,
-                  backgroundColor: AppColors.fieldFill,
-                  child: Icon(Icons.person_outline, color: AppColors.textHint),
+                  backgroundColor: cs.surfaceContainerLow,
+                  child: Icon(Icons.person_outline, color: cs.outline),
                 ),
-                const SizedBox(width: AppSpacing.s),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Text(
                     request.requesterName,
@@ -46,13 +47,13 @@ class RequestCard extends StatelessWidget {
                 ),
               ],
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(AppSpacing.s),
+              padding: const EdgeInsets.all(AppSpacing.md),
               decoration: BoxDecoration(
-                color: AppColors.fieldFill,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                color: cs.surfaceContainerLow,
+                borderRadius: BorderRadius.circular(AppRadii.mdValue),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +62,7 @@ class RequestCard extends StatelessWidget {
                     'Requested Property',
                     style: theme.textTheme.labelSmall,
                   ),
-                  const SizedBox(height: AppSpacing.xxs),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     request.propertyName,
                     style: theme.textTheme.bodyLarge?.copyWith(
@@ -71,38 +72,38 @@ class RequestCard extends StatelessWidget {
                 ],
               ),
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Row(
               children: [
                 Expanded(
                   child: OutlinedButton(
                     onPressed: enabled ? onDecline : null,
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textPrimary,
-                      side: const BorderSide(color: AppColors.border),
+                      foregroundColor: cs.onSurface,
+                      side: BorderSide(color: cs.outlineVariant),
                       padding:
-                          const EdgeInsets.symmetric(vertical: AppSpacing.s),
+                          const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(AppSpacing.radiusM),
+                            BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
                     child: const Text('Decline'),
                   ),
                 ),
-                const SizedBox(width: AppSpacing.s),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: enabled ? onAccept : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.onPrimary,
+                      backgroundColor: cs.primary,
+                      foregroundColor: cs.onPrimary,
                       elevation: 0,
                       padding:
-                          const EdgeInsets.symmetric(vertical: AppSpacing.s),
+                          const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(AppSpacing.radiusM),
+                            BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
                     child: const Text('Accept'),

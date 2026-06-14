@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 class DashboardHeader extends StatelessWidget {
   const DashboardHeader({super.key, required this.name});
@@ -22,7 +22,7 @@ class DashboardHeader extends StatelessWidget {
           '${_greetingPrefix()}, $name',
           style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 26),
         ),
-        const SizedBox(height: AppSpacing.xxs),
+        const SizedBox(height: AppSpacing.xs),
         Text(
           'Here is an overview of your properties today.',
           style: Theme.of(context).textTheme.bodyMedium,

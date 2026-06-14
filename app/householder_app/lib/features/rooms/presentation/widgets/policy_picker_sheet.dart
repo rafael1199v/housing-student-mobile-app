@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/room_catalog.dart';
 import '../../domain/entities/selected_policy.dart';
@@ -17,9 +17,9 @@ class PolicyPickerSheet extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.radiusL)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadii.lgValue)),
       ),
       builder: (_) => PolicyPickerSheet(alreadyAddedIds: alreadyAddedIds),
     );
@@ -54,18 +54,19 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     final available =
         kRoomPolicies.where((p) => !widget.alreadyAddedIds.contains(p.id)).toList();
-  
+
     final media = MediaQuery.of(context);
     final bottomInset = media.viewInsets.bottom + media.padding.bottom;
 
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(
-        AppSpacing.l,
-        AppSpacing.l,
-        AppSpacing.l,
-        AppSpacing.l + bottomInset,
+        AppSpacing.xl,
+        AppSpacing.xl,
+        AppSpacing.xl,
+        AppSpacing.xl + bottomInset,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -85,20 +86,20 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
               ),
             ],
           ),
-          AppSpacing.gapM,
+          AppSpacing.gapLg,
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: AppSpacing.s,
-              crossAxisSpacing: AppSpacing.s,
+              mainAxisSpacing: AppSpacing.md,
+              crossAxisSpacing: AppSpacing.md,
               mainAxisExtent: 112,
             ),
             itemCount: available.length,
             itemBuilder: (context, i) {
               final option = available[i];
-              return SelectableOptionCard(
+              return AppSelectableOption(
                 label: option.name,
                 icon: option.icon,
                 selected: _selected?.id == option.id,
@@ -107,7 +108,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
             },
           ),
           if (_selected != null) ...[
-            AppSpacing.gapL,
+            AppSpacing.gapXl,
             AppTextField(
               label: '${_selected!.name} Description',
               hintText: 'Be specific about your rule…',
@@ -116,36 +117,40 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
               maxLines: 3,
             ),
           ],
-          AppSpacing.gapL,
+          AppSpacing.gapXl,
           Row(
             children: [
               Expanded(
-                child: OutlinedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
-                    side: const BorderSide(color: AppColors.border),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                child: SizedBox(
+                  height: 52,
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: cs.outlineVariant),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppRadii.mdValue),
+                      ),
                     ),
+                    child: const Text('Cancel'),
                   ),
-                  child: const Text('Cancel'),
                 ),
               ),
-              const SizedBox(width: AppSpacing.s),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: _selected == null ? null : _add,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.onPrimary,
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                child: SizedBox(
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: _selected == null ? null : _add,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: cs.primary,
+                      foregroundColor: cs.onPrimary,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppRadii.mdValue),
+                      ),
                     ),
+                    child: const Text('Add Policy'),
                   ),
-                  child: const Text('Add Policy'),
                 ),
               ),
             ],

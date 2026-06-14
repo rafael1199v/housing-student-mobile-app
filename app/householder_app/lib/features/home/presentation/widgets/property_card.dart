@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/property_summary.dart';
 import '../../domain/entities/room_status.dart';
@@ -22,15 +22,17 @@ class PropertyCard extends StatefulWidget {
 class _PropertyCardState extends State<PropertyCard> {
   bool _descriptionExpanded = false;
 
-  ({Color fg, Color bg}) _badgeColors(RoomStatus status) {
+  ({Color fg, Color bg}) _badgeColors(BuildContext context, RoomStatus status) {
+    final cs = Theme.of(context).colorScheme;
+    final sem = Theme.of(context).extension<AppSemanticColors>()!;
     switch (status) {
       case RoomStatus.available:
-        return (fg: AppColors.success, bg: AppColors.successSurface);
+        return (fg: sem.success, bg: sem.successContainer);
       case RoomStatus.booked:
-        return (fg: AppColors.accent, bg: AppColors.accentSurface);
+        return (fg: sem.accent, bg: sem.accentContainer);
       case RoomStatus.unavailable:
       case RoomStatus.unknown:
-        return (fg: AppColors.textSecondary, bg: AppColors.neutralSurface);
+        return (fg: cs.onSurfaceVariant, bg: cs.surfaceContainer);
     }
   }
 
@@ -38,7 +40,7 @@ class _PropertyCardState extends State<PropertyCard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final property = widget.property;
-    final colors = _badgeColors(property.status);
+    final colors = _badgeColors(context, property.status);
     final pending = property.pendingRequests;
     final description = property.description.trim();
 
@@ -49,14 +51,14 @@ class _PropertyCardState extends State<PropertyCard> {
         children: [
           _Cover(
             imageUrl: property.imageUrl,
-            badge: StatusBadge(
+            badge: AppStatusBadge(
               label: roomStatusLabel(context, property.status),
               foregroundColor: colors.fg,
               backgroundColor: colors.bg,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(AppSpacing.l),
+            padding: const EdgeInsets.all(AppSpacing.xl),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,7 +67,7 @@ class _PropertyCardState extends State<PropertyCard> {
                   style: theme.textTheme.displaySmall?.copyWith(fontSize: 18),
                 ),
                 if (description.isNotEmpty) ...[
-                  const SizedBox(height: AppSpacing.xs),
+                  const SizedBox(height: AppSpacing.sm),
                   _Description(
                     text: description,
                     expanded: _descriptionExpanded,
@@ -74,9 +76,9 @@ class _PropertyCardState extends State<PropertyCard> {
                     ),
                   ),
                 ],
-                AppSpacing.gapM,
+                AppSpacing.gapLg,
                 const Divider(height: 1),
-                AppSpacing.gapM,
+                AppSpacing.gapLg,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -91,7 +93,7 @@ class _PropertyCardState extends State<PropertyCard> {
                       child: Text(
                         'Manage Room',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.primary,
+                          color: theme.colorScheme.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -138,13 +140,13 @@ class _Description extends StatelessWidget {
               style: style,
             ),
             if (overflows) ...[
-              const SizedBox(height: AppSpacing.xxs),
+              const SizedBox(height: AppSpacing.xs),
               GestureDetector(
                 onTap: onToggle,
                 child: Text(
                   expanded ? 'Show less' : 'Show more',
                   style: style?.copyWith(
-                    color: AppColors.primary,
+                    color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -176,7 +178,7 @@ class _Cover extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(AppSpacing.radiusL),
+        top: Radius.circular(AppRadii.lgValue),
       ),
       child: Stack(
         children: [
@@ -195,7 +197,7 @@ class _Cover extends StatelessWidget {
                     errorBuilder: (_, _, _) => const _CoverPlaceholder(),
                   ),
           ),
-          Positioned(top: AppSpacing.s, left: AppSpacing.s, child: badge),
+          Positioned(top: AppSpacing.md, left: AppSpacing.md, child: badge),
         ],
       ),
     );
@@ -209,15 +211,16 @@ class _CoverPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return ColoredBox(
-      color: AppColors.fieldFill,
+      color: cs.surfaceContainerLow,
       child: Center(
         child: loading
             ? const CircularProgressIndicator(strokeWidth: 2)
-            : const Icon(
+            : Icon(
                 Icons.image_outlined,
                 size: 40,
-                color: AppColors.textHint,
+                color: cs.outline,
               ),
       ),
     );

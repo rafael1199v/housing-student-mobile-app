@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 
 class ThemeModeSelector extends StatelessWidget {
@@ -14,12 +14,13 @@ class ThemeModeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.xxs),
+      padding: const EdgeInsets.all(AppSpacing.xs),
       decoration: BoxDecoration(
-        color: AppColors.fieldFill,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
-        border: Border.all(color: AppColors.border),
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(AppRadii.mdValue),
+        border: Border.all(color: cs.outlineVariant),
       ),
       child: Row(
         children: [
@@ -53,15 +54,16 @@ class _Segment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.primary : AppColors.textSecondary;
+    final cs = Theme.of(context).colorScheme;
+    final color = selected ? cs.primary : cs.onSurfaceVariant;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.s),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
         decoration: BoxDecoration(
-          color: selected ? AppColors.surface : Colors.transparent,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusS),
+          color: selected ? cs.surfaceContainerLowest : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppRadii.smValue),
           boxShadow: selected
               ? [
                   BoxShadow(
@@ -75,7 +77,7 @@ class _Segment extends StatelessWidget {
         child: Column(
           children: [
             Icon(icon, size: 20, color: color),
-            const SizedBox(height: AppSpacing.xxs),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               label,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(

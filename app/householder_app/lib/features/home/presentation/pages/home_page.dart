@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../rooms/rooms.dart';
 import '../../domain/entities/dashboard_summary.dart';
@@ -37,15 +37,16 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: cs.surface,
         elevation: 0,
-        title: const BrandLogo(),
+        title: const AppBrandLogo(brandName: 'Itersapiens'),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
+        backgroundColor: cs.primary,
+        foregroundColor: cs.onPrimary,
         onPressed: () => _openCreateRoom(context),
         child: const Icon(Icons.add),
       ),
@@ -76,10 +77,10 @@ class _DashboardContent extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(
-          AppSpacing.l,
-          AppSpacing.l,
-          AppSpacing.l,
-          AppSpacing.xxl + AppSpacing.xl,
+          AppSpacing.xl,
+          AppSpacing.xl,
+          AppSpacing.xl,
+          AppSpacing.xxxl + AppSpacing.xxl,
         ),
         child: Center(
           child: ConstrainedBox(
@@ -88,11 +89,11 @@ class _DashboardContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 DashboardHeader(name: summary.greetingName),
-                AppSpacing.gapL,
+                AppSpacing.gapXl,
                 StatsSection(summary: summary),
-                AppSpacing.gapXL,
+                const SizedBox(height: AppSpacing.xxl),
                 ActionNeededSection(requests: summary.actionNeeded),
-                if (summary.actionNeeded.isNotEmpty) AppSpacing.gapXL,
+                if (summary.actionNeeded.isNotEmpty) const SizedBox(height: AppSpacing.xxl),
                 MyPropertiesSection(
                   properties: summary.properties,
                   onManage: (property) => _onManage(context, property),
@@ -127,24 +128,25 @@ class _DashboardError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.l),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.cloud_off_outlined,
               size: 56,
-              color: AppColors.textHint,
+              color: Theme.of(context).colorScheme.outline,
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Text(
               _message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AppSpacing.gapL,
-            PrimaryButton(
+            AppSpacing.gapXl,
+            AppPrimaryButton(
               label: 'Retry',
+              expanded: true,
               trailingIcon: null,
               onPressed: () => context.read<DashboardCubit>().load(),
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 class StepIndicator extends StatelessWidget {
   final int currentStep;
@@ -14,17 +14,18 @@ class StepIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Row(
       children: [
         for (var i = 0; i < stepCount; i++) ...[
-          if (i > 0) const SizedBox(width: AppSpacing.xs),
+          if (i > 0) const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               height: 5,
               decoration: BoxDecoration(
-                color: i <= currentStep ? AppColors.primary : AppColors.border,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusPill),
+                color: i <= currentStep ? cs.primary : cs.outlineVariant,
+                borderRadius: BorderRadius.circular(AppRadii.pillValue),
               ),
             ),
           ),

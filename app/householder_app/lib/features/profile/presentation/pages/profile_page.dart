@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/user_profile.dart';
 import '../cubits/profile_cubit.dart';
@@ -40,18 +40,19 @@ class _ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: cs.surface,
         elevation: 0,
-        title: const BrandLogo(),
+        title: const AppBrandLogo(brandName: 'Itersapiens'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit_outlined, color: AppColors.primary),
+            icon: Icon(Icons.edit_outlined, color: cs.primary),
             tooltip: 'Edit profile',
             onPressed: () => _openEdit(context),
           ),
-          const SizedBox(width: AppSpacing.xs),
+          const SizedBox(width: AppSpacing.sm),
         ],
       ),
       body: BlocBuilder<ProfileCubit, ProfileState>(
@@ -89,10 +90,10 @@ class _ProfileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
-        AppSpacing.l,
-        AppSpacing.l,
-        AppSpacing.l,
         AppSpacing.xl,
+        AppSpacing.xl,
+        AppSpacing.xl,
+        AppSpacing.xxl,
       ),
       child: Center(
         child: ConstrainedBox(
@@ -106,19 +107,19 @@ class _ProfileContent extends StatelessWidget {
                 imageUrl: profile.imageUrl,
                 onEdit: () => onComingSoon('Editing your photo'),
               ),
-              AppSpacing.gapXL,
+              const SizedBox(height: AppSpacing.xxl),
               const _SectionHeader(
                 icon: Icons.person_outline,
                 title: 'Personal Details',
               ),
-              AppSpacing.gapM,
+              AppSpacing.gapLg,
               PersonalDetailsCard(profile: profile),
-              AppSpacing.gapXL,
+              const SizedBox(height: AppSpacing.xxl),
               const _SectionHeader(
                 icon: Icons.settings_outlined,
                 title: 'Preferences',
               ),
-              AppSpacing.gapM,
+              AppSpacing.gapLg,
               PreferencesCard(onComingSoon: onComingSoon, onSignOut: onSignOut),
             ],
           ),
@@ -136,15 +137,16 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Row(
       children: [
-        Icon(icon, size: 22, color: AppColors.primary),
-        const SizedBox(width: AppSpacing.xs),
+        Icon(icon, size: 22, color: cs.primary),
+        const SizedBox(width: AppSpacing.sm),
         Text(
           title,
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
             fontSize: 20,
-            color: AppColors.primary,
+            color: cs.primary,
           ),
         ),
       ],
@@ -169,24 +171,25 @@ class _ProfileError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.l),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.cloud_off_outlined,
               size: 56,
-              color: AppColors.textHint,
+              color: Theme.of(context).colorScheme.outline,
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Text(
               _message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AppSpacing.gapL,
-            PrimaryButton(
+            AppSpacing.gapXl,
+            AppPrimaryButton(
               label: 'Retry',
+              expanded: true,
               trailingIcon: null,
               onPressed: onRetry,
             ),

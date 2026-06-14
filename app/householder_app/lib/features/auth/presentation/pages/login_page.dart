@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../../core/core.dart';
 import '../blocs/auth_bloc.dart';
@@ -41,7 +41,7 @@ class _LoginView extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  backgroundColor: AppColors.error,
+                  backgroundColor: Theme.of(context).colorScheme.error,
                   content: Text(authErrorMessage(state.code)),
                 ),
               );
@@ -50,23 +50,23 @@ class _LoginView extends StatelessWidget {
         builder: (context, state) {
           final isLoading = state is AuthLoading;
 
-          return AuthCard(
+          return AppAuthCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const BrandLogo(),
-                AppSpacing.gapL,
+                const AppBrandLogo(brandName: 'Itersapiens'),
+                AppSpacing.gapXl,
                 Text(
                   'Welcome back',
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
-                const SizedBox(height: AppSpacing.xs),
+                const SizedBox(height: AppSpacing.sm),
                 Text(
                   'Sign in to your householder dashboard to continue.',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                AppSpacing.gapXL,
+                const SizedBox(height: AppSpacing.xxl),
                 LoginForm(
                   isLoading: isLoading,
                   onForgotPassword: () => {},
@@ -77,9 +77,9 @@ class _LoginView extends StatelessWidget {
                     );
                   },
                 ),
-                AppSpacing.gapL,
-                const LabeledDivider(label: 'or'),
-                AppSpacing.gapL,
+                AppSpacing.gapXl,
+                const AppLabeledDivider(label: 'or'),
+                AppSpacing.gapXl,
                 GoogleAuthButton(
                   service: GetIt.I<GoogleSignInService>(),
                   label: 'Sign in with Google',
@@ -93,14 +93,14 @@ class _LoginView extends StatelessWidget {
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         SnackBar(
-                          backgroundColor: AppColors.error,
+                          backgroundColor: Theme.of(context).colorScheme.error,
                           duration: const Duration(seconds: 6),
                           content: Text('Google sign-in failed: $error'),
                         ),
                       );
                   },
                 ),
-                AppSpacing.gapL,
+                AppSpacing.gapXl,
                 Center(
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
@@ -115,7 +115,7 @@ class _LoginView extends StatelessWidget {
                           'Sign up as a Host',
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
-                                color: AppColors.primary,
+                                color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w700,
                               ),
                         ),

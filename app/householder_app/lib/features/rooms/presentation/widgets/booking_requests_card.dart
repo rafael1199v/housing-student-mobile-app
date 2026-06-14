@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 class BookingRequestsCard extends StatelessWidget {
   final int pendingCount;
@@ -15,6 +15,7 @@ class BookingRequestsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final sem = theme.extension<AppSemanticColors>()!;
     final hasPending = pendingCount > 0;
 
     return AppCard(
@@ -30,23 +31,24 @@ class BookingRequestsCard extends StatelessWidget {
                 ),
               ),
               if (hasPending)
-                StatusBadge(
+                AppStatusBadge(
                   label: '$pendingCount Pending',
-                  foregroundColor: AppColors.accent,
-                  backgroundColor: AppColors.accentSurface,
+                  foregroundColor: sem.accent,
+                  backgroundColor: sem.accentContainer,
                 ),
             ],
           ),
-          AppSpacing.gapXS,
+          AppSpacing.gapSm,
           Text(
             hasPending
                 ? 'You have $pendingCount request${pendingCount == 1 ? '' : 's'} awaiting your response.'
                 : 'No pending requests right now.',
             style: theme.textTheme.bodyMedium,
           ),
-          AppSpacing.gapM,
-          PrimaryButton(
+          AppSpacing.gapLg,
+          AppPrimaryButton(
             label: 'View Requests',
+            expanded: true,
             trailingIcon: Icons.arrow_forward,
             onPressed: onViewRequests,
           ),

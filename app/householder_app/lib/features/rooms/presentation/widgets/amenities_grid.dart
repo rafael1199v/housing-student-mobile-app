@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../utils/room_tag_resolver.dart';
 
@@ -16,21 +16,39 @@ class AmenitiesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (serviceTags.isEmpty && policyTags.isEmpty) {
+    final theme = Theme.of(context);
+    final hasServices = serviceTags.isNotEmpty;
+    final hasPolicies = policyTags.isNotEmpty;
+
+    if (!hasServices && !hasPolicies) {
       return Text(
         'No amenities or policies listed.',
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: theme.textTheme.bodyMedium,
       );
     }
+
+    final headerStyle = theme.textTheme.displaySmall?.copyWith(fontSize: 18);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (serviceTags.isNotEmpty) _ServicesGrid(tags: serviceTags),
-        if (serviceTags.isNotEmpty && policyTags.isNotEmpty) AppSpacing.gapS,
-        for (var i = 0; i < policyTags.length; i++) ...[
-          if (i > 0) AppSpacing.gapS,
-          _PolicyRow(tag: policyTags[i]),
+        if (hasServices) ...[
+          Text('Amenities', style: headerStyle),
+          AppSpacing.gapLg,
+          _ServicesGrid(tags: serviceTags),
+        ],
+        if (hasServices && hasPolicies) ...[
+          AppSpacing.gapXl,
+          const Divider(height: 1),
+          AppSpacing.gapXl,
+        ],
+        if (hasPolicies) ...[
+          Text('Policies', style: headerStyle),
+          AppSpacing.gapLg,
+          for (var i = 0; i < policyTags.length; i++) ...[
+            if (i > 0) AppSpacing.gapMd,
+            _PolicyRow(tag: policyTags[i]),
+          ],
         ],
       ],
     );
@@ -45,7 +63,7 @@ class _ServicesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const columns = 2;
-    const gap = AppSpacing.s;
+    const gap = AppSpacing.md;
     return LayoutBuilder(
       builder: (context, constraints) {
         final itemWidth =
@@ -85,23 +103,24 @@ class _AmenityTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.m,
-        vertical: AppSpacing.s,
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
       ),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
-        border: Border.all(color: AppColors.border),
+        color: cs.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(AppRadii.mdValue),
+        border: Border.all(color: cs.outlineVariant),
       ),
       child: Row(
         crossAxisAlignment: singleLine
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
         children: [
-          Icon(tag.icon, size: 20, color: AppColors.primary),
-          const SizedBox(width: AppSpacing.s),
+          Icon(tag.icon, size: 20, color: cs.primary),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Text(
               tag.label,

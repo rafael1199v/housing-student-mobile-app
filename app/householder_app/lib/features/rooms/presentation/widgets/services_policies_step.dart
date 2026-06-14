@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/room_catalog.dart';
 import '../../domain/entities/selected_policy.dart';
@@ -26,19 +26,19 @@ class ServicesPoliciesStep extends StatelessWidget {
     return BlocBuilder<CreateRoomCubit, CreateRoomState>(
       builder: (context, state) {
         return ListView(
-          padding: const EdgeInsets.all(AppSpacing.l),
+          padding: const EdgeInsets.all(AppSpacing.xl),
           children: [
             Text(
               'Services & Policies',
               style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 24),
             ),
-            const SizedBox(height: AppSpacing.xs),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               'Define what makes this space special and set clear expectations '
               'for potential tenants.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AppSpacing.gapL,
+            AppSpacing.gapXl,
             AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,26 +50,26 @@ class ServicesPoliciesStep extends StatelessWidget {
                         .displaySmall
                         ?.copyWith(fontSize: 18),
                   ),
-                  const SizedBox(height: AppSpacing.xxs),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     'Select all services provided in this room.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: AppSpacing.s,
-                      crossAxisSpacing: AppSpacing.s,
+                      mainAxisSpacing: AppSpacing.md,
+                      crossAxisSpacing: AppSpacing.md,
                       mainAxisExtent: 112,
                     ),
                     itemCount: kRoomServices.length,
                     itemBuilder: (context, i) {
                       final service = kRoomServices[i];
-                      return SelectableOptionCard(
+                      return AppSelectableOption(
                         label: service.name,
                         icon: service.icon,
                         selected: state.serviceIds.contains(service.id),
@@ -80,7 +80,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                 ],
               ),
             ),
-            AppSpacing.gapL,
+            AppSpacing.gapXl,
             AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,19 +92,19 @@ class ServicesPoliciesStep extends StatelessWidget {
                         .displaySmall
                         ?.copyWith(fontSize: 18),
                   ),
-                  const SizedBox(height: AppSpacing.xxs),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     'Provide detailed descriptions for your rules to ensure a '
                     'good fit.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                   for (final policy in state.policies) ...[
                     _PolicyTile(
                       policy: policy,
                       onRemove: () => cubit.removePolicy(policy.id),
                     ),
-                    AppSpacing.gapS,
+                    AppSpacing.gapMd,
                   ],
                   OutlinedButton.icon(
                     onPressed: state.policies.length >= kRoomPolicies.length
@@ -113,11 +113,12 @@ class ServicesPoliciesStep extends StatelessWidget {
                     icon: const Icon(Icons.add, size: 18),
                     label: const Text('Add House Policy'),
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.primary,
-                      side: const BorderSide(color: AppColors.border),
+                      foregroundColor: Theme.of(context).colorScheme.primary,
+                      side: BorderSide(
+                          color: Theme.of(context).colorScheme.outlineVariant),
                       minimumSize: const Size.fromHeight(48),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                        borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
                   ),
@@ -143,17 +144,18 @@ class _PolicyTile extends StatelessWidget {
       (p) => p.id == policy.id,
       orElse: () => kRoomPolicies.first,
     );
+    final cs = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.m),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.fieldFill,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(AppRadii.mdValue),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(option.icon, size: 20, color: AppColors.primary),
-          const SizedBox(width: AppSpacing.s),
+          Icon(option.icon, size: 20, color: cs.primary),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +168,7 @@ class _PolicyTile extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
                 if (policy.description.isNotEmpty) ...[
-                  const SizedBox(height: AppSpacing.xxs),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     policy.description,
                     style: Theme.of(context).textTheme.bodyMedium,
@@ -177,7 +179,7 @@ class _PolicyTile extends StatelessWidget {
           ),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close, size: 18, color: AppColors.textHint),
+            child: Icon(Icons.close, size: 18, color: cs.outline),
           ),
         ],
       ),
