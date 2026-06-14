@@ -5,14 +5,16 @@ class ProfileHeader extends StatelessWidget {
   final String fullName;
   final String email;
   final String? imageUrl;
-  final VoidCallback onEdit;
+  final VoidCallback onEditPhoto;
+  final bool isUploading;
 
   const ProfileHeader({
     super.key,
     required this.fullName,
     required this.email,
     required this.imageUrl,
-    required this.onEdit,
+    required this.onEditPhoto,
+    this.isUploading = false,
   });
 
   @override
@@ -20,7 +22,11 @@ class ProfileHeader extends StatelessWidget {
     final theme = Theme.of(context);
     return Column(
       children: [
-        _Avatar(imageUrl: imageUrl, onEdit: onEdit),
+        _Avatar(
+          imageUrl: imageUrl,
+          onEditPhoto: onEditPhoto,
+          isUploading: isUploading,
+        ),
         AppSpacing.gapLg,
         Text(
           fullName,
@@ -39,12 +45,18 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class _Avatar extends StatelessWidget {
-  const _Avatar({required this.imageUrl, required this.onEdit});
+  const _Avatar({
+    required this.imageUrl,
+    required this.onEditPhoto,
+    required this.isUploading,
+  });
 
   static const _size = 104.0;
+  static const _badgeSize = 34.0;
 
   final String? imageUrl;
-  final VoidCallback onEdit;
+  final VoidCallback onEditPhoto;
+  final bool isUploading;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +66,7 @@ class _Avatar extends StatelessWidget {
       width: _size,
       height: _size,
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
           Container(
             width: _size,
@@ -88,7 +101,65 @@ class _Avatar extends StatelessWidget {
                     ),
             ),
           ),
+          if (isUploading)
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black.withValues(alpha: 0.35),
+                ),
+                child: Center(
+                  child: SizedBox.square(
+                    dimension: 28,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.6,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(cs.onPrimary),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          Positioned(
+            right: -2,
+            bottom: -2,
+            child: _CameraBadge(
+              onTap: isUploading ? null : onEditPhoto,
+              size: _badgeSize,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _CameraBadge extends StatelessWidget {
+  const _CameraBadge({required this.onTap, required this.size});
+
+  final VoidCallback? onTap;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Material(
+      color: cs.primary,
+      shape: CircleBorder(
+        side: BorderSide(color: cs.surface, width: 2),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Icon(
+            Icons.photo_camera_outlined,
+            size: 18,
+            color: cs.onPrimary,
+          ),
+        ),
       ),
     );
   }
