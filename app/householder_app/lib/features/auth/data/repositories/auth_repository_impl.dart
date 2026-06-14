@@ -2,6 +2,7 @@ import '../../../../core/core.dart';
 import '../../domain/entities/credentials.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_api.dart';
+import '../models/confirm_email_dto.dart';
 import '../models/credentials_mapper.dart';
 import '../models/login_dto.dart';
 import '../models/register_dto.dart';
@@ -59,6 +60,18 @@ class AuthRepositoryImpl implements AuthRepository {
         ),
       );
       return dto.userId;
+    } catch (error) {
+      throw ErrorMapper.map(error);
+    }
+  }
+
+  @override
+  Future<void> confirmEmail({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await _api.confirmEmail(ConfirmEmailDto(userId: userId, token: token));
     } catch (error) {
       throw ErrorMapper.map(error);
     }
