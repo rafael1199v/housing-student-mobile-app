@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../domain/entities/room_image.dart';
@@ -52,20 +52,20 @@ class PhotosPicker extends StatelessWidget {
             ),
           ],
         ),
-        AppSpacing.gapM,
+        AppSpacing.gapLg,
         GridView.count(
           crossAxisCount: 3,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: AppSpacing.s,
-          crossAxisSpacing: AppSpacing.s,
+          mainAxisSpacing: AppSpacing.md,
+          crossAxisSpacing: AppSpacing.md,
           children: [
             if (images.length < maxImages) _UploadTile(onTap: () => _pick(context)),
             for (var i = 0; i < images.length; i++)
               _PreviewTile(image: images[i], onRemove: () => onRemove(i)),
           ],
         ),
-        AppSpacing.gapXS,
+        AppSpacing.gapSm,
         Text(
           'Recommended size: 1200×800px or larger.',
           style: Theme.of(context).textTheme.labelSmall,
@@ -82,21 +82,21 @@ class _UploadTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+      borderRadius: BorderRadius.circular(AppRadii.mdValue),
       child: DottedBorderBox(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.add_photo_alternate_outlined,
-                color: AppColors.primary),
-            const SizedBox(height: AppSpacing.xxs),
+            Icon(Icons.add_photo_alternate_outlined, color: cs.primary),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               'Upload Image',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: AppColors.primary,
+                    color: cs.primary,
                   ),
             ),
           ],
@@ -118,7 +118,7 @@ class _PreviewTile extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+          borderRadius: BorderRadius.circular(AppRadii.mdValue),
           child: Image.memory(image.bytes, fit: BoxFit.cover),
         ),
         Positioned(
@@ -145,11 +145,12 @@ class DottedBorderBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.fieldFill,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.4)),
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(AppRadii.mdValue),
+        border: Border.all(color: cs.primary.withValues(alpha: 0.4)),
       ),
       child: child,
     );

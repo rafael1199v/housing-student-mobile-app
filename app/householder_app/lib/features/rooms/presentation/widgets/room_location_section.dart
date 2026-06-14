@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/core.dart';
@@ -52,16 +52,16 @@ class RoomLocationSection extends StatelessWidget {
               child: Text(
                 'Open in Maps',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.primary,
+                  color: theme.colorScheme.primary,
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ),
           ],
         ),
-        AppSpacing.gapM,
+        AppSpacing.gapLg,
         ClipRRect(
-          borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+          borderRadius: BorderRadius.circular(AppRadii.mdValue),
           child: SizedBox(
             height: 200,
             child: GoogleMap(
@@ -83,7 +83,7 @@ class RoomLocationSection extends StatelessWidget {
           ),
         ),
         if (kIsWeb) ...[
-          AppSpacing.gapXS,
+          AppSpacing.gapSm,
           Text(
             'Tap "Open in Maps" for directions.',
             style: theme.textTheme.bodyMedium?.copyWith(fontSize: 13),

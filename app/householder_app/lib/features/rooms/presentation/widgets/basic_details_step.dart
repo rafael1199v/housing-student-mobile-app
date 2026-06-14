@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../cubits/create_room_cubit.dart';
 import 'location_map.dart';
@@ -38,7 +38,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
         final showErrors = state.showStepErrors;
         final priceValue = state.priceValue;
         return ListView(
-          padding: const EdgeInsets.all(AppSpacing.l),
+          padding: const EdgeInsets.all(AppSpacing.xl),
           children: [
             AppCard(
               child: Column(
@@ -51,7 +51,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         .displaySmall
                         ?.copyWith(fontSize: 18),
                   ),
-                  AppSpacing.gapL,
+                  AppSpacing.gapXl,
                   AppTextField(
                     label: 'Room Title',
                     hintText: 'e.g. Spacious Master Bedroom',
@@ -62,7 +62,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         ? 'Title is required.'
                         : null,
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                   AppTextField(
                     label: 'Description',
                     hintText: 'Describe the room and amenities…',
@@ -74,11 +74,11 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         ? 'Description is required.'
                         : null,
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                   AppTextField(
                     label: 'Price per Month',
                     hintText: '0.00',
-                    icon: Icons.attach_money,
+                    prefixIcon: Icons.attach_money,
                     uppercaseLabel: false,
                     controller: _price,
                     keyboardType:
@@ -88,10 +88,10 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         ? 'Enter a price greater than 0.'
                         : null,
                   ),
-                  AppSpacing.gapL,
-                  const FieldLabel(text: 'Initial Status', uppercase: false),
-                  const SizedBox(height: AppSpacing.xs),
-                  SegmentedToggle(
+                  AppSpacing.gapXl,
+                  const AppFieldLabel(text: 'Initial Status', uppercase: false),
+                  const SizedBox(height: AppSpacing.sm),
+                  AppSegmentedToggle(
                     labels: const ['Available', 'Not Available'],
                     selectedIndex: state.statusId == 1 ? 0 : 1,
                     onChanged: (i) => _cubit.updateStatus(i == 0 ? 1 : 2),
@@ -99,7 +99,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                 ],
               ),
             ),
-            AppSpacing.gapL,
+            AppSpacing.gapXl,
             AppCard(
               child: PhotosPicker(
                 images: state.images,
@@ -107,7 +107,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                 onRemove: _cubit.removeImage,
               ),
             ),
-            AppSpacing.gapL,
+            AppSpacing.gapXl,
             AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,23 +119,23 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         .displaySmall
                         ?.copyWith(fontSize: 18),
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                   LocationMap(
                     latitude: state.latitude,
                     longitude: state.longitude,
                     onTap: _cubit.setLocation,
                     onUseCurrentLocation: _cubit.useCurrentLocation,
                   ),
-                  AppSpacing.gapS,
+                  AppSpacing.gapMd,
                   _LocationSummary(state: state),
                   if (showErrors && !state.hasLocation) ...[
-                    const SizedBox(height: AppSpacing.xs),
+                    const SizedBox(height: AppSpacing.sm),
                     Text(
                       'Tap the map or use your current location.',
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
-                          ?.copyWith(color: AppColors.error),
+                          ?.copyWith(color: Theme.of(context).colorScheme.error),
                     ),
                   ],
                 ],
@@ -166,9 +166,9 @@ class _LocationSummary extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.location_on_outlined,
-            size: 18, color: AppColors.primary),
-        const SizedBox(width: AppSpacing.xs),
+        Icon(Icons.location_on_outlined,
+            size: 18, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Text(
             state.address ?? coords,

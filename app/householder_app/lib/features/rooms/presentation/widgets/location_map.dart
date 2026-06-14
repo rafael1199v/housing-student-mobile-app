@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../../core/core.dart';
 
@@ -77,7 +77,7 @@ class _LocationMapState extends State<LocationMap> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+          borderRadius: BorderRadius.circular(AppRadii.mdValue),
           child: SizedBox(
             height: 200,
             child: GoogleMap(
@@ -103,7 +103,7 @@ class _LocationMapState extends State<LocationMap> {
             ),
           ),
         ),
-        AppSpacing.gapS,
+        AppSpacing.gapMd,
         SizedBox(
           height: 48,
           child: OutlinedButton.icon(
@@ -117,10 +117,10 @@ class _LocationMapState extends State<LocationMap> {
                 : const Icon(Icons.my_location, size: 18),
             label: const Text('Pin Current Location'),
             style: OutlinedButton.styleFrom(
-              foregroundColor: AppColors.primary,
-              side: const BorderSide(color: AppColors.primary),
+              foregroundColor: Theme.of(context).colorScheme.primary,
+              side: BorderSide(color: Theme.of(context).colorScheme.primary),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                borderRadius: BorderRadius.circular(AppRadii.mdValue),
               ),
             ),
           ),
