@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/booking_request.dart';
 import '../../domain/entities/booking_status.dart';
@@ -25,7 +25,8 @@ class BookingRequestTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final badge = bookingStatusBadgeColors(request.status);
+    final cs = theme.colorScheme;
+    final badge = bookingStatusBadgeColors(context, request.status);
     final isPending = request.status == BookingStatus.pending;
 
     return AppCard(
@@ -36,12 +37,12 @@ class BookingRequestTile extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 24,
-                backgroundColor: AppColors.fieldFill,
-                child: Icon(Icons.person_outline, color: AppColors.textHint),
+                backgroundColor: cs.surfaceContainerLow,
+                child: Icon(Icons.person_outline, color: cs.outline),
               ),
-              const SizedBox(width: AppSpacing.s),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,7 @@ class BookingRequestTile extends StatelessWidget {
                       ),
                     ),
                     if (request.bookerEmail.trim().isNotEmpty) ...[
-                      const SizedBox(height: AppSpacing.xxs),
+                      const SizedBox(height: AppSpacing.xs),
                       Text(
                         request.bookerEmail,
                         style: theme.textTheme.bodyMedium,
@@ -64,8 +65,8 @@ class BookingRequestTile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: AppSpacing.xs),
-              StatusBadge(
+              const SizedBox(width: AppSpacing.sm),
+              AppStatusBadge(
                 label: bookingStatusLabel(request.status),
                 foregroundColor: badge.fg,
                 backgroundColor: badge.bg,
@@ -73,22 +74,22 @@ class BookingRequestTile extends StatelessWidget {
             ],
           ),
           if (request.phoneNumber != null) ...[
-            AppSpacing.gapS,
+            AppSpacing.gapMd,
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(AppSpacing.s),
+              padding: const EdgeInsets.all(AppSpacing.md),
               decoration: BoxDecoration(
-                color: AppColors.fieldFill,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                color: cs.surfaceContainerLow,
+                borderRadius: BorderRadius.circular(AppRadii.mdValue),
               ),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.phone_outlined,
                     size: 18,
-                    color: AppColors.textSecondary,
+                    color: cs.onSurfaceVariant,
                   ),
-                  const SizedBox(width: AppSpacing.xs),
+                  const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: Text(
                       'Contact: ${request.phoneNumber}',
@@ -99,7 +100,7 @@ class BookingRequestTile extends StatelessWidget {
               ),
             ),
           ],
-          AppSpacing.gapM,
+          AppSpacing.gapLg,
           if (isPending)
             Row(
               children: [
@@ -107,44 +108,44 @@ class BookingRequestTile extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: isBusy ? null : onAccept,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.onPrimary,
+                      backgroundColor: cs.primary,
+                      foregroundColor: cs.onPrimary,
                       elevation: 0,
                       padding:
-                          const EdgeInsets.symmetric(vertical: AppSpacing.s),
+                          const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                        borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
                     child: isBusy
-                        ? const SizedBox(
+                        ? SizedBox(
                             height: 18,
                             width: 18,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: AppColors.onPrimary,
+                              color: cs.onPrimary,
                             ),
                           )
                         : const Text('Accept'),
                   ),
                 ),
-                const SizedBox(width: AppSpacing.s),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: isBusy ? null : onDecline,
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textPrimary,
-                      side: const BorderSide(color: AppColors.border),
+                      foregroundColor: cs.onSurface,
+                      side: BorderSide(color: cs.outlineVariant),
                       padding:
-                          const EdgeInsets.symmetric(vertical: AppSpacing.s),
+                          const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+                        borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
                     child: const Text('Decline'),
                   ),
                 ),
-                const SizedBox(width: AppSpacing.s),
+                const SizedBox(width: AppSpacing.md),
                 _ChatButton(onPressed: onChat),
               ],
             )
@@ -166,16 +167,17 @@ class _ChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return SizedBox(
       width: 48,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
-          side: const BorderSide(color: AppColors.border),
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.s),
+          foregroundColor: cs.primary,
+          side: BorderSide(color: cs.outlineVariant),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSpacing.radiusM),
+            borderRadius: BorderRadius.circular(AppRadii.mdValue),
           ),
         ),
         child: const Icon(Icons.chat_bubble_outline, size: 20),
