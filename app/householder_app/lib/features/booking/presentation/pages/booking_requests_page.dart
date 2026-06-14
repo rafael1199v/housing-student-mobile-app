@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:householder_design_system/householder_design_system.dart';
+import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../domain/entities/booking_request.dart';
 import '../cubits/booking_requests_cubit.dart';
@@ -49,7 +49,7 @@ class _BookingRequestsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Text(
           'Booking Requests',
@@ -124,7 +124,7 @@ class _Content extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 720),
           child: ListView(
-            padding: const EdgeInsets.all(AppSpacing.l),
+            padding: const EdgeInsets.all(AppSpacing.xl),
             children: [
               Text(
                 roomName.trim().isEmpty
@@ -132,12 +132,12 @@ class _Content extends StatelessWidget {
                     : 'Requests for $roomName',
                 style: theme.textTheme.displaySmall?.copyWith(fontSize: 22),
               ),
-              AppSpacing.gapXS,
+              AppSpacing.gapSm,
               Text(
                 'Review student profiles and manage upcoming stays.',
                 style: theme.textTheme.bodyMedium,
               ),
-              AppSpacing.gapL,
+              AppSpacing.gapXl,
               if (requests.isEmpty)
                 const _EmptyRequests()
               else
@@ -149,7 +149,7 @@ class _Content extends StatelessWidget {
                     onDecline: () => onDecline(request.id),
                     onChat: onChat,
                   ),
-                  AppSpacing.gapM,
+                  AppSpacing.gapLg,
                 ],
             ],
           ),
@@ -167,12 +167,12 @@ class _EmptyRequests extends StatelessWidget {
     return AppCard(
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.inbox_outlined,
             size: 40,
-            color: AppColors.textHint,
+            color: Theme.of(context).colorScheme.outline,
           ),
-          AppSpacing.gapS,
+          AppSpacing.gapMd,
           Text(
             'No booking requests yet.',
             textAlign: TextAlign.center,
@@ -201,24 +201,25 @@ class _BookingRequestsError extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.l),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.cloud_off_outlined,
               size: 56,
-              color: AppColors.textHint,
+              color: Theme.of(context).colorScheme.outline,
             ),
-            AppSpacing.gapM,
+            AppSpacing.gapLg,
             Text(
               _message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AppSpacing.gapL,
-            PrimaryButton(
+            AppSpacing.gapXl,
+            AppPrimaryButton(
               label: 'Retry',
+              expanded: true,
               trailingIcon: null,
               onPressed: onRetry,
             ),
