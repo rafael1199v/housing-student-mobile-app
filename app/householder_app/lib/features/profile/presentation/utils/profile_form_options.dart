@@ -1,31 +1,51 @@
 import 'package:housing_design_system/housing_design_system.dart';
 
-const List<AppDropdownItem<String>> kGenderOptions = [
-  AppDropdownItem(value: 'Male', label: 'Male'),
-  AppDropdownItem(value: 'Female', label: 'Female'),
-  AppDropdownItem(value: 'Other', label: 'Other'),
+import '../../../../core/core.dart';
+
+const List<String> kGenderValues = ['Male', 'Female', 'Other'];
+
+const List<String> kNationalityValues = [
+  'Bolivian',
+  'Argentinian',
+  'Chilean',
+  'Colombian',
+  'Mexican',
+  'Peruvian',
+  'Spanish',
+  'American',
+  'Other',
 ];
 
-const List<AppDropdownItem<String>> kNationalityOptions = [
-  AppDropdownItem(value: 'Bolivian', label: 'Bolivian'),
-  AppDropdownItem(value: 'Argentinian', label: 'Argentinian'),
-  AppDropdownItem(value: 'Chilean', label: 'Chilean'),
-  AppDropdownItem(value: 'Colombian', label: 'Colombian'),
-  AppDropdownItem(value: 'Mexican', label: 'Mexican'),
-  AppDropdownItem(value: 'Peruvian', label: 'Peruvian'),
-  AppDropdownItem(value: 'Spanish', label: 'Spanish'),
-  AppDropdownItem(value: 'American', label: 'American'),
-  AppDropdownItem(value: 'Other', label: 'Other'),
-];
+String genderLabel(AppLocalizations l10n, String value) => switch (value) {
+      'Male' => l10n.genderMale,
+      'Female' => l10n.genderFemale,
+      _ => l10n.genderOther,
+    };
 
-String? matchDropdownValue(
-  String? value,
-  List<AppDropdownItem<String>> items,
-) {
+String nationalityLabel(AppLocalizations l10n, String value) => switch (value) {
+      'Bolivian' => l10n.nationalityBolivian,
+      'Argentinian' => l10n.nationalityArgentinian,
+      'Chilean' => l10n.nationalityChilean,
+      'Colombian' => l10n.nationalityColombian,
+      'Mexican' => l10n.nationalityMexican,
+      'Peruvian' => l10n.nationalityPeruvian,
+      'Spanish' => l10n.nationalitySpanish,
+      'American' => l10n.nationalityAmerican,
+      _ => l10n.nationalityOther,
+    };
+
+List<AppDropdownItem<String>> genderOptions(AppLocalizations l10n) => [
+      for (final value in kGenderValues)
+        AppDropdownItem(value: value, label: genderLabel(l10n, value)),
+    ];
+
+List<AppDropdownItem<String>> nationalityOptions(AppLocalizations l10n) => [
+      for (final value in kNationalityValues)
+        AppDropdownItem(value: value, label: nationalityLabel(l10n, value)),
+    ];
+
+String? matchDropdownValue(String? value, List<String> allowed) {
   final trimmed = value?.trim();
   if (trimmed == null || trimmed.isEmpty) return null;
-  for (final item in items) {
-    if (item.value == trimmed) return trimmed;
-  }
-  return null;
+  return allowed.contains(trimmed) ? trimmed : null;
 }

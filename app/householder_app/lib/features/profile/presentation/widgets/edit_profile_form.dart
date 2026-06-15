@@ -48,8 +48,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
     _lastNameController = TextEditingController(text: p.lastName ?? '');
     _phoneController = TextEditingController(text: p.phoneNumber ?? '');
     _emailController = TextEditingController(text: p.email);
-    _gender = matchDropdownValue(p.gender, kGenderOptions);
-    _nationality = matchDropdownValue(p.nationality, kNationalityOptions);
+    _gender = matchDropdownValue(p.gender, kGenderValues);
+    _nationality = matchDropdownValue(p.nationality, kNationalityValues);
     _birthDate = DateTime.tryParse(p.birthDate?.trim() ?? '');
   }
 
@@ -153,7 +153,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           AppDropdownField<String>(
             label: l10n.fieldGender,
             hintText: l10n.hintSelectGender,
-            items: kGenderOptions,
+            items: genderOptions(l10n),
             value: _gender,
             enabled: enabled,
             errorText: _genderError ?? errors['gender'],
@@ -165,7 +165,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
           AppDropdownField<String>(
             label: l10n.fieldNationality,
             hintText: l10n.hintSelectNationality,
-            items: kNationalityOptions,
+            items: nationalityOptions(l10n),
             value: _nationality,
             enabled: enabled,
             errorText: _nationalityError ?? errors['nationality'],
