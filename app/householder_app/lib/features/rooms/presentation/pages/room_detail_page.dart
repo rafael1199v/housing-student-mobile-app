@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../../booking/booking.dart';
 import '../../domain/entities/room_detail.dart';
 import '../cubits/room_detail_cubit.dart';
@@ -35,10 +36,12 @@ class _RoomDetailView extends StatelessWidget {
 
   final int roomId;
 
-  void _comingSoon(BuildContext context, String feature) {
+  void _showEditComingSoon(BuildContext context) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('$feature is coming soon.')));
+      ..showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).editRoomComingSoon)),
+      );
   }
 
   @override
@@ -48,7 +51,7 @@ class _RoomDetailView extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Text(
-          'Room Details',
+          AppLocalizations.of(context).roomDetails,
           style: Theme.of(
             context,
           ).textTheme.displaySmall?.copyWith(fontSize: 20),
@@ -60,7 +63,7 @@ class _RoomDetailView extends StatelessWidget {
             RoomDetailLoaded(:final detail, :final address) => _Content(
               detail: detail,
               address: address,
-              onEdit: () => _comingSoon(context, 'Editing a room'),
+              onEdit: () => _showEditComingSoon(context),
               onViewRequests: () =>
                   context.push(BookingRequestsPage.pathTo(roomId)),
             ),
@@ -98,9 +101,12 @@ class _Content extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final colors = roomStatusBadgeColors(context, detail.status);
-    final serviceTags = detail.services.map(resolveServiceTag).toList();
-    final policyTags = detail.policies.map(resolvePolicyTag).toList();
+    final serviceTags =
+        detail.services.map((s) => resolveServiceTag(l10n, s)).toList();
+    final policyTags =
+        detail.policies.map((p) => resolvePolicyTag(l10n, p)).toList();
 
     return SafeArea(
       top: false,
@@ -161,7 +167,7 @@ class _Content extends StatelessWidget {
                       ),
                       AppSpacing.gapXl,
                       Text(
-                        'Description',
+                        l10n.descriptionLabel,
                         style: theme.textTheme.displaySmall?.copyWith(
                           fontSize: 18,
                         ),
@@ -169,7 +175,7 @@ class _Content extends StatelessWidget {
                       AppSpacing.gapMd,
                       Text(
                         detail.description.trim().isEmpty
-                            ? 'No description provided.'
+                            ? l10n.noDescriptionProvided
                             : detail.description.trim(),
                         style: theme.textTheme.bodyMedium,
                       ),
@@ -206,15 +212,16 @@ class _RoomDetailError extends StatelessWidget {
   final String code;
   final VoidCallback onRetry;
 
-  String get _message => switch (code) {
-    'network.error' => 'No connection. Check your network and try again.',
-    'server.error' => 'Something went wrong on our side. Please try again.',
-    'unauthorized' => 'Your session expired. Please sign in again.',
-    _ => 'We could not load this room. Please try again.',
+  String _message(AppLocalizations l10n) => switch (code) {
+    'network.error' => l10n.errNetwork,
+    'server.error' => l10n.errServer,
+    'unauthorized' => l10n.errUnauthorized,
+    _ => l10n.errRoomLoad,
   };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -228,13 +235,13 @@ class _RoomDetailError extends StatelessWidget {
             ),
             AppSpacing.gapLg,
             Text(
-              _message,
+              _message(l10n),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             AppSpacing.gapXl,
             AppPrimaryButton(
-              label: 'Retry',
+              label: l10n.retry,
               expanded: true,
               trailingIcon: null,
               onPressed: onRetry,

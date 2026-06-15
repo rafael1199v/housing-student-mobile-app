@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/booking_request.dart';
 
 class RequestCard extends StatelessWidget {
@@ -22,6 +23,7 @@ class RequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     return SizedBox(
       width: 300,
       child: AppCard(
@@ -59,7 +61,7 @@ class RequestCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Requested Property',
+                    l10n.requestedProperty,
                     style: theme.textTheme.labelSmall,
                   ),
                   const SizedBox(height: AppSpacing.xs),
@@ -88,7 +90,7 @@ class RequestCard extends StatelessWidget {
                             BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
-                    child: const Text('Decline'),
+                    child: Text(l10n.decline),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),
@@ -106,7 +108,7 @@ class RequestCard extends StatelessWidget {
                             BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
-                    child: const Text('Accept'),
+                    child: Text(l10n.accept),
                   ),
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/update_profile_params.dart';
 import '../../domain/entities/user_profile.dart';
 import '../utils/profile_form_options.dart';
@@ -47,8 +48,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
     _lastNameController = TextEditingController(text: p.lastName ?? '');
     _phoneController = TextEditingController(text: p.phoneNumber ?? '');
     _emailController = TextEditingController(text: p.email);
-    _gender = matchDropdownValue(p.gender, kGenderOptions);
-    _nationality = matchDropdownValue(p.nationality, kNationalityOptions);
+    _gender = matchDropdownValue(p.gender, kGenderValues);
+    _nationality = matchDropdownValue(p.nationality, kNationalityValues);
     _birthDate = DateTime.tryParse(p.birthDate?.trim() ?? '');
   }
 
@@ -61,6 +62,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
     super.dispose();
   }
 
+  AppLocalizations get _l10n => AppLocalizations.of(context);
+
   String _formatBirthDate(DateTime date) {
     final mm = date.month.toString().padLeft(2, '0');
     final dd = date.day.toString().padLeft(2, '0');
@@ -68,15 +71,17 @@ class _EditProfileFormState extends State<EditProfileForm> {
   }
 
   String? _required(String? value, String label) {
-    if (value == null || value.trim().isEmpty) return '$label is required.';
+    if (value == null || value.trim().isEmpty) {
+      return _l10n.validationRequired(label);
+    }
     return null;
   }
 
   String? _phoneValidator(String? value) {
     final trimmed = value?.trim() ?? '';
-    if (trimmed.isEmpty) return 'Phone number is required.';
+    if (trimmed.isEmpty) return _l10n.validationPhoneRequired;
     if (!RegExp(r'^\+?\d{6,15}$').hasMatch(trimmed)) {
-      return 'Enter a valid phone number.';
+      return _l10n.validationPhoneInvalid;
     }
     return null;
   }
@@ -86,11 +91,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     setState(() {
-      _genderError = _gender == null ? 'Please select a gender.' : null;
+      _genderError = _gender == null ? _l10n.validationSelectGender : null;
       _nationalityError =
-          _nationality == null ? 'Please select a nationality.' : null;
+          _nationality == null ? _l10n.validationSelectNationality : null;
       _birthDateError =
-          _birthDate == null ? 'Please select your date of birth.' : null;
+          _birthDate == null ? _l10n.validationSelectBirthDate : null;
     });
 
     final hasSelectorError =
@@ -113,41 +118,42 @@ class _EditProfileFormState extends State<EditProfileForm> {
   Widget build(BuildContext context) {
     final enabled = !widget.isSubmitting;
     final errors = widget.fieldErrors;
+    final l10n = AppLocalizations.of(context);
 
     return Form(
       key: _formKey,
       child: AppFormSection(
         actions: AppPrimaryButton(
-          label: 'Save',
+          label: l10n.save,
           expanded: true,
           isLoading: widget.isSubmitting,
           onPressed: _submit,
         ),
         children: [
           AppTextField(
-            label: 'First Name',
-            hintText: 'e.g. Jane',
+            label: l10n.fieldFirstName,
+            hintText: l10n.hintFirstName,
             controller: _firstNameController,
             enabled: enabled,
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            validator: (v) => _required(v, 'First name'),
+            validator: (v) => _required(v, l10n.fieldFirstName),
             errorText: errors['firstName'],
           ),
           AppTextField(
-            label: 'Last Name',
-            hintText: 'e.g. Doe',
+            label: l10n.fieldLastName,
+            hintText: l10n.hintLastName,
             controller: _lastNameController,
             enabled: enabled,
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            validator: (v) => _required(v, 'Last name'),
+            validator: (v) => _required(v, l10n.fieldLastName),
             errorText: errors['lastName'],
           ),
           AppDropdownField<String>(
-            label: 'Gender',
-            hintText: 'Select gender',
-            items: kGenderOptions,
+            label: l10n.fieldGender,
+            hintText: l10n.hintSelectGender,
+            items: genderOptions(l10n),
             value: _gender,
             enabled: enabled,
             errorText: _genderError ?? errors['gender'],
@@ -157,9 +163,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
             }),
           ),
           AppDropdownField<String>(
-            label: 'Nationality',
-            hintText: 'Select nationality',
-            items: kNationalityOptions,
+            label: l10n.fieldNationality,
+            hintText: l10n.hintSelectNationality,
+            items: nationalityOptions(l10n),
             value: _nationality,
             enabled: enabled,
             errorText: _nationalityError ?? errors['nationality'],
@@ -169,8 +175,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
             }),
           ),
           AppDateField(
-            label: 'Date of Birth',
-            hintText: 'mm/dd/yyyy',
+            label: l10n.fieldDateOfBirth,
+            hintText: l10n.hintDateOfBirth,
             value: _birthDate,
             enabled: enabled,
             errorText: _birthDateError ?? errors['birthdate'],
@@ -180,8 +186,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
             }),
           ),
           AppTextField(
-            label: 'Phone Number',
-            hintText: '+591 000 000 000',
+            label: l10n.fieldPhoneNumber,
+            hintText: l10n.hintPhoneNumber,
             controller: _phoneController,
             enabled: enabled,
             keyboardType: TextInputType.phone,
@@ -191,7 +197,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
             onFieldSubmitted: (_) => _submit(),
           ),
           AppTextField(
-            label: 'Email Address',
+            label: l10n.fieldEmailAddress,
             controller: _emailController,
             enabled: false,
             prefixIcon: Icons.mail_outline,

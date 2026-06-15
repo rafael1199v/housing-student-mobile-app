@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/booking_request.dart';
 import '../../domain/entities/booking_status.dart';
 import '../utils/booking_status_ui.dart';
@@ -26,6 +27,7 @@ class BookingRequestTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final badge = bookingStatusBadgeColors(context, request.status);
     final isPending = request.status == BookingStatus.pending;
 
@@ -49,7 +51,7 @@ class BookingRequestTile extends StatelessWidget {
                   children: [
                     Text(
                       request.bookerName.trim().isEmpty
-                          ? 'Unknown student'
+                          ? l10n.bookingUnknownStudent
                           : request.bookerName,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w700,
@@ -67,7 +69,7 @@ class BookingRequestTile extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.sm),
               AppStatusBadge(
-                label: bookingStatusLabel(request.status),
+                label: bookingStatusLabel(context, request.status),
                 foregroundColor: badge.fg,
                 backgroundColor: badge.bg,
               ),
@@ -92,7 +94,7 @@ class BookingRequestTile extends StatelessWidget {
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: Text(
-                      'Contact: ${request.phoneNumber}',
+                      l10n.bookingContact(request.phoneNumber!),
                       style: theme.textTheme.bodyMedium,
                     ),
                   ),
@@ -126,7 +128,7 @@ class BookingRequestTile extends StatelessWidget {
                               color: cs.onPrimary,
                             ),
                           )
-                        : const Text('Accept'),
+                        : Text(l10n.accept),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),
@@ -142,7 +144,7 @@ class BookingRequestTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
-                    child: const Text('Decline'),
+                    child: Text(l10n.decline),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),

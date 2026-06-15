@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Localization (gen-l10n: ARB files -> AppLocalizations).
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
   # Web URL strategy (usePathUrlStrategy) for clean deep-link URLs.
   flutter_web_plugins:
     sdk: flutter
@@ -70,3 +75,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true

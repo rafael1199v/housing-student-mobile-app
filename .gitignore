@@ -60,4 +60,10 @@ coverage/
 app.*.symbols
 app.*.map.json
 
+# =========================================================================
+# Generated code (reproduced by codegen on `flutter pub get`)
+# =========================================================================
+# build_runner output (retrofit, json_serializable, ...)
 *.g.dart
+# gen-l10n output (generated from the .arb files; ARBs are the source of truth)
+**/lib/core/i18n/l10n/gen/

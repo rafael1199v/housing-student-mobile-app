@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
+
 const List<AppDropdownItem<String>> kDialCodes = [
   AppDropdownItem(value: '+591', label: '🇧🇴 +591', selectedLabel: '+591'),
   AppDropdownItem(value: '+1', label: '🇺🇸 +1', selectedLabel: '+1'),
@@ -19,7 +21,7 @@ class PhoneField extends StatelessWidget {
     required this.controller,
     required this.dialCode,
     required this.onDialCodeChanged,
-    this.label = 'Phone Number',
+    this.label,
     this.errorText,
     this.enabled = true,
     this.onChanged,
@@ -29,7 +31,7 @@ class PhoneField extends StatelessWidget {
   final TextEditingController controller;
   final String dialCode;
   final ValueChanged<String?> onDialCodeChanged;
-  final String label;
+  final String? label;
   final String? errorText;
   final bool enabled;
   final ValueChanged<String>? onChanged;
@@ -37,10 +39,11 @@ class PhoneField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppFieldLabel(text: label),
+        AppFieldLabel(text: label ?? l10n.fieldPhoneNumber),
         const SizedBox(height: AppSpacing.sm),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +60,7 @@ class PhoneField extends StatelessWidget {
             const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: AppTextField(
-                hintText: '000 000 000',
+                hintText: l10n.hintPhoneLocal,
                 controller: controller,
                 enabled: enabled,
                 keyboardType: TextInputType.phone,

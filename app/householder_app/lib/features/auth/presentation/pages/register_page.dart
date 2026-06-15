@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../blocs/register_bloc.dart';
 import '../utils/auth_error_messages.dart';
 import '../widgets/register_form.dart';
@@ -45,13 +46,16 @@ class _RegisterView extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).colorScheme.error,
-                  content: Text(authErrorMessage(state.code)),
+                  content: Text(
+                    authErrorMessage(AppLocalizations.of(context), state.code),
+                  ),
                 ),
               );
           }
         },
         builder: (context, state) {
           final isLoading = state is RegisterLoading;
+          final l10n = AppLocalizations.of(context);
 
           return AppAuthCard(
             child: Column(
@@ -62,14 +66,14 @@ class _RegisterView extends StatelessWidget {
                 AppSpacing.gapLg,
                 Center(
                   child: Text(
-                    'Householder Registration',
+                    l10n.registerTitle,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Center(
                   child: Text(
-                    'Create your secure profile to begin managing your space.',
+                    l10n.registerSubtitle,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -110,13 +114,13 @@ class _RegisterView extends StatelessWidget {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       Text(
-                        'Already have an account? ',
+                        l10n.authAlreadyHaveAccount,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       GestureDetector(
                         onTap: () => context.go(LoginPage.routeName),
                         child: Text(
-                          'Log in',
+                          l10n.authLogIn,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.primary,

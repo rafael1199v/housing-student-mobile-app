@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/room_catalog.dart';
 import '../cubits/create_room_cubit.dart';
+import '../utils/room_tag_resolver.dart';
 
 class ReviewStep extends StatelessWidget {
   const ReviewStep({super.key});
@@ -13,6 +15,7 @@ class ReviewStep extends StatelessWidget {
     return BlocBuilder<CreateRoomCubit, CreateRoomState>(
       builder: (context, state) {
         final theme = Theme.of(context);
+        final l10n = AppLocalizations.of(context);
         final services = kRoomServices
             .where((s) => state.serviceIds.contains(s.id))
             .toList();
@@ -20,12 +23,12 @@ class ReviewStep extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.xl),
           children: [
             Text(
-              'Review Listing',
+              l10n.reviewListing,
               style: theme.textTheme.displaySmall?.copyWith(fontSize: 24),
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Almost done! Review the details below before publishing.',
+              l10n.reviewSubtitle,
               style: theme.textTheme.bodyMedium,
             ),
             AppSpacing.gapXl,
@@ -33,16 +36,18 @@ class ReviewStep extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sectionTitle(context, Icons.info_outline, 'Basic Info'),
+                  _sectionTitle(context, Icons.info_outline, l10n.basicInfo),
                   AppSpacing.gapLg,
-                  _field(context, 'Title',
+                  _field(context, l10n.fieldTitle,
                       state.name.isEmpty ? '—' : state.name),
-                  _field(context, 'Monthly Rent',
+                  _field(context, l10n.monthlyRent,
                       '\$${state.priceValue?.toStringAsFixed(2) ?? '0.00'}'),
-                  _field(context, 'Initial Status',
-                      state.statusId == 1 ? 'Available' : 'Not Available'),
+                  _field(context, l10n.initialStatus,
+                      state.statusId == 1
+                          ? l10n.roomStatusAvailable
+                          : l10n.statusNotAvailable),
                   if (state.description.isNotEmpty)
-                    _field(context, 'Description', state.description),
+                    _field(context, l10n.descriptionLabel, state.description),
                 ],
               ),
             ),
@@ -54,13 +59,13 @@ class ReviewStep extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _sectionTitle(
-                      context, Icons.location_on_outlined, 'Location'),
+                      context, Icons.location_on_outlined, l10n.location),
                   AppSpacing.gapLg,
                   if (state.address != null)
-                    _field(context, 'Detected Address', state.address!),
+                    _field(context, l10n.detectedAddress, state.address!),
                   _field(
                     context,
-                    'Coordinates',
+                    l10n.coordinates,
                     state.hasLocation
                         ? '${state.latitude!.toStringAsFixed(5)}, ${state.longitude!.toStringAsFixed(5)}'
                         : '—',
@@ -73,10 +78,10 @@ class ReviewStep extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sectionTitle(context, Icons.chair_outlined, 'Amenities'),
+                  _sectionTitle(context, Icons.chair_outlined, l10n.amenities),
                   AppSpacing.gapLg,
                   if (services.isEmpty)
-                    Text('None selected.', style: theme.textTheme.bodyMedium)
+                    Text(l10n.noneSelected, style: theme.textTheme.bodyMedium)
                   else
                     Wrap(
                       spacing: AppSpacing.sm,
@@ -84,7 +89,7 @@ class ReviewStep extends StatelessWidget {
                       children: [
                         for (final s in services)
                           AppStatusBadge(
-                            label: s.name,
+                            label: serviceName(l10n, s.code),
                             icon: s.icon,
                             backgroundColor: theme.colorScheme.surfaceContainer,
                           ),
@@ -98,15 +103,15 @@ class ReviewStep extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sectionTitle(context, Icons.gavel, 'Policies & Rules'),
+                  _sectionTitle(context, Icons.gavel, l10n.policiesRules),
                   AppSpacing.gapLg,
                   if (state.policies.isEmpty)
-                    Text('None added.', style: theme.textTheme.bodyMedium)
+                    Text(l10n.noneAdded, style: theme.textTheme.bodyMedium)
                   else
                     for (var i = 0; i < state.policies.length; i++) ...[
                       if (i > 0) AppSpacing.gapLg,
                       Text(
-                        state.policies[i].name,
+                        policyName(l10n, state.policies[i].code),
                         style: theme.textTheme.bodyLarge
                             ?.copyWith(fontWeight: FontWeight.w700),
                       ),
@@ -121,7 +126,7 @@ class ReviewStep extends StatelessWidget {
             ),
             AppSpacing.gapXl,
             Text(
-              '${state.images.length} photo${state.images.length == 1 ? '' : 's'} attached.',
+              l10n.photosAttached(state.images.length),
               style: theme.textTheme.bodyMedium,
             ),
           ],
@@ -163,6 +168,7 @@ class _ReadyBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sem = Theme.of(context).extension<AppSemanticColors>()!;
+    final l10n = AppLocalizations.of(context);
     return AppCard(
       color: sem.successContainer,
       child: Row(
@@ -172,7 +178,7 @@ class _ReadyBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Ready to Publish',
+                  l10n.readyToPublish,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
@@ -180,7 +186,7 @@ class _ReadyBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
-                  'All required fields have been completed.',
+                  l10n.allFieldsCompleted,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],

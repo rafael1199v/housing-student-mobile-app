@@ -1,0 +1,745 @@
+{
+  "@@locale": "en",
+
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label for the Home tab"
+  },
+  "navMessages": "Messages",
+  "@navMessages": {
+    "description": "Bottom navigation label for the Messages tab"
+  },
+  "navProfile": "Profile",
+  "@navProfile": {
+    "description": "Bottom navigation label for the Profile tab"
+  },
+
+  "sectionPersonalDetails": "Personal Details",
+  "@sectionPersonalDetails": {
+    "description": "Section header for the personal details card on the profile screen"
+  },
+  "sectionPreferences": "Preferences",
+  "@sectionPreferences": {
+    "description": "Section header for the preferences card on the profile screen"
+  },
+  "editProfileTooltip": "Edit profile",
+  "@editProfileTooltip": {
+    "description": "Tooltip for the edit-profile icon button in the profile app bar"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Label for the button that retries a failed load"
+  },
+
+  "fieldGender": "Gender",
+  "@fieldGender": {
+    "description": "Label for the gender field"
+  },
+  "fieldPhone": "Telephone Number",
+  "@fieldPhone": {
+    "description": "Label for the telephone number field in the personal details card"
+  },
+  "fieldNationality": "Nationality",
+  "@fieldNationality": {
+    "description": "Label for the nationality field"
+  },
+  "fieldDateOfBirth": "Date of Birth",
+  "@fieldDateOfBirth": {
+    "description": "Label for the date of birth field"
+  },
+  "fieldFirstName": "First Name",
+  "@fieldFirstName": {
+    "description": "Label for the first name input field"
+  },
+  "fieldLastName": "Last Name",
+  "@fieldLastName": {
+    "description": "Label for the last name input field"
+  },
+  "fieldPhoneNumber": "Phone Number",
+  "@fieldPhoneNumber": {
+    "description": "Label for the phone number input field in the edit profile form"
+  },
+  "fieldEmailAddress": "Email Address",
+  "@fieldEmailAddress": {
+    "description": "Label for the (read-only) email address field in the edit profile form"
+  },
+
+  "hintFirstName": "e.g. Jane",
+  "@hintFirstName": {
+    "description": "Placeholder hint for the first name input"
+  },
+  "hintLastName": "e.g. Doe",
+  "@hintLastName": {
+    "description": "Placeholder hint for the last name input"
+  },
+  "hintDateOfBirth": "mm/dd/yyyy",
+  "@hintDateOfBirth": {
+    "description": "Placeholder hint for the date of birth input"
+  },
+  "hintPhoneNumber": "+591 000 000 000",
+  "@hintPhoneNumber": {
+    "description": "Placeholder hint for the phone number input"
+  },
+  "hintSelectGender": "Select gender",
+  "@hintSelectGender": {
+    "description": "Placeholder hint for the gender dropdown"
+  },
+  "hintSelectNationality": "Select nationality",
+  "@hintSelectNationality": {
+    "description": "Placeholder hint for the nationality dropdown"
+  },
+
+  "save": "Save",
+  "@save": {
+    "description": "Label for the save button in the edit profile form"
+  },
+
+  "prefLanguage": "Language",
+  "@prefLanguage": {
+    "description": "Field label for the language selector in preferences"
+  },
+  "prefThemeMode": "Theme Mode",
+  "@prefThemeMode": {
+    "description": "Field label for the theme mode selector in preferences"
+  },
+  "signOut": "Sign Out",
+  "@signOut": {
+    "description": "Label for the sign out button"
+  },
+
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme mode option that follows the system setting"
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme mode option"
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme mode option"
+  },
+
+  "langEnglish": "English",
+  "@langEnglish": {
+    "description": "Name of the English language option"
+  },
+  "langSpanish": "Spanish",
+  "@langSpanish": {
+    "description": "Name of the Spanish language option"
+  },
+  "langPortuguese": "Portuguese",
+  "@langPortuguese": {
+    "description": "Name of the Portuguese language option"
+  },
+
+  "editProfileTitle": "Edit Profile",
+  "@editProfileTitle": {
+    "description": "App bar title for the edit profile screen"
+  },
+  "profileUpdated": "Profile updated.",
+  "@profileUpdated": {
+    "description": "Snackbar message shown after the profile is updated successfully"
+  },
+
+  "validationRequired": "{field} is required.",
+  "@validationRequired": {
+    "description": "Validation error shown when a required field is empty",
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "First Name"
+      }
+    }
+  },
+  "validationPhoneRequired": "Phone number is required.",
+  "@validationPhoneRequired": {
+    "description": "Validation error shown when the phone number is empty"
+  },
+  "validationPhoneInvalid": "Enter a valid phone number.",
+  "@validationPhoneInvalid": {
+    "description": "Validation error shown when the phone number format is invalid"
+  },
+  "validationSelectGender": "Please select a gender.",
+  "@validationSelectGender": {
+    "description": "Validation error shown when no gender is selected"
+  },
+  "validationSelectNationality": "Please select a nationality.",
+  "@validationSelectNationality": {
+    "description": "Validation error shown when no nationality is selected"
+  },
+  "validationSelectBirthDate": "Please select your date of birth.",
+  "@validationSelectBirthDate": {
+    "description": "Validation error shown when no date of birth is selected"
+  },
+
+  "errNetwork": "No connection. Check your network and try again.",
+  "@errNetwork": {
+    "description": "Generic error message for network/connectivity failures"
+  },
+  "errServer": "Something went wrong on our side. Please try again.",
+  "@errServer": {
+    "description": "Generic error message for server-side (5xx) failures"
+  },
+  "errUnauthorized": "Your session expired. Please sign in again.",
+  "@errUnauthorized": {
+    "description": "Error message shown when the session expired (401/unauthorized)"
+  },
+  "errRateLimited": "Too many requests. Please wait a moment.",
+  "@errRateLimited": {
+    "description": "Error message shown when the client is rate limited (429)"
+  },
+  "errProfileLoad": "We could not load your profile. Please try again.",
+  "@errProfileLoad": {
+    "description": "Fallback error message when loading the profile fails"
+  },
+  "errProfileUpdate": "We could not update your profile. Please try again.",
+  "@errProfileUpdate": {
+    "description": "Fallback error message when updating the profile fails"
+  },
+
+  "avatarTooLarge": "The image is too large. Maximum size is 5 MB.",
+  "@avatarTooLarge": {
+    "description": "Avatar upload error when the file exceeds the 5 MB limit"
+  },
+  "avatarInvalidType": "Unsupported image. Use a JPEG, PNG or WEBP file.",
+  "@avatarInvalidType": {
+    "description": "Avatar upload error when the file is not a supported image type"
+  },
+  "avatarFileMissing": "No image was selected. Please try again.",
+  "@avatarFileMissing": {
+    "description": "Avatar upload error when no file was selected or it was empty"
+  },
+  "avatarUserNotFound": "We could not find your profile.",
+  "@avatarUserNotFound": {
+    "description": "Avatar upload error when the authenticated user has no profile"
+  },
+  "avatarGeneric": "We could not update your photo. Please try again.",
+  "@avatarGeneric": {
+    "description": "Fallback error message when the avatar upload fails"
+  },
+
+  "homeGreetingMorning": "Good morning, {name}",
+  "@homeGreetingMorning": {
+    "description": "Dashboard greeting shown in the morning",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeGreetingAfternoon": "Good afternoon, {name}",
+  "@homeGreetingAfternoon": {
+    "description": "Dashboard greeting shown in the afternoon",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeGreetingEvening": "Good evening, {name}",
+  "@homeGreetingEvening": {
+    "description": "Dashboard greeting shown in the evening",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeOverviewSubtitle": "Here is an overview of your properties today.",
+  "@homeOverviewSubtitle": {
+    "description": "Subtitle under the dashboard greeting"
+  },
+
+  "statTotalListings": "Total Listings",
+  "@statTotalListings": {
+    "description": "Dashboard stat card: total number of listings"
+  },
+  "statActiveBookings": "Active Bookings",
+  "@statActiveBookings": {
+    "description": "Dashboard stat card: number of active bookings"
+  },
+  "statPendingRequests": "Pending Requests",
+  "@statPendingRequests": {
+    "description": "Dashboard stat card: number of pending booking requests"
+  },
+
+  "sectionActionNeeded": "Action Needed",
+  "@sectionActionNeeded": {
+    "description": "Section header for booking requests that need a response"
+  },
+  "sectionMyProperties": "My Properties",
+  "@sectionMyProperties": {
+    "description": "Section header for the householder's properties list"
+  },
+  "emptyProperties": "You haven't listed any rooms yet.",
+  "@emptyProperties": {
+    "description": "Empty state shown when the householder has no properties"
+  },
+
+  "requestAccepted": "Accepted {name}'s request.",
+  "@requestAccepted": {
+    "description": "Snackbar shown after accepting a booking request",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "requestDeclined": "Declined {name}'s request.",
+  "@requestDeclined": {
+    "description": "Snackbar shown after declining a booking request",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "errRequestUpdate": "Could not update the request. Please try again.",
+  "@errRequestUpdate": {
+    "description": "Fallback error when accepting/declining a request fails"
+  },
+  "errDashboardLoad": "We could not load your dashboard. Please try again.",
+  "@errDashboardLoad": {
+    "description": "Fallback error when the dashboard fails to load"
+  },
+
+  "requestedProperty": "Requested Property",
+  "@requestedProperty": {
+    "description": "Label above the property name on a booking request card"
+  },
+  "decline": "Decline",
+  "@decline": {
+    "description": "Label for the button that declines a booking request"
+  },
+  "accept": "Accept",
+  "@accept": {
+    "description": "Label for the button that accepts a booking request"
+  },
+
+  "propertyBookingRequests": "{count, plural, =1{1 booking request} other{{count} booking requests}}",
+  "@propertyBookingRequests": {
+    "description": "Count of pending booking requests on a property card",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "manageRoom": "Manage Room",
+  "@manageRoom": {
+    "description": "Link to open and manage a property"
+  },
+  "showMore": "Show more",
+  "@showMore": {
+    "description": "Toggle to expand a truncated description"
+  },
+  "showLess": "Show less",
+  "@showLess": {
+    "description": "Toggle to collapse an expanded description"
+  },
+
+  "roomStatusAvailable": "Available",
+  "@roomStatusAvailable": {
+    "description": "Room status: available"
+  },
+  "roomStatusUnavailable": "Unavailable",
+  "@roomStatusUnavailable": {
+    "description": "Room status: unavailable"
+  },
+  "roomStatusBooked": "Booked",
+  "@roomStatusBooked": {
+    "description": "Room status: booked"
+  },
+  "roomStatusUnknown": "Unknown",
+  "@roomStatusUnknown": {
+    "description": "Room status: unknown / unrecognized"
+  },
+
+  "bookingRequestsTitle": "Booking Requests",
+  "@bookingRequestsTitle": {
+    "description": "App bar title for the booking requests screen"
+  },
+  "requestsForRoom": "Requests for {room}",
+  "@requestsForRoom": {
+    "description": "Heading on the booking requests screen, scoped to a room",
+    "placeholders": {
+      "room": { "type": "String", "example": "Master Bedroom" }
+    }
+  },
+  "requestsTitleFallback": "Requests",
+  "@requestsTitleFallback": {
+    "description": "Fallback heading when the room name is unavailable"
+  },
+  "bookingReviewSubtitle": "Review student profiles and manage upcoming stays.",
+  "@bookingReviewSubtitle": {
+    "description": "Subtitle on the booking requests screen"
+  },
+  "emptyBookingRequests": "No booking requests yet.",
+  "@emptyBookingRequests": {
+    "description": "Empty state when a room has no booking requests"
+  },
+  "errBookingRequestsLoad": "We could not load these requests. Please try again.",
+  "@errBookingRequestsLoad": {
+    "description": "Fallback error when the booking requests fail to load"
+  },
+  "errBookingRequestUpdate": "We could not update this request. Please try again.",
+  "@errBookingRequestUpdate": {
+    "description": "Fallback error when approving/rejecting a request fails"
+  },
+  "chatComingSoon": "Chatting with a student is coming soon.",
+  "@chatComingSoon": {
+    "description": "Snackbar shown when tapping the (not yet available) chat action"
+  },
+  "bookingUnknownStudent": "Unknown student",
+  "@bookingUnknownStudent": {
+    "description": "Placeholder name when a booker has no name"
+  },
+  "bookingContact": "Contact: {phone}",
+  "@bookingContact": {
+    "description": "Contact line on a booking request tile",
+    "placeholders": {
+      "phone": { "type": "String", "example": "+591 700 000 00" }
+    }
+  },
+
+  "bookingStatusPending": "PENDING",
+  "@bookingStatusPending": {
+    "description": "Booking status badge: pending"
+  },
+  "bookingStatusAccepted": "ACCEPTED",
+  "@bookingStatusAccepted": {
+    "description": "Booking status badge: accepted/confirmed"
+  },
+  "bookingStatusCompleted": "COMPLETED",
+  "@bookingStatusCompleted": {
+    "description": "Booking status badge: completed"
+  },
+  "bookingStatusRejected": "REJECTED",
+  "@bookingStatusRejected": {
+    "description": "Booking status badge: rejected/cancelled"
+  },
+  "bookingStatusUnknown": "UNKNOWN",
+  "@bookingStatusUnknown": {
+    "description": "Booking status badge: unknown"
+  },
+
+  "authWelcomeBack": "Welcome back",
+  "@authWelcomeBack": { "description": "Login screen heading" },
+  "authLoginSubtitle": "Sign in to your householder dashboard to continue.",
+  "@authLoginSubtitle": { "description": "Login screen subtitle" },
+  "authSignInWithGoogle": "Sign in with Google",
+  "@authSignInWithGoogle": { "description": "Label for the Google sign-in button" },
+  "authNoAccount": "Don't have an account? ",
+  "@authNoAccount": { "description": "Prompt before the sign-up link on the login screen" },
+  "authSignUpAsHost": "Sign up as a Host",
+  "@authSignUpAsHost": { "description": "Sign-up link on the login screen" },
+  "authGoogleSignInFailed": "Google sign-in failed: {error}",
+  "@authGoogleSignInFailed": {
+    "description": "Snackbar shown when Google sign-in fails",
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "orDivider": "or",
+  "@orDivider": { "description": "Divider label between login methods" },
+
+  "registerTitle": "Householder Registration",
+  "@registerTitle": { "description": "Registration screen heading" },
+  "registerSubtitle": "Create your secure profile to begin managing your space.",
+  "@registerSubtitle": { "description": "Registration screen subtitle" },
+  "authAlreadyHaveAccount": "Already have an account? ",
+  "@authAlreadyHaveAccount": { "description": "Prompt before the log-in link on the registration screen" },
+  "authLogIn": "Log in",
+  "@authLogIn": { "description": "Log-in link on the registration screen" },
+
+  "confirmEmailLoading": "Confirming your email…",
+  "@confirmEmailLoading": { "description": "Shown while the email confirmation request is in flight" },
+  "confirmEmailSuccessTitle": "Email confirmed",
+  "@confirmEmailSuccessTitle": { "description": "Title shown after a successful email confirmation" },
+  "confirmEmailSuccessBody": "Your account has been verified successfully. You can now log in to continue.",
+  "@confirmEmailSuccessBody": { "description": "Body shown after a successful email confirmation" },
+  "goToLogin": "Go to Login",
+  "@goToLogin": { "description": "Button to navigate to the login screen" },
+  "confirmEmailErrorTitle": "We couldn't confirm your email",
+  "@confirmEmailErrorTitle": { "description": "Title shown when email confirmation fails" },
+
+  "emailSentTitle": "Check your inbox",
+  "@emailSentTitle": { "description": "Title on the registration-email-sent screen" },
+  "emailSentBody1": "We sent a confirmation email to:",
+  "@emailSentBody1": { "description": "Line before the email address on the email-sent screen" },
+  "emailSentBody2": "Open the link in that email to confirm your account, then sign in to continue.",
+  "@emailSentBody2": { "description": "Instructions on the email-sent screen" },
+  "goToSignIn": "Go to sign in",
+  "@goToSignIn": { "description": "Button to navigate to the sign-in screen" },
+
+  "authEmailLabel": "Email address",
+  "@authEmailLabel": { "description": "Label for the email field on the login form" },
+  "hintEmail": "name@example.com",
+  "@hintEmail": { "description": "Placeholder hint for email inputs" },
+  "fieldPassword": "Password",
+  "@fieldPassword": { "description": "Label for the password field" },
+  "fieldConfirmPassword": "Confirm Password",
+  "@fieldConfirmPassword": { "description": "Label for the confirm-password field" },
+  "showPassword": "Show password",
+  "@showPassword": { "description": "Tooltip for the show-password toggle" },
+  "hidePassword": "Hide password",
+  "@hidePassword": { "description": "Tooltip for the hide-password toggle" },
+  "signIn": "Sign In",
+  "@signIn": { "description": "Label for the sign-in button" },
+  "createAccount": "Create Account",
+  "@createAccount": { "description": "Label for the create-account button" },
+  "hintPhoneLocal": "000 000 000",
+  "@hintPhoneLocal": { "description": "Placeholder hint for the local phone number input" },
+
+  "validationEmailRequired": "Email is required.",
+  "@validationEmailRequired": { "description": "Validation: email is empty" },
+  "validationEmailInvalid": "Enter a valid email address.",
+  "@validationEmailInvalid": { "description": "Validation: email format invalid" },
+  "validationPasswordRequired": "Password is required.",
+  "@validationPasswordRequired": { "description": "Validation: password is empty" },
+  "validationPasswordMinLength": "At least 6 characters.",
+  "@validationPasswordMinLength": { "description": "Validation: password too short" },
+  "validationPasswordUppercase": "Add an uppercase letter.",
+  "@validationPasswordUppercase": { "description": "Validation: password needs an uppercase letter" },
+  "validationPasswordLowercase": "Add a lowercase letter.",
+  "@validationPasswordLowercase": { "description": "Validation: password needs a lowercase letter" },
+  "validationPasswordDigit": "Add a number.",
+  "@validationPasswordDigit": { "description": "Validation: password needs a digit" },
+  "validationPasswordSpecial": "Add a special character.",
+  "@validationPasswordSpecial": { "description": "Validation: password needs a special character" },
+  "validationConfirmPasswordRequired": "Please confirm your password.",
+  "@validationConfirmPasswordRequired": { "description": "Validation: confirm-password is empty" },
+  "validationPasswordsNoMatch": "Passwords do not match.",
+  "@validationPasswordsNoMatch": { "description": "Validation: passwords differ" },
+  "validationAcceptTerms": "You must accept the terms to continue.",
+  "@validationAcceptTerms": { "description": "Validation: terms checkbox not accepted" },
+
+  "termsAgreePrefix": "I agree to the ",
+  "@termsAgreePrefix": { "description": "Terms agreement: text before the Terms link" },
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": { "description": "Terms agreement: the Terms and Conditions link" },
+  "termsConnector": " and ",
+  "@termsConnector": { "description": "Terms agreement: connector between the two links" },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": { "description": "Terms agreement: the Privacy Policy link" },
+  "termsSuffix": " of Itersapiens.",
+  "@termsSuffix": { "description": "Terms agreement: text after the Privacy Policy link" },
+
+  "errInvalidCredentials": "Wrong email or password.",
+  "@errInvalidCredentials": { "description": "Auth error: invalid credentials" },
+  "errEmailNotConfirmed": "Please confirm your email before signing in.",
+  "@errEmailNotConfirmed": { "description": "Auth error: email not confirmed" },
+  "errInvalidUserId": "We could not find your account.",
+  "@errInvalidUserId": { "description": "Auth error: invalid user id" },
+  "errValidationFailed": "Please check the highlighted fields.",
+  "@errValidationFailed": { "description": "Auth error: server-side validation failed" },
+  "errEmailAlreadyExists": "An account with this email already exists.",
+  "@errEmailAlreadyExists": { "description": "Auth error: email already registered" },
+  "errGoogleAuthFailed": "Google sign-in failed. Please try again.",
+  "@errGoogleAuthFailed": { "description": "Auth error: Google sign-in failed" },
+  "errInvalidConfirmationToken": "Invalid or expired confirmation token. Check the link or token.",
+  "@errInvalidConfirmationToken": { "description": "Auth error: invalid/expired confirmation token" },
+  "errEmailAlreadyConfirmed": "This email is already confirmed. You can sign in.",
+  "@errEmailAlreadyConfirmed": { "description": "Auth error: email already confirmed" },
+  "errTooManyAttempts": "Too many attempts. Please wait a moment and try again.",
+  "@errTooManyAttempts": { "description": "Auth error: rate limited" },
+  "errUnexpected": "Unexpected error. Please try again.",
+  "@errUnexpected": { "description": "Auth error: unexpected/default" },
+
+  "genderMale": "Male",
+  "@genderMale": { "description": "Gender option: male" },
+  "genderFemale": "Female",
+  "@genderFemale": { "description": "Gender option: female" },
+  "genderOther": "Other",
+  "@genderOther": { "description": "Gender option: other" },
+
+  "nationalityBolivian": "Bolivian",
+  "@nationalityBolivian": { "description": "Nationality option" },
+  "nationalityArgentinian": "Argentinian",
+  "@nationalityArgentinian": { "description": "Nationality option" },
+  "nationalityChilean": "Chilean",
+  "@nationalityChilean": { "description": "Nationality option" },
+  "nationalityColombian": "Colombian",
+  "@nationalityColombian": { "description": "Nationality option" },
+  "nationalityMexican": "Mexican",
+  "@nationalityMexican": { "description": "Nationality option" },
+  "nationalityPeruvian": "Peruvian",
+  "@nationalityPeruvian": { "description": "Nationality option" },
+  "nationalitySpanish": "Spanish",
+  "@nationalitySpanish": { "description": "Nationality option" },
+  "nationalityAmerican": "American",
+  "@nationalityAmerican": { "description": "Nationality option" },
+  "nationalityOther": "Other",
+  "@nationalityOther": { "description": "Nationality option: other" },
+
+  "serviceWifi": "Wi-Fi",
+  "@serviceWifi": { "description": "Room service: Wi-Fi" },
+  "serviceKitchen": "Kitchen",
+  "@serviceKitchen": { "description": "Room service: kitchen" },
+  "serviceTv": "TV",
+  "@serviceTv": { "description": "Room service: TV" },
+  "serviceAirConditioning": "Air Conditioning",
+  "@serviceAirConditioning": { "description": "Room service: air conditioning" },
+  "serviceGymEquipment": "Gym Equipment",
+  "@serviceGymEquipment": { "description": "Room service: gym equipment" },
+
+  "policyRules": "Rules",
+  "@policyRules": { "description": "Room policy: rules" },
+  "policyCleaning": "Cleaning",
+  "@policyCleaning": { "description": "Room policy: cleaning" },
+  "policyPets": "Pets",
+  "@policyPets": { "description": "Room policy: pets" },
+  "policySecurity": "Security",
+  "@policySecurity": { "description": "Room policy: security" },
+  "policyParking": "Parking",
+  "@policyParking": { "description": "Room policy: parking" },
+
+  "addNewRoom": "Add New Room",
+  "@addNewRoom": { "description": "Create-room wizard title" },
+  "stepOfThree": "Step {step} of 3",
+  "@stepOfThree": {
+    "description": "Create-room wizard step counter",
+    "placeholders": { "step": { "type": "int" } }
+  },
+  "back": "Back",
+  "@back": { "description": "Back button" },
+  "nextStep": "Next Step",
+  "@nextStep": { "description": "Wizard next-step button" },
+  "publish": "Publish",
+  "@publish": { "description": "Wizard publish button" },
+  "roomPublishedSuccess": "Room published successfully.",
+  "@roomPublishedSuccess": { "description": "Snackbar after publishing a room" },
+  "errRoomPublishValidation": "Some fields are invalid. Please review them.",
+  "@errRoomPublishValidation": { "description": "Create-room error: validation failed" },
+  "errRoomPublish": "Could not publish the room. Please try again.",
+  "@errRoomPublish": { "description": "Create-room error: generic" },
+
+  "basicDetails": "Basic Details",
+  "@basicDetails": { "description": "Create-room step 1 header" },
+  "roomTitle": "Room Title",
+  "@roomTitle": { "description": "Room title field label" },
+  "hintRoomTitle": "e.g. Spacious Master Bedroom",
+  "@hintRoomTitle": { "description": "Room title field hint" },
+  "validationTitleRequired": "Title is required.",
+  "@validationTitleRequired": { "description": "Validation: room title empty" },
+  "descriptionLabel": "Description",
+  "@descriptionLabel": { "description": "Description label / section header" },
+  "hintDescription": "Describe the room and amenities…",
+  "@hintDescription": { "description": "Description field hint" },
+  "validationDescriptionRequired": "Description is required.",
+  "@validationDescriptionRequired": { "description": "Validation: description empty" },
+  "pricePerMonth": "Price per Month",
+  "@pricePerMonth": { "description": "Price field label" },
+  "hintPrice": "0.00",
+  "@hintPrice": { "description": "Price field hint" },
+  "validationPriceInvalid": "Enter a price greater than 0.",
+  "@validationPriceInvalid": { "description": "Validation: price must be > 0" },
+  "initialStatus": "Initial Status",
+  "@initialStatus": { "description": "Initial room status label" },
+  "statusNotAvailable": "Not Available",
+  "@statusNotAvailable": { "description": "Room status toggle: not available" },
+  "location": "Location",
+  "@location": { "description": "Location section header" },
+  "noLocationSelected": "No location selected yet.",
+  "@noLocationSelected": { "description": "Shown when no location is picked" },
+  "locationHelp": "Tap the map or use your current location.",
+  "@locationHelp": { "description": "Validation/help for missing location" },
+
+  "photos": "Photos",
+  "@photos": { "description": "Photos section header" },
+  "photosAdded": "{count} / {max} Added",
+  "@photosAdded": {
+    "description": "Photos counter",
+    "placeholders": { "count": { "type": "int" }, "max": { "type": "int" } }
+  },
+  "uploadImage": "Upload Image",
+  "@uploadImage": { "description": "Upload image tile label" },
+  "recommendedSize": "Recommended size: 1200×800px or larger.",
+  "@recommendedSize": { "description": "Photo size recommendation" },
+
+  "locationError": "Could not get your location. Check permissions and that location services are enabled.",
+  "@locationError": { "description": "Snackbar when current location fails" },
+  "pinCurrentLocation": "Pin Current Location",
+  "@pinCurrentLocation": { "description": "Button to use current location" },
+
+  "servicesPolicies": "Services & Policies",
+  "@servicesPolicies": { "description": "Create-room step 2 header" },
+  "servicesPoliciesSubtitle": "Define what makes this space special and set clear expectations for potential tenants.",
+  "@servicesPoliciesSubtitle": { "description": "Create-room step 2 subtitle" },
+  "includedAmenities": "Included Amenities",
+  "@includedAmenities": { "description": "Amenities section header" },
+  "includedAmenitiesSubtitle": "Select all services provided in this room.",
+  "@includedAmenitiesSubtitle": { "description": "Amenities section subtitle" },
+  "housePolicies": "House Policies",
+  "@housePolicies": { "description": "Policies section header" },
+  "housePoliciesSubtitle": "Provide detailed descriptions for your rules to ensure a good fit.",
+  "@housePoliciesSubtitle": { "description": "Policies section subtitle" },
+  "addHousePolicy": "Add House Policy",
+  "@addHousePolicy": { "description": "Button to add a policy" },
+
+  "policyDescriptionLabel": "{policy} Description",
+  "@policyDescriptionLabel": {
+    "description": "Label for a policy's description field",
+    "placeholders": { "policy": { "type": "String", "example": "Pets" } }
+  },
+  "hintPolicyDescription": "Be specific about your rule…",
+  "@hintPolicyDescription": { "description": "Policy description hint" },
+  "cancel": "Cancel",
+  "@cancel": { "description": "Cancel button" },
+  "addPolicy": "Add Policy",
+  "@addPolicy": { "description": "Confirm add-policy button" },
+
+  "reviewListing": "Review Listing",
+  "@reviewListing": { "description": "Create-room step 3 header" },
+  "reviewSubtitle": "Almost done! Review the details below before publishing.",
+  "@reviewSubtitle": { "description": "Create-room step 3 subtitle" },
+  "basicInfo": "Basic Info",
+  "@basicInfo": { "description": "Review section: basic info" },
+  "fieldTitle": "Title",
+  "@fieldTitle": { "description": "Review field: title" },
+  "monthlyRent": "Monthly Rent",
+  "@monthlyRent": { "description": "Review field: monthly rent" },
+  "detectedAddress": "Detected Address",
+  "@detectedAddress": { "description": "Review field: detected address" },
+  "coordinates": "Coordinates",
+  "@coordinates": { "description": "Review field: coordinates" },
+  "amenities": "Amenities",
+  "@amenities": { "description": "Amenities header" },
+  "noneSelected": "None selected.",
+  "@noneSelected": { "description": "Empty amenities in review" },
+  "policiesRules": "Policies & Rules",
+  "@policiesRules": { "description": "Review section: policies & rules" },
+  "policies": "Policies",
+  "@policies": { "description": "Policies header" },
+  "noneAdded": "None added.",
+  "@noneAdded": { "description": "Empty policies in review" },
+  "photosAttached": "{count, plural, =1{1 photo attached.} other{{count} photos attached.}}",
+  "@photosAttached": {
+    "description": "Review: number of attached photos",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "readyToPublish": "Ready to Publish",
+  "@readyToPublish": { "description": "Review ready banner title" },
+  "allFieldsCompleted": "All required fields have been completed.",
+  "@allFieldsCompleted": { "description": "Review ready banner subtitle" },
+  "noAmenitiesOrPolicies": "No amenities or policies listed.",
+  "@noAmenitiesOrPolicies": { "description": "Detail: empty amenities and policies" },
+
+  "pendingBadge": "{count} Pending",
+  "@pendingBadge": {
+    "description": "Badge with pending request count",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "pendingRequestsAwaiting": "{count, plural, =1{You have 1 request awaiting your response.} other{You have {count} requests awaiting your response.}}",
+  "@pendingRequestsAwaiting": {
+    "description": "Detail: pending requests summary",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "noPendingRequests": "No pending requests right now.",
+  "@noPendingRequests": { "description": "Detail: no pending requests" },
+  "viewRequests": "View Requests",
+  "@viewRequests": { "description": "Button to view booking requests" },
+
+  "openInMaps": "Open in Maps",
+  "@openInMaps": { "description": "Link to open the location in Google Maps" },
+  "couldNotOpenMaps": "Could not open Maps.",
+  "@couldNotOpenMaps": { "description": "Snackbar when Maps cannot open" },
+  "tapOpenInMaps": "Tap \"Open in Maps\" for directions.",
+  "@tapOpenInMaps": { "description": "Web hint for directions" },
+
+  "roomDetails": "Room Details",
+  "@roomDetails": { "description": "Room detail app bar title" },
+  "noDescriptionProvided": "No description provided.",
+  "@noDescriptionProvided": { "description": "Room detail: empty description" },
+  "errRoomLoad": "We could not load this room. Please try again.",
+  "@errRoomLoad": { "description": "Room detail load error" },
+  "editRoomComingSoon": "Editing a room is coming soon.",
+  "@editRoomComingSoon": { "description": "Snackbar for the not-yet-available edit room action" }
+}

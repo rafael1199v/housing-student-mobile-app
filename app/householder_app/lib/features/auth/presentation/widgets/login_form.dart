@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../utils/auth_validators.dart';
 
 class LoginForm extends StatefulWidget {
@@ -35,12 +36,14 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _submit() {
+    final l10n = AppLocalizations.of(context);
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     setState(() {
-      _emailError = AuthValidators.email(email);
-      _passwordError = password.isEmpty ? 'Password is required.' : null;
+      _emailError = AuthValidators.email(l10n, email);
+      _passwordError =
+          password.isEmpty ? l10n.validationPasswordRequired : null;
     });
 
     if (_emailError == null && _passwordError == null) {
@@ -51,12 +54,13 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppTextField(
-          label: 'Email address',
-          hintText: 'name@example.com',
+          label: l10n.authEmailLabel,
+          hintText: l10n.hintEmail,
           prefixIcon: Icons.mail_outline,
           uppercaseLabel: true,
           controller: _emailController,
@@ -70,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         AppSpacing.gapLg,
         AppTextField(
-          label: 'Password',
+          label: l10n.fieldPassword,
           hintText: '••••••••',
           prefixIcon: Icons.lock_outline,
           uppercaseLabel: true,
@@ -91,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
               size: 20,
               color: cs.outline,
             ),
-            tooltip: _obscurePassword ? 'Show password' : 'Hide password',
+            tooltip: _obscurePassword ? l10n.showPassword : l10n.hidePassword,
             onPressed: widget.isLoading
                 ? null
                 : () => setState(() => _obscurePassword = !_obscurePassword),
@@ -99,7 +103,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         const SizedBox(height: AppSpacing.xxl),
         AppPrimaryButton(
-          label: 'Sign In',
+          label: l10n.signIn,
           expanded: true,
           isLoading: widget.isLoading,
           onPressed: _submit,

@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
+import '../../../profile/presentation/utils/profile_form_options.dart';
 import '../utils/register_validators.dart';
 import 'phone_field.dart';
 
@@ -16,24 +18,6 @@ typedef RegisterSubmitCallback =
       required String email,
       required String password,
     });
-
-const List<AppDropdownItem<String>> _genders = [
-  AppDropdownItem(value: 'Male', label: 'Male'),
-  AppDropdownItem(value: 'Female', label: 'Female'),
-  AppDropdownItem(value: 'Other', label: 'Other'),
-];
-
-const List<AppDropdownItem<String>> _nationalities = [
-  AppDropdownItem(value: 'Bolivian', label: 'Bolivian'),
-  AppDropdownItem(value: 'Argentinian', label: 'Argentinian'),
-  AppDropdownItem(value: 'Chilean', label: 'Chilean'),
-  AppDropdownItem(value: 'Colombian', label: 'Colombian'),
-  AppDropdownItem(value: 'Mexican', label: 'Mexican'),
-  AppDropdownItem(value: 'Peruvian', label: 'Peruvian'),
-  AppDropdownItem(value: 'Spanish', label: 'Spanish'),
-  AppDropdownItem(value: 'American', label: 'American'),
-  AppDropdownItem(value: 'Other', label: 'Other'),
-];
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
@@ -95,6 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   void _submit() {
+    final l10n = AppLocalizations.of(context);
     final firstName = _firstNameController.text.trim();
     final lastName = _lastNameController.text.trim();
     final phone = _phoneController.text.trim();
@@ -103,22 +88,21 @@ class _RegisterFormState extends State<RegisterForm> {
     final confirm = _confirmController.text;
 
     setState(() {
-      _firstNameError = RegisterValidators.required(firstName, 'First name');
-      _lastNameError = RegisterValidators.required(lastName, 'Last name');
-      _genderError = _gender == null ? 'Please select a gender.' : null;
-      _birthDateError = _birthDate == null
-          ? 'Please select your date of birth.'
-          : null;
-      _nationalityError = _nationality == null
-          ? 'Please select a nationality.'
-          : null;
-      _phoneError = RegisterValidators.phoneNumber(phone);
-      _emailError = RegisterValidators.email(email);
-      _passwordError = RegisterValidators.password(password);
-      _confirmError = RegisterValidators.confirmPassword(password, confirm);
-      _termsError = _acceptedTerms
-          ? null
-          : 'You must accept the terms to continue.';
+      _firstNameError =
+          RegisterValidators.required(l10n, firstName, l10n.fieldFirstName);
+      _lastNameError =
+          RegisterValidators.required(l10n, lastName, l10n.fieldLastName);
+      _genderError = _gender == null ? l10n.validationSelectGender : null;
+      _birthDateError =
+          _birthDate == null ? l10n.validationSelectBirthDate : null;
+      _nationalityError =
+          _nationality == null ? l10n.validationSelectNationality : null;
+      _phoneError = RegisterValidators.phoneNumber(l10n, phone);
+      _emailError = RegisterValidators.email(l10n, email);
+      _passwordError = RegisterValidators.password(l10n, password);
+      _confirmError =
+          RegisterValidators.confirmPassword(l10n, password, confirm);
+      _termsError = _acceptedTerms ? null : l10n.validationAcceptTerms;
     });
 
     final hasError = [
@@ -151,14 +135,15 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final enabled = !widget.isLoading;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppTextField(
-          label: 'First Name',
-          hintText: 'e.g. Jane',
+          label: l10n.fieldFirstName,
+          hintText: l10n.hintFirstName,
           controller: _firstNameController,
           enabled: enabled,
           keyboardType: TextInputType.name,
@@ -172,8 +157,8 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppTextField(
-          label: 'Last Name',
-          hintText: 'e.g. Doe',
+          label: l10n.fieldLastName,
+          hintText: l10n.hintLastName,
           controller: _lastNameController,
           enabled: enabled,
           keyboardType: TextInputType.name,
@@ -185,9 +170,9 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppDropdownField<String>(
-          label: 'Gender',
-          hintText: 'Select gender',
-          items: _genders,
+          label: l10n.fieldGender,
+          hintText: l10n.hintSelectGender,
+          items: genderOptions(l10n),
           value: _gender,
           enabled: enabled,
           errorText: _genderError,
@@ -198,8 +183,8 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppDateField(
-          label: 'Date of Birth',
-          hintText: 'mm/dd/yyyy',
+          label: l10n.fieldDateOfBirth,
+          hintText: l10n.hintDateOfBirth,
           value: _birthDate,
           enabled: enabled,
           errorText: _birthDateError,
@@ -210,9 +195,9 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppDropdownField<String>(
-          label: 'Nationality',
-          hintText: 'Select nationality',
-          items: _nationalities,
+          label: l10n.fieldNationality,
+          hintText: l10n.hintSelectNationality,
+          items: nationalityOptions(l10n),
           value: _nationality,
           enabled: enabled,
           errorText: _nationalityError,
@@ -235,8 +220,8 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppTextField(
-          label: 'Email Address',
-          hintText: 'name@example.com',
+          label: l10n.fieldEmailAddress,
+          hintText: l10n.hintEmail,
           prefixIcon: Icons.mail_outline,
           controller: _emailController,
           enabled: enabled,
@@ -249,7 +234,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppTextField(
-          label: 'Password',
+          label: l10n.fieldPassword,
           hintText: '••••••••',
           prefixIcon: Icons.lock_outline,
           controller: _passwordController,
@@ -268,7 +253,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         AppSpacing.gapLg,
         AppTextField(
-          label: 'Confirm Password',
+          label: l10n.fieldConfirmPassword,
           hintText: '••••••••',
           prefixIcon: Icons.lock_outline,
           controller: _confirmController,
@@ -289,7 +274,7 @@ class _RegisterFormState extends State<RegisterForm> {
         _termsCheckbox(cs),
         const SizedBox(height: AppSpacing.xxl),
         AppPrimaryButton(
-          label: 'Create Account',
+          label: l10n.createAccount,
           expanded: true,
           isLoading: widget.isLoading,
           onPressed: _submit,
@@ -308,12 +293,15 @@ class _RegisterFormState extends State<RegisterForm> {
         size: 20,
         color: Theme.of(context).colorScheme.outline,
       ),
-      tooltip: obscured ? 'Show password' : 'Hide password',
+      tooltip: obscured
+          ? AppLocalizations.of(context).showPassword
+          : AppLocalizations.of(context).hidePassword,
       onPressed: widget.isLoading ? null : onPressed,
     );
   }
 
   Widget _termsCheckbox(ColorScheme cs) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -341,25 +329,25 @@ class _RegisterFormState extends State<RegisterForm> {
                   text: TextSpan(
                     style: Theme.of(context).textTheme.bodyMedium,
                     children: [
-                      const TextSpan(text: 'I agree to the '),
+                      TextSpan(text: l10n.termsAgreePrefix),
                       TextSpan(
-                        text: 'Terms and Conditions',
+                        text: l10n.termsAndConditions,
                         style: TextStyle(
                           color: cs.primary,
                           fontWeight: FontWeight.w700,
                         ),
                         recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
-                      const TextSpan(text: ' and '),
+                      TextSpan(text: l10n.termsConnector),
                       TextSpan(
-                        text: 'Privacy Policy',
+                        text: l10n.privacyPolicy,
                         style: TextStyle(
                           color: cs.primary,
                           fontWeight: FontWeight.w700,
                         ),
                         recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
-                      const TextSpan(text: ' of Itersapiens.'),
+                      TextSpan(text: l10n.termsSuffix),
                     ],
                   ),
                 ),

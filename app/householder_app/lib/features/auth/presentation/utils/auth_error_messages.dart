@@ -1,36 +1,38 @@
-String authErrorMessage(String code) {
+import '../../../../core/core.dart';
+
+String authErrorMessage(AppLocalizations l10n, String code) {
   switch (code) {
     case 'invalid.credentials':
-      return 'Wrong email or password.';
+      return l10n.errInvalidCredentials;
     case 'email.not.confirmed':
-      return 'Please confirm your email before signing in.';
+      return l10n.errEmailNotConfirmed;
     case 'invalid.user.id':
-      return 'We could not find your account.';
+      return l10n.errInvalidUserId;
     case 'refresh.token.expired':
     case 'unauthorized':
-      return 'Your session expired. Please sign in again.';
+      return l10n.errUnauthorized;
     case 'validation.failed':
-      return 'Please check the highlighted fields.';
+      return l10n.errValidationFailed;
     case 'email.already.exists':
     case 'email.already.registered':
     case 'user.already.exists':
-      return 'An account with this email already exists.';
+      return l10n.errEmailAlreadyExists;
     case 'google.auth.failed':
     case 'google.invalid.token':
-      return 'Google sign-in failed. Please try again.';
+      return l10n.errGoogleAuthFailed;
     case 'confirm.email.failed':
     case 'invalid.token':
     case 'invalid.confirmation.token':
-      return 'Invalid or expired confirmation token. Check the link or token.';
+      return l10n.errInvalidConfirmationToken;
     case 'email.already.confirmed':
-      return 'This email is already confirmed. You can sign in.';
+      return l10n.errEmailAlreadyConfirmed;
     case 'rate.limited':
-      return 'Too many attempts. Please wait a moment and try again.';
+      return l10n.errTooManyAttempts;
     case 'network.error':
-      return 'No connection. Check your network and try again.';
+      return l10n.errNetwork;
     case 'server.error':
-      return 'Something went wrong on our side. Please try again later.';
+      return l10n.errServer;
     default:
-      return 'Unexpected error. Please try again.';
+      return l10n.errUnexpected;
   }
 }

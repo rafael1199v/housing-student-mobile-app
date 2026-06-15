@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../cubits/create_room_cubit.dart';
 import 'location_map.dart';
 import 'photos_picker.dart';
@@ -35,6 +36,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
   Widget build(BuildContext context) {
     return BlocBuilder<CreateRoomCubit, CreateRoomState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context);
         final showErrors = state.showStepErrors;
         final priceValue = state.priceValue;
         return ListView(
@@ -45,7 +47,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Basic Details',
+                    l10n.basicDetails,
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
@@ -53,31 +55,31 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                   ),
                   AppSpacing.gapXl,
                   AppTextField(
-                    label: 'Room Title',
-                    hintText: 'e.g. Spacious Master Bedroom',
+                    label: l10n.roomTitle,
+                    hintText: l10n.hintRoomTitle,
                     uppercaseLabel: false,
                     controller: _name,
                     onChanged: _cubit.updateName,
                     errorText: showErrors && state.name.trim().isEmpty
-                        ? 'Title is required.'
+                        ? l10n.validationTitleRequired
                         : null,
                   ),
                   AppSpacing.gapLg,
                   AppTextField(
-                    label: 'Description',
-                    hintText: 'Describe the room and amenities…',
+                    label: l10n.descriptionLabel,
+                    hintText: l10n.hintDescription,
                     uppercaseLabel: false,
                     controller: _description,
                     maxLines: 4,
                     onChanged: _cubit.updateDescription,
                     errorText: showErrors && state.description.trim().isEmpty
-                        ? 'Description is required.'
+                        ? l10n.validationDescriptionRequired
                         : null,
                   ),
                   AppSpacing.gapLg,
                   AppTextField(
-                    label: 'Price per Month',
-                    hintText: '0.00',
+                    label: l10n.pricePerMonth,
+                    hintText: l10n.hintPrice,
                     prefixIcon: Icons.attach_money,
                     uppercaseLabel: false,
                     controller: _price,
@@ -85,14 +87,14 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                         const TextInputType.numberWithOptions(decimal: true),
                     onChanged: _cubit.updatePrice,
                     errorText: showErrors && (priceValue == null || priceValue <= 0)
-                        ? 'Enter a price greater than 0.'
+                        ? l10n.validationPriceInvalid
                         : null,
                   ),
                   AppSpacing.gapXl,
-                  const AppFieldLabel(text: 'Initial Status', uppercase: false),
+                  AppFieldLabel(text: l10n.initialStatus, uppercase: false),
                   const SizedBox(height: AppSpacing.sm),
                   AppSegmentedToggle(
-                    labels: const ['Available', 'Not Available'],
+                    labels: [l10n.roomStatusAvailable, l10n.statusNotAvailable],
                     selectedIndex: state.statusId == 1 ? 0 : 1,
                     onChanged: (i) => _cubit.updateStatus(i == 0 ? 1 : 2),
                   ),
@@ -113,7 +115,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Location',
+                    l10n.location,
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
@@ -131,7 +133,7 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                   if (showErrors && !state.hasLocation) ...[
                     const SizedBox(height: AppSpacing.sm),
                     Text(
-                      'Tap the map or use your current location.',
+                      l10n.locationHelp,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -157,7 +159,7 @@ class _LocationSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!state.hasLocation) {
       return Text(
-        'No location selected yet.',
+        AppLocalizations.of(context).noLocationSelected,
         style: Theme.of(context).textTheme.bodyMedium,
       );
     }

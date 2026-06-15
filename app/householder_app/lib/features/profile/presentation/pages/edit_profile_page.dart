@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/user_profile.dart';
 import '../cubits/edit_profile_cubit.dart';
 import '../widgets/edit_profile_form.dart';
@@ -15,24 +16,25 @@ class EditProfilePage extends StatelessWidget {
 
   final UserProfile profile;
 
-  String _errorMessage(String code) => switch (code) {
-        'network.error' => 'No connection. Check your network and try again.',
-        'server.error' => 'Something went wrong on our side. Please try again.',
-        'unauthorized' => 'Your session expired. Please sign in again.',
-        'rate.limited' => 'Too many requests. Please wait a moment.',
-        _ => 'We could not update your profile. Please try again.',
+  String _errorMessage(AppLocalizations l10n, String code) => switch (code) {
+        'network.error' => l10n.errNetwork,
+        'server.error' => l10n.errServer,
+        'unauthorized' => l10n.errUnauthorized,
+        'rate.limited' => l10n.errRateLimited,
+        _ => l10n.errProfileUpdate,
       };
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     return BlocProvider<EditProfileCubit>(
       create: (_) => GetIt.I<EditProfileCubit>(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: cs.surface,
           elevation: 0,
-          title: const Text('Edit Profile'),
+          title: Text(l10n.editProfileTitle),
         ),
         body: BlocConsumer<EditProfileCubit, EditProfileState>(
           listener: (context, state) {
@@ -40,7 +42,7 @@ class EditProfilePage extends StatelessWidget {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
-                  const SnackBar(content: Text('Profile updated.')),
+                  SnackBar(content: Text(l10n.profileUpdated)),
                 );
               context.pop();
             } else if (state is EditProfileFailure &&
@@ -48,7 +50,7 @@ class EditProfilePage extends StatelessWidget {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
-                  SnackBar(content: Text(_errorMessage(state.code))),
+                  SnackBar(content: Text(_errorMessage(l10n, state.code))),
                 );
             }
           },

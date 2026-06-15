@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/booking_request.dart';
 import '../cubits/booking_requests_cubit.dart';
 import '../widgets/booking_request_tile.dart';
@@ -28,17 +29,20 @@ class _BookingRequestsView extends StatelessWidget {
 
   final int roomId;
 
-  void _comingSoon(BuildContext context, String feature) {
+  void _showChatComingSoon(BuildContext context) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('$feature is coming soon.')));
+      ..showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).chatComingSoon)),
+      );
   }
 
   void _showActionError(BuildContext context, String code) {
+    final l10n = AppLocalizations.of(context);
     final message = switch (code) {
-      'network.error' => 'No connection. Check your network and try again.',
-      'unauthorized' => 'Your session expired. Please sign in again.',
-      _ => 'We could not update this request. Please try again.',
+      'network.error' => l10n.errNetwork,
+      'unauthorized' => l10n.errUnauthorized,
+      _ => l10n.errBookingRequestUpdate,
     };
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -52,7 +56,7 @@ class _BookingRequestsView extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Text(
-          'Booking Requests',
+          AppLocalizations.of(context).bookingRequestsTitle,
           style: Theme.of(
             context,
           ).textTheme.displaySmall?.copyWith(fontSize: 20),
@@ -72,7 +76,7 @@ class _BookingRequestsView extends StatelessWidget {
                 onDecline: (id) => _onAction(context, () {
                   return context.read<BookingRequestsCubit>().reject(id);
                 }),
-                onChat: () => _comingSoon(context, 'Chatting with a student'),
+                onChat: () => _showChatComingSoon(context),
               ),
             BookingRequestsFailureState(:final code) => _BookingRequestsError(
               code: code,
@@ -117,6 +121,7 @@ class _Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return SafeArea(
       top: false,
@@ -128,13 +133,13 @@ class _Content extends StatelessWidget {
             children: [
               Text(
                 roomName.trim().isEmpty
-                    ? 'Requests'
-                    : 'Requests for $roomName',
+                    ? l10n.requestsTitleFallback
+                    : l10n.requestsForRoom(roomName),
                 style: theme.textTheme.displaySmall?.copyWith(fontSize: 22),
               ),
               AppSpacing.gapSm,
               Text(
-                'Review student profiles and manage upcoming stays.',
+                l10n.bookingReviewSubtitle,
                 style: theme.textTheme.bodyMedium,
               ),
               AppSpacing.gapXl,
@@ -174,7 +179,7 @@ class _EmptyRequests extends StatelessWidget {
           ),
           AppSpacing.gapMd,
           Text(
-            'No booking requests yet.',
+            AppLocalizations.of(context).emptyBookingRequests,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
@@ -190,15 +195,16 @@ class _BookingRequestsError extends StatelessWidget {
   final String code;
   final VoidCallback onRetry;
 
-  String get _message => switch (code) {
-    'network.error' => 'No connection. Check your network and try again.',
-    'server.error' => 'Something went wrong on our side. Please try again.',
-    'unauthorized' => 'Your session expired. Please sign in again.',
-    _ => 'We could not load these requests. Please try again.',
+  String _message(AppLocalizations l10n) => switch (code) {
+    'network.error' => l10n.errNetwork,
+    'server.error' => l10n.errServer,
+    'unauthorized' => l10n.errUnauthorized,
+    _ => l10n.errBookingRequestsLoad,
   };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -212,13 +218,13 @@ class _BookingRequestsError extends StatelessWidget {
             ),
             AppSpacing.gapLg,
             Text(
-              _message,
+              _message(l10n),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             AppSpacing.gapXl,
             AppPrimaryButton(
-              label: 'Retry',
+              label: l10n.retry,
               expanded: true,
               trailingIcon: null,
               onPressed: onRetry,

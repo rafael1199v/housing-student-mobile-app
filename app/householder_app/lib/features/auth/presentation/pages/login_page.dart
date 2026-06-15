@@ -43,13 +43,16 @@ class _LoginView extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).colorScheme.error,
-                  content: Text(authErrorMessage(state.code)),
+                  content: Text(
+                    authErrorMessage(AppLocalizations.of(context), state.code),
+                  ),
                 ),
               );
           }
         },
         builder: (context, state) {
           final isLoading = state is AuthLoading;
+          final l10n = AppLocalizations.of(context);
 
           return AppAuthCard(
             child: Column(
@@ -59,12 +62,12 @@ class _LoginView extends StatelessWidget {
                 const AppBrandLogo(brandName: 'Itersapiens'),
                 AppSpacing.gapXl,
                 Text(
-                  'Welcome back',
+                  l10n.authWelcomeBack,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
-                  'Sign in to your householder dashboard to continue.',
+                  l10n.authLoginSubtitle,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: AppSpacing.xxl),
@@ -79,16 +82,16 @@ class _LoginView extends StatelessWidget {
                   },
                 ),
                 AppSpacing.gapXl,
-                const AppLabeledDivider(label: 'or'),
+                AppLabeledDivider(label: l10n.orDivider),
                 AppSpacing.gapXl,
                 GoogleAuthButton(
                   service: GetIt.I<GoogleSignInService>(),
-                  label: 'Sign in with Google',
+                  label: l10n.authSignInWithGoogle,
                   enabled: !isLoading,
                   onIdToken: (idToken) => context.read<AuthBloc>().add(
                     GoogleAuthSubmitted(idToken),
                   ),
-                  onError: (error) { 
+                  onError: (error) {
                     debugPrint('Google sign-in error: $error');
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
@@ -96,7 +99,7 @@ class _LoginView extends StatelessWidget {
                         SnackBar(
                           backgroundColor: Theme.of(context).colorScheme.error,
                           duration: const Duration(seconds: 6),
-                          content: Text('Google sign-in failed: $error'),
+                          content: Text(l10n.authGoogleSignInFailed('$error')),
                         ),
                       );
                   },
@@ -107,13 +110,13 @@ class _LoginView extends StatelessWidget {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account? ",
+                        l10n.authNoAccount,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       GestureDetector(
                         onTap: () => context.go(RegisterPage.routeName),
                         child: Text(
-                          'Sign up as a Host',
+                          l10n.authSignUpAsHost,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.primary,

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../blocs/confirm_email_bloc.dart';
 import '../utils/auth_error_messages.dart';
 import 'login_page.dart';
@@ -67,7 +68,7 @@ class _ConfirmEmailLoadingView extends StatelessWidget {
         ),
         AppSpacing.gapXl,
         Text(
-          'Confirming your email…',
+          AppLocalizations.of(context).confirmEmailLoading,
           textAlign: TextAlign.center,
           style: textTheme.titleMedium,
         ),
@@ -105,19 +106,19 @@ class _ConfirmEmailSuccessView extends StatelessWidget {
         ),
         AppSpacing.gapXl,
         Text(
-          'Email confirmed',
+          AppLocalizations.of(context).confirmEmailSuccessTitle,
           textAlign: TextAlign.center,
           style: textTheme.displaySmall,
         ),
         const SizedBox(height: AppSpacing.sm),
         Text(
-          'Your account has been verified successfully. You can now log in to continue.',
+          AppLocalizations.of(context).confirmEmailSuccessBody,
           textAlign: TextAlign.center,
           style: textTheme.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
         ),
         const SizedBox(height: AppSpacing.xxl),
         AppPrimaryButton(
-          label: 'Go to Login',
+          label: AppLocalizations.of(context).goToLogin,
           expanded: true,
           onPressed: () => context.go(LoginPage.routeName),
         ),
@@ -155,19 +156,19 @@ class _ConfirmEmailErrorView extends StatelessWidget {
         ),
         AppSpacing.gapXl,
         Text(
-          'We couldn\'t confirm your email',
+          AppLocalizations.of(context).confirmEmailErrorTitle,
           textAlign: TextAlign.center,
           style: textTheme.displaySmall,
         ),
         const SizedBox(height: AppSpacing.sm),
         Text(
-          authErrorMessage(code),
+          authErrorMessage(AppLocalizations.of(context), code),
           textAlign: TextAlign.center,
           style: textTheme.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
         ),
         const SizedBox(height: AppSpacing.xxl),
         AppPrimaryButton(
-          label: 'Go to Login',
+          label: AppLocalizations.of(context).goToLogin,
           expanded: true,
           onPressed: () => context.go(LoginPage.routeName),
         ),

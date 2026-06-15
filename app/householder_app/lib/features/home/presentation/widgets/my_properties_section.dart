@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/property_summary.dart';
 import 'property_card.dart';
 import 'section_header.dart';
@@ -22,7 +23,7 @@ class MyPropertiesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: 'My Properties'),
+        SectionHeader(title: AppLocalizations.of(context).sectionMyProperties),
         AppSpacing.gapLg,
         if (properties.isEmpty) _EmptyProperties() else _buildGrid(),
       ],
@@ -70,7 +71,7 @@ class _EmptyProperties extends StatelessWidget {
           ),
           AppSpacing.gapMd,
           Text(
-            "You haven't listed any rooms yet.",
+            AppLocalizations.of(context).emptyProperties,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),

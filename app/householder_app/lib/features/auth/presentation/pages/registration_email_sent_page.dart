@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import 'login_page.dart';
 
 class RegistrationEmailSentPage extends StatelessWidget {
@@ -15,6 +16,7 @@ class RegistrationEmailSentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       body: AppAuthCard(
@@ -37,13 +39,13 @@ class RegistrationEmailSentPage extends StatelessWidget {
             ),
             AppSpacing.gapXl,
             Text(
-              'Check your inbox',
+              l10n.emailSentTitle,
               textAlign: TextAlign.center,
               style: textTheme.displaySmall,
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'We sent a confirmation email to:',
+              l10n.emailSentBody1,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium,
             ),
@@ -58,8 +60,7 @@ class RegistrationEmailSentPage extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Open the link in that email to confirm your account, then sign '
-              'in to continue.',
+              l10n.emailSentBody2,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
                 color: cs.onSurfaceVariant,
@@ -67,7 +68,7 @@ class RegistrationEmailSentPage extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xxl),
             AppPrimaryButton(
-              label: 'Go to sign in',
+              label: l10n.goToSignIn,
               expanded: true,
               onPressed: () => context.go(LoginPage.routeName),
             ),

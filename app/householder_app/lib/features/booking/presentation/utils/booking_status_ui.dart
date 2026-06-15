@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/booking_status.dart';
 
 ({Color fg, Color bg}) bookingStatusBadgeColors(
@@ -21,17 +22,18 @@ import '../../domain/entities/booking_status.dart';
   }
 }
 
-String bookingStatusLabel(BookingStatus status) {
+String bookingStatusLabel(BuildContext context, BookingStatus status) {
+  final l10n = AppLocalizations.of(context);
   switch (status) {
     case BookingStatus.pending:
-      return 'PENDING';
+      return l10n.bookingStatusPending;
     case BookingStatus.confirmed:
-      return 'ACCEPTED';
+      return l10n.bookingStatusAccepted;
     case BookingStatus.completed:
-      return 'COMPLETED';
+      return l10n.bookingStatusCompleted;
     case BookingStatus.cancelled:
-      return 'REJECTED';
+      return l10n.bookingStatusRejected;
     case BookingStatus.unknown:
-      return 'UNKNOWN';
+      return l10n.bookingStatusUnknown;
   }
 }

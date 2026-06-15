@@ -60,12 +60,7 @@ class _LocationMapState extends State<LocationMap> {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Could not get your location. Check permissions and that '
-              'location services are enabled.',
-            ),
-          ),
+          SnackBar(content: Text(AppLocalizations.of(context).locationError)),
         );
     }
   }
@@ -115,7 +110,7 @@ class _LocationMapState extends State<LocationMap> {
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
                 : const Icon(Icons.my_location, size: 18),
-            label: const Text('Pin Current Location'),
+            label: Text(AppLocalizations.of(context).pinCurrentLocation),
             style: OutlinedButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.primary,
               side: BorderSide(color: Theme.of(context).colorScheme.primary),
