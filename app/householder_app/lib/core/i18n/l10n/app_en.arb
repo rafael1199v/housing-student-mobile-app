@@ -342,5 +342,73 @@
   "roomStatusUnknown": "Unknown",
   "@roomStatusUnknown": {
     "description": "Room status: unknown / unrecognized"
+  },
+
+  "bookingRequestsTitle": "Booking Requests",
+  "@bookingRequestsTitle": {
+    "description": "App bar title for the booking requests screen"
+  },
+  "requestsForRoom": "Requests for {room}",
+  "@requestsForRoom": {
+    "description": "Heading on the booking requests screen, scoped to a room",
+    "placeholders": {
+      "room": { "type": "String", "example": "Master Bedroom" }
+    }
+  },
+  "requestsTitleFallback": "Requests",
+  "@requestsTitleFallback": {
+    "description": "Fallback heading when the room name is unavailable"
+  },
+  "bookingReviewSubtitle": "Review student profiles and manage upcoming stays.",
+  "@bookingReviewSubtitle": {
+    "description": "Subtitle on the booking requests screen"
+  },
+  "emptyBookingRequests": "No booking requests yet.",
+  "@emptyBookingRequests": {
+    "description": "Empty state when a room has no booking requests"
+  },
+  "errBookingRequestsLoad": "We could not load these requests. Please try again.",
+  "@errBookingRequestsLoad": {
+    "description": "Fallback error when the booking requests fail to load"
+  },
+  "errBookingRequestUpdate": "We could not update this request. Please try again.",
+  "@errBookingRequestUpdate": {
+    "description": "Fallback error when approving/rejecting a request fails"
+  },
+  "chatComingSoon": "Chatting with a student is coming soon.",
+  "@chatComingSoon": {
+    "description": "Snackbar shown when tapping the (not yet available) chat action"
+  },
+  "bookingUnknownStudent": "Unknown student",
+  "@bookingUnknownStudent": {
+    "description": "Placeholder name when a booker has no name"
+  },
+  "bookingContact": "Contact: {phone}",
+  "@bookingContact": {
+    "description": "Contact line on a booking request tile",
+    "placeholders": {
+      "phone": { "type": "String", "example": "+591 700 000 00" }
+    }
+  },
+
+  "bookingStatusPending": "PENDING",
+  "@bookingStatusPending": {
+    "description": "Booking status badge: pending"
+  },
+  "bookingStatusAccepted": "ACCEPTED",
+  "@bookingStatusAccepted": {
+    "description": "Booking status badge: accepted/confirmed"
+  },
+  "bookingStatusCompleted": "COMPLETED",
+  "@bookingStatusCompleted": {
+    "description": "Booking status badge: completed"
+  },
+  "bookingStatusRejected": "REJECTED",
+  "@bookingStatusRejected": {
+    "description": "Booking status badge: rejected/cancelled"
+  },
+  "bookingStatusUnknown": "UNKNOWN",
+  "@bookingStatusUnknown": {
+    "description": "Booking status badge: unknown"
   }
 }

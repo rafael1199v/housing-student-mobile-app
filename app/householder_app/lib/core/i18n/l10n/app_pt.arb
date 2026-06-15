@@ -98,5 +98,22 @@
   "roomStatusAvailable": "Disponível",
   "roomStatusUnavailable": "Indisponível",
   "roomStatusBooked": "Reservado",
-  "roomStatusUnknown": "Desconhecido"
+  "roomStatusUnknown": "Desconhecido",
+
+  "bookingRequestsTitle": "Solicitações de reserva",
+  "requestsForRoom": "Solicitações para {room}",
+  "requestsTitleFallback": "Solicitações",
+  "bookingReviewSubtitle": "Revise os perfis dos estudantes e gerencie as estadias.",
+  "emptyBookingRequests": "Ainda não há solicitações de reserva.",
+  "errBookingRequestsLoad": "Não foi possível carregar estas solicitações. Tente novamente.",
+  "errBookingRequestUpdate": "Não foi possível atualizar esta solicitação. Tente novamente.",
+  "chatComingSoon": "O chat com um estudante estará disponível em breve.",
+  "bookingUnknownStudent": "Estudante desconhecido",
+  "bookingContact": "Contato: {phone}",
+
+  "bookingStatusPending": "PENDENTE",
+  "bookingStatusAccepted": "ACEITA",
+  "bookingStatusCompleted": "CONCLUÍDA",
+  "bookingStatusRejected": "RECUSADA",
+  "bookingStatusUnknown": "DESCONHECIDA"
 }
