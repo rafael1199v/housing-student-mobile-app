@@ -209,7 +209,7 @@
   "addNewRoom": "Adicionar quarto",
   "stepOfThree": "Etapa {step} de 3",
   "back": "Voltar",
-  "nextStep": "Próxima etapa",
+  "nextStep": "Próxima",
   "publish": "Publicar",
   "roomPublishedSuccess": "Quarto publicado com sucesso.",
   "errRoomPublishValidation": "Alguns campos são inválidos. Revise-os.",
