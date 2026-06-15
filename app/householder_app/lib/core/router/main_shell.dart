@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core.dart';
+
 class MainShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -16,6 +18,7 @@ class MainShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
@@ -26,17 +29,17 @@ class MainShell extends StatelessWidget {
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),
-            label: 'Home',
+            label: l10n.navHome,
             selectedIcon: Icon(Icons.home, color: cs.primary),
           ),
           NavigationDestination(
             icon: const Icon(Icons.chat_bubble_outline),
-            label: 'Messages',
+            label: l10n.navMessages,
             selectedIcon: Icon(Icons.chat_bubble, color: cs.primary),
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline),
-            label: 'Profile',
+            label: l10n.navProfile,
             selectedIcon: Icon(Icons.person, color: cs.primary),
           )
         ],
