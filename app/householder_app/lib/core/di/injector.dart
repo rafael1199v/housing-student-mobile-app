@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -6,6 +8,8 @@ import '../../features/booking/booking.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
+import '../i18n/locale_cubit.dart';
+import '../i18n/locale_preference_storage.dart';
 import '../network/dio_client.dart';
 import '../session/session_notifier.dart';
 import '../storage/secure_token_storage.dart';
@@ -27,6 +31,17 @@ Future<void> configureDependencies() async {
   final savedThemeMode = await themeStorage.read();
   getIt.registerLazySingleton<ThemeCubit>(
     () => ThemeCubit(storage: themeStorage, initial: savedThemeMode),
+  );
+
+  final localeStorage = LocalePreferenceStorage();
+  final savedLocale = await localeStorage.read();
+  final deviceLocale = PlatformDispatcher.instance.locale;
+  final initialLocale = savedLocale ??
+      (LocaleCubit.isSupported(deviceLocale)
+          ? Locale(deviceLocale.languageCode)
+          : const Locale('en'));
+  getIt.registerLazySingleton<LocaleCubit>(
+    () => LocaleCubit(storage: localeStorage, initial: initialLocale),
   );
 
   final refreshClient = DioClient.createRefreshClient();
