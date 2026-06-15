@@ -1,0 +1,78 @@
+name: householder_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Localization (gen-l10n: ARB files -> AppLocalizations).
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+  # Web URL strategy (usePathUrlStrategy) for clean deep-link URLs.
+  flutter_web_plugins:
+    sdk: flutter
+
+  housing_design_system:
+    git:
+      url: https://github.com/rafael1199v/housing-design-system.git
+      ref: main
+
+  # Networking (Retrofit over Dio)
+  dio: ^5.7.0
+  retrofit: ^4.9.0
+  json_annotation: ^4.9.0
+
+  # Secure token storage
+  flutter_secure_storage: ^9.2.4
+
+  # Lightweight persistence for non-sensitive prefs (e.g. theme mode).
+  shared_preferences: ^2.3.0
+
+  # Dependency injection
+  get_it: ^8.0.3
+
+  # State management
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # Routing
+  go_router: ^16.0.0
+
+  # Launch external apps/URLs (e.g. "Open in Maps" from room detail).
+  url_launcher: ^6.3.0
+
+  # Maps + location. Web support for maps is
+  # endorsed via google_maps_flutter_web; geolocator works web+mobile;
+  # geocoding is mobile-only (guarded with kIsWeb).
+  google_maps_flutter: ^2.9.0
+  geolocator: ^13.0.0
+  geocoding: ^3.0.0
+
+  # web support (secret injection)
+  web: ^1.1.1
+
+  # Image selection for room photos (gallery/camera, handles web).
+  image_picker: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  # Code generation
+  build_runner: ^2.4.13
+  retrofit_generator: ^10.2.3
+  json_serializable: ^6.9.0
+
+flutter:
+  uses-material-design: true
+  generate: true
