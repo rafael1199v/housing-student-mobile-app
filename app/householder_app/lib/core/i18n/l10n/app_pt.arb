@@ -1,0 +1,70 @@
+{
+  "@@locale": "pt",
+
+  "navHome": "Início",
+  "navMessages": "Mensagens",
+  "navProfile": "Perfil",
+
+  "sectionPersonalDetails": "Dados pessoais",
+  "sectionPreferences": "Preferências",
+  "editProfileTooltip": "Editar perfil",
+  "retry": "Tentar novamente",
+
+  "fieldGender": "Gênero",
+  "fieldPhone": "Número de telefone",
+  "fieldNationality": "Nacionalidade",
+  "fieldDateOfBirth": "Data de nascimento",
+  "fieldFirstName": "Nome",
+  "fieldLastName": "Sobrenome",
+  "fieldPhoneNumber": "Número de telefone",
+  "fieldEmailAddress": "E-mail",
+
+  "hintFirstName": "ex. Joana",
+  "hintLastName": "ex. Silva",
+  "hintDateOfBirth": "dd/mm/aaaa",
+  "hintPhoneNumber": "+591 000 000 000",
+  "hintSelectGender": "Selecione o gênero",
+  "hintSelectNationality": "Selecione a nacionalidade",
+
+  "save": "Salvar",
+
+  "prefLanguage": "Idioma",
+  "prefThemeMode": "Tema",
+  "signOut": "Sair",
+
+  "themeSystem": "Sistema",
+  "themeLight": "Claro",
+  "themeDark": "Escuro",
+
+  "langEnglish": "Inglês",
+  "langSpanish": "Espanhol",
+  "langPortuguese": "Português",
+
+  "editProfileTitle": "Editar perfil",
+  "profileUpdated": "Perfil atualizado.",
+
+  "validationRequired": "{field} é obrigatório.",
+  "@validationRequired": {
+    "placeholders": {
+      "field": { "type": "String" }
+    }
+  },
+  "validationPhoneRequired": "O número de telefone é obrigatório.",
+  "validationPhoneInvalid": "Insira um número de telefone válido.",
+  "validationSelectGender": "Selecione um gênero.",
+  "validationSelectNationality": "Selecione uma nacionalidade.",
+  "validationSelectBirthDate": "Selecione sua data de nascimento.",
+
+  "errNetwork": "Sem conexão. Verifique sua rede e tente novamente.",
+  "errServer": "Algo deu errado do nosso lado. Tente novamente.",
+  "errUnauthorized": "Sua sessão expirou. Entre novamente.",
+  "errRateLimited": "Muitas solicitações. Aguarde um momento.",
+  "errProfileLoad": "Não foi possível carregar seu perfil. Tente novamente.",
+  "errProfileUpdate": "Não foi possível atualizar seu perfil. Tente novamente.",
+
+  "avatarTooLarge": "A imagem é muito grande. O tamanho máximo é 5 MB.",
+  "avatarInvalidType": "Imagem não suportada. Use um arquivo JPEG, PNG ou WEBP.",
+  "avatarFileMissing": "Nenhuma imagem foi selecionada. Tente novamente.",
+  "avatarUserNotFound": "Não foi possível encontrar seu perfil.",
+  "avatarGeneric": "Não foi possível atualizar sua foto. Tente novamente."
+}

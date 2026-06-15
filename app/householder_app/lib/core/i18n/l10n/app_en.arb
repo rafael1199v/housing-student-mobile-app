@@ -1,0 +1,221 @@
+{
+  "@@locale": "en",
+
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label for the Home tab"
+  },
+  "navMessages": "Messages",
+  "@navMessages": {
+    "description": "Bottom navigation label for the Messages tab"
+  },
+  "navProfile": "Profile",
+  "@navProfile": {
+    "description": "Bottom navigation label for the Profile tab"
+  },
+
+  "sectionPersonalDetails": "Personal Details",
+  "@sectionPersonalDetails": {
+    "description": "Section header for the personal details card on the profile screen"
+  },
+  "sectionPreferences": "Preferences",
+  "@sectionPreferences": {
+    "description": "Section header for the preferences card on the profile screen"
+  },
+  "editProfileTooltip": "Edit profile",
+  "@editProfileTooltip": {
+    "description": "Tooltip for the edit-profile icon button in the profile app bar"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Label for the button that retries a failed load"
+  },
+
+  "fieldGender": "Gender",
+  "@fieldGender": {
+    "description": "Label for the gender field"
+  },
+  "fieldPhone": "Telephone Number",
+  "@fieldPhone": {
+    "description": "Label for the telephone number field in the personal details card"
+  },
+  "fieldNationality": "Nationality",
+  "@fieldNationality": {
+    "description": "Label for the nationality field"
+  },
+  "fieldDateOfBirth": "Date of Birth",
+  "@fieldDateOfBirth": {
+    "description": "Label for the date of birth field"
+  },
+  "fieldFirstName": "First Name",
+  "@fieldFirstName": {
+    "description": "Label for the first name input field"
+  },
+  "fieldLastName": "Last Name",
+  "@fieldLastName": {
+    "description": "Label for the last name input field"
+  },
+  "fieldPhoneNumber": "Phone Number",
+  "@fieldPhoneNumber": {
+    "description": "Label for the phone number input field in the edit profile form"
+  },
+  "fieldEmailAddress": "Email Address",
+  "@fieldEmailAddress": {
+    "description": "Label for the (read-only) email address field in the edit profile form"
+  },
+
+  "hintFirstName": "e.g. Jane",
+  "@hintFirstName": {
+    "description": "Placeholder hint for the first name input"
+  },
+  "hintLastName": "e.g. Doe",
+  "@hintLastName": {
+    "description": "Placeholder hint for the last name input"
+  },
+  "hintDateOfBirth": "mm/dd/yyyy",
+  "@hintDateOfBirth": {
+    "description": "Placeholder hint for the date of birth input"
+  },
+  "hintPhoneNumber": "+591 000 000 000",
+  "@hintPhoneNumber": {
+    "description": "Placeholder hint for the phone number input"
+  },
+  "hintSelectGender": "Select gender",
+  "@hintSelectGender": {
+    "description": "Placeholder hint for the gender dropdown"
+  },
+  "hintSelectNationality": "Select nationality",
+  "@hintSelectNationality": {
+    "description": "Placeholder hint for the nationality dropdown"
+  },
+
+  "save": "Save",
+  "@save": {
+    "description": "Label for the save button in the edit profile form"
+  },
+
+  "prefLanguage": "Language",
+  "@prefLanguage": {
+    "description": "Field label for the language selector in preferences"
+  },
+  "prefThemeMode": "Theme Mode",
+  "@prefThemeMode": {
+    "description": "Field label for the theme mode selector in preferences"
+  },
+  "signOut": "Sign Out",
+  "@signOut": {
+    "description": "Label for the sign out button"
+  },
+
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme mode option that follows the system setting"
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme mode option"
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme mode option"
+  },
+
+  "langEnglish": "English",
+  "@langEnglish": {
+    "description": "Name of the English language option"
+  },
+  "langSpanish": "Spanish",
+  "@langSpanish": {
+    "description": "Name of the Spanish language option"
+  },
+  "langPortuguese": "Portuguese",
+  "@langPortuguese": {
+    "description": "Name of the Portuguese language option"
+  },
+
+  "editProfileTitle": "Edit Profile",
+  "@editProfileTitle": {
+    "description": "App bar title for the edit profile screen"
+  },
+  "profileUpdated": "Profile updated.",
+  "@profileUpdated": {
+    "description": "Snackbar message shown after the profile is updated successfully"
+  },
+
+  "validationRequired": "{field} is required.",
+  "@validationRequired": {
+    "description": "Validation error shown when a required field is empty",
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "First Name"
+      }
+    }
+  },
+  "validationPhoneRequired": "Phone number is required.",
+  "@validationPhoneRequired": {
+    "description": "Validation error shown when the phone number is empty"
+  },
+  "validationPhoneInvalid": "Enter a valid phone number.",
+  "@validationPhoneInvalid": {
+    "description": "Validation error shown when the phone number format is invalid"
+  },
+  "validationSelectGender": "Please select a gender.",
+  "@validationSelectGender": {
+    "description": "Validation error shown when no gender is selected"
+  },
+  "validationSelectNationality": "Please select a nationality.",
+  "@validationSelectNationality": {
+    "description": "Validation error shown when no nationality is selected"
+  },
+  "validationSelectBirthDate": "Please select your date of birth.",
+  "@validationSelectBirthDate": {
+    "description": "Validation error shown when no date of birth is selected"
+  },
+
+  "errNetwork": "No connection. Check your network and try again.",
+  "@errNetwork": {
+    "description": "Generic error message for network/connectivity failures"
+  },
+  "errServer": "Something went wrong on our side. Please try again.",
+  "@errServer": {
+    "description": "Generic error message for server-side (5xx) failures"
+  },
+  "errUnauthorized": "Your session expired. Please sign in again.",
+  "@errUnauthorized": {
+    "description": "Error message shown when the session expired (401/unauthorized)"
+  },
+  "errRateLimited": "Too many requests. Please wait a moment.",
+  "@errRateLimited": {
+    "description": "Error message shown when the client is rate limited (429)"
+  },
+  "errProfileLoad": "We could not load your profile. Please try again.",
+  "@errProfileLoad": {
+    "description": "Fallback error message when loading the profile fails"
+  },
+  "errProfileUpdate": "We could not update your profile. Please try again.",
+  "@errProfileUpdate": {
+    "description": "Fallback error message when updating the profile fails"
+  },
+
+  "avatarTooLarge": "The image is too large. Maximum size is 5 MB.",
+  "@avatarTooLarge": {
+    "description": "Avatar upload error when the file exceeds the 5 MB limit"
+  },
+  "avatarInvalidType": "Unsupported image. Use a JPEG, PNG or WEBP file.",
+  "@avatarInvalidType": {
+    "description": "Avatar upload error when the file is not a supported image type"
+  },
+  "avatarFileMissing": "No image was selected. Please try again.",
+  "@avatarFileMissing": {
+    "description": "Avatar upload error when no file was selected or it was empty"
+  },
+  "avatarUserNotFound": "We could not find your profile.",
+  "@avatarUserNotFound": {
+    "description": "Avatar upload error when the authenticated user has no profile"
+  },
+  "avatarGeneric": "We could not update your photo. Please try again.",
+  "@avatarGeneric": {
+    "description": "Fallback error message when the avatar upload fails"
+  }
+}
