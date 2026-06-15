@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 
 class ThemeModeSelector extends StatelessWidget {
   final ThemeMode value;
@@ -11,19 +12,27 @@ class ThemeModeSelector extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const _options = <({ThemeMode mode, String label, IconData icon})>[
-    (
-      mode: ThemeMode.system,
-      label: 'System',
-      icon: Icons.settings_suggest_outlined,
-    ),
-    (mode: ThemeMode.light, label: 'Light', icon: Icons.light_mode_outlined),
-    (mode: ThemeMode.dark, label: 'Dark', icon: Icons.dark_mode_outlined),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
+    final options = <({ThemeMode mode, String label, IconData icon})>[
+      (
+        mode: ThemeMode.system,
+        label: l10n.themeSystem,
+        icon: Icons.settings_suggest_outlined,
+      ),
+      (
+        mode: ThemeMode.light,
+        label: l10n.themeLight,
+        icon: Icons.light_mode_outlined,
+      ),
+      (
+        mode: ThemeMode.dark,
+        label: l10n.themeDark,
+        icon: Icons.dark_mode_outlined,
+      ),
+    ];
     return Container(
       padding: const EdgeInsets.all(AppSpacing.xs),
       decoration: BoxDecoration(
@@ -33,7 +42,7 @@ class ThemeModeSelector extends StatelessWidget {
       ),
       child: Row(
         children: [
-          for (final option in _options)
+          for (final option in options)
             Expanded(
               child: _Segment(
                 label: option.label,
