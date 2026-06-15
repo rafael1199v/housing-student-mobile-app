@@ -66,5 +66,37 @@
   "avatarInvalidType": "Imagen no admitida. Usa un archivo JPEG, PNG o WEBP.",
   "avatarFileMissing": "No se seleccionó ninguna imagen. Inténtalo de nuevo.",
   "avatarUserNotFound": "No pudimos encontrar tu perfil.",
-  "avatarGeneric": "No pudimos actualizar tu foto. Inténtalo de nuevo."
+  "avatarGeneric": "No pudimos actualizar tu foto. Inténtalo de nuevo.",
+
+  "homeGreetingMorning": "Buenos días, {name}",
+  "homeGreetingAfternoon": "Buenas tardes, {name}",
+  "homeGreetingEvening": "Buenas noches, {name}",
+  "homeOverviewSubtitle": "Aquí tienes un resumen de tus propiedades hoy.",
+
+  "statTotalListings": "Total de anuncios",
+  "statActiveBookings": "Reservas activas",
+  "statPendingRequests": "Solicitudes pendientes",
+
+  "sectionActionNeeded": "Requiere acción",
+  "sectionMyProperties": "Mis propiedades",
+  "emptyProperties": "Aún no has publicado ninguna habitación.",
+
+  "requestAccepted": "Aceptaste la solicitud de {name}.",
+  "requestDeclined": "Rechazaste la solicitud de {name}.",
+  "errRequestUpdate": "No se pudo actualizar la solicitud. Inténtalo de nuevo.",
+  "errDashboardLoad": "No pudimos cargar tu panel. Inténtalo de nuevo.",
+
+  "requestedProperty": "Propiedad solicitada",
+  "decline": "Rechazar",
+  "accept": "Aceptar",
+
+  "propertyBookingRequests": "{count, plural, =1{1 solicitud de reserva} other{{count} solicitudes de reserva}}",
+  "manageRoom": "Gestionar habitación",
+  "showMore": "Ver más",
+  "showLess": "Ver menos",
+
+  "roomStatusAvailable": "Disponible",
+  "roomStatusUnavailable": "No disponible",
+  "roomStatusBooked": "Reservada",
+  "roomStatusUnknown": "Desconocido"
 }

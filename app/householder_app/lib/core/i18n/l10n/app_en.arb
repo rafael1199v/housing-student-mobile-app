@@ -217,5 +217,130 @@
   "avatarGeneric": "We could not update your photo. Please try again.",
   "@avatarGeneric": {
     "description": "Fallback error message when the avatar upload fails"
+  },
+
+  "homeGreetingMorning": "Good morning, {name}",
+  "@homeGreetingMorning": {
+    "description": "Dashboard greeting shown in the morning",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeGreetingAfternoon": "Good afternoon, {name}",
+  "@homeGreetingAfternoon": {
+    "description": "Dashboard greeting shown in the afternoon",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeGreetingEvening": "Good evening, {name}",
+  "@homeGreetingEvening": {
+    "description": "Dashboard greeting shown in the evening",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "homeOverviewSubtitle": "Here is an overview of your properties today.",
+  "@homeOverviewSubtitle": {
+    "description": "Subtitle under the dashboard greeting"
+  },
+
+  "statTotalListings": "Total Listings",
+  "@statTotalListings": {
+    "description": "Dashboard stat card: total number of listings"
+  },
+  "statActiveBookings": "Active Bookings",
+  "@statActiveBookings": {
+    "description": "Dashboard stat card: number of active bookings"
+  },
+  "statPendingRequests": "Pending Requests",
+  "@statPendingRequests": {
+    "description": "Dashboard stat card: number of pending booking requests"
+  },
+
+  "sectionActionNeeded": "Action Needed",
+  "@sectionActionNeeded": {
+    "description": "Section header for booking requests that need a response"
+  },
+  "sectionMyProperties": "My Properties",
+  "@sectionMyProperties": {
+    "description": "Section header for the householder's properties list"
+  },
+  "emptyProperties": "You haven't listed any rooms yet.",
+  "@emptyProperties": {
+    "description": "Empty state shown when the householder has no properties"
+  },
+
+  "requestAccepted": "Accepted {name}'s request.",
+  "@requestAccepted": {
+    "description": "Snackbar shown after accepting a booking request",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "requestDeclined": "Declined {name}'s request.",
+  "@requestDeclined": {
+    "description": "Snackbar shown after declining a booking request",
+    "placeholders": {
+      "name": { "type": "String", "example": "Jane" }
+    }
+  },
+  "errRequestUpdate": "Could not update the request. Please try again.",
+  "@errRequestUpdate": {
+    "description": "Fallback error when accepting/declining a request fails"
+  },
+  "errDashboardLoad": "We could not load your dashboard. Please try again.",
+  "@errDashboardLoad": {
+    "description": "Fallback error when the dashboard fails to load"
+  },
+
+  "requestedProperty": "Requested Property",
+  "@requestedProperty": {
+    "description": "Label above the property name on a booking request card"
+  },
+  "decline": "Decline",
+  "@decline": {
+    "description": "Label for the button that declines a booking request"
+  },
+  "accept": "Accept",
+  "@accept": {
+    "description": "Label for the button that accepts a booking request"
+  },
+
+  "propertyBookingRequests": "{count, plural, =1{1 booking request} other{{count} booking requests}}",
+  "@propertyBookingRequests": {
+    "description": "Count of pending booking requests on a property card",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "manageRoom": "Manage Room",
+  "@manageRoom": {
+    "description": "Link to open and manage a property"
+  },
+  "showMore": "Show more",
+  "@showMore": {
+    "description": "Toggle to expand a truncated description"
+  },
+  "showLess": "Show less",
+  "@showLess": {
+    "description": "Toggle to collapse an expanded description"
+  },
+
+  "roomStatusAvailable": "Available",
+  "@roomStatusAvailable": {
+    "description": "Room status: available"
+  },
+  "roomStatusUnavailable": "Unavailable",
+  "@roomStatusUnavailable": {
+    "description": "Room status: unavailable"
+  },
+  "roomStatusBooked": "Booked",
+  "@roomStatusBooked": {
+    "description": "Room status: booked"
+  },
+  "roomStatusUnknown": "Unknown",
+  "@roomStatusUnknown": {
+    "description": "Room status: unknown / unrecognized"
   }
 }
