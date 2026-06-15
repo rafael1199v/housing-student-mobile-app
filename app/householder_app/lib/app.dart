@@ -17,17 +17,27 @@ class _ItersapiensHouseholderAppState extends State<ItersapiensHouseholderApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThemeCubit>.value(
-      value: getIt<ThemeCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>.value(value: getIt<ThemeCubit>()),
+        BlocProvider<LocaleCubit>.value(value: getIt<LocaleCubit>()),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
-          return MaterialApp.router(
-            title: 'Itersapiens',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.householder,
-            darkTheme: AppTheme.householderDark,
-            themeMode: themeMode,
-            routerConfig: _router,
+          return BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return MaterialApp.router(
+                title: 'Itersapiens',
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.householder,
+                darkTheme: AppTheme.householderDark,
+                themeMode: themeMode,
+                locale: locale,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                routerConfig: _router,
+              );
+            },
           );
         },
       ),
