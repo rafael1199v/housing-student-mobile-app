@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/property_summary.dart';
 import '../../domain/entities/room_status.dart';
 import '../utils/room_status_label.dart';
@@ -84,14 +85,15 @@ class _PropertyCardState extends State<PropertyCard> {
                   children: [
                     Expanded(
                       child: Text(
-                        '$pending booking request${pending == 1 ? '' : 's'}',
+                        AppLocalizations.of(context)
+                            .propertyBookingRequests(pending),
                         style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     GestureDetector(
                       onTap: widget.onManage,
                       child: Text(
-                        'Manage Room',
+                        AppLocalizations.of(context).manageRoom,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.primary,
                           fontWeight: FontWeight.w700,
@@ -144,7 +146,9 @@ class _Description extends StatelessWidget {
               GestureDetector(
                 onTap: onToggle,
                 child: Text(
-                  expanded ? 'Show less' : 'Show more',
+                  expanded
+                      ? AppLocalizations.of(context).showLess
+                      : AppLocalizations.of(context).showMore,
                   style: style?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w700,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/booking_request.dart';
 import '../cubits/dashboard_cubit.dart';
 import 'request_card.dart';
@@ -34,6 +35,8 @@ class _ActionNeededSectionState extends State<ActionNeededSection> {
     final cubit = context.read<DashboardCubit>();
     final messenger = ScaffoldMessenger.of(context);
 
+    final l10n = AppLocalizations.of(context);
+
     final errorCode = accept
         ? await cubit.acceptRequest(request.id)
         : await cubit.rejectRequest(request.id);
@@ -47,30 +50,31 @@ class _ActionNeededSectionState extends State<ActionNeededSection> {
         SnackBar(
           content: Text(
             switch ((accept, errorCode)) {
-              (_, final code?) => _errorMessage(code),
-              (true, null) => 'Accepted ${request.requesterName}\'s request.',
-              (false, null) => 'Declined ${request.requesterName}\'s request.',
+              (_, final code?) => _errorMessage(l10n, code),
+              (true, null) => l10n.requestAccepted(request.requesterName),
+              (false, null) => l10n.requestDeclined(request.requesterName),
             },
           ),
         ),
       );
   }
 
-  String _errorMessage(String code) => switch (code) {
-        'network.error' => 'No connection. Check your network and try again.',
-        'rate.limited' => 'Too many requests. Please wait a moment.',
-        _ => 'Could not update the request. Please try again.',
+  String _errorMessage(AppLocalizations l10n, String code) => switch (code) {
+        'network.error' => l10n.errNetwork,
+        'rate.limited' => l10n.errRateLimited,
+        _ => l10n.errRequestUpdate,
       };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final requests = widget.requests;
     if (requests.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(title: 'Action Needed', onViewAll: () {}),
+        SectionHeader(title: l10n.sectionActionNeeded, onViewAll: () {}),
         AppSpacing.gapLg,
         _buildCarousel(context, requests),
       ],

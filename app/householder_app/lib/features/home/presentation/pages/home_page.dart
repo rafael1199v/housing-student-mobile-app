@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../../rooms/rooms.dart';
 import '../../domain/entities/dashboard_summary.dart';
 import '../../domain/entities/property_summary.dart';
@@ -118,14 +119,15 @@ class _DashboardError extends StatelessWidget {
 
   final String code;
 
-  String get _message => switch (code) {
-    'network.error' => 'No connection. Check your network and try again.',
-    'server.error' => 'Something went wrong on our side. Please try again.',
-    _ => 'We could not load your dashboard. Please try again.',
+  String _message(AppLocalizations l10n) => switch (code) {
+    'network.error' => l10n.errNetwork,
+    'server.error' => l10n.errServer,
+    _ => l10n.errDashboardLoad,
   };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -139,13 +141,13 @@ class _DashboardError extends StatelessWidget {
             ),
             AppSpacing.gapLg,
             Text(
-              _message,
+              _message(l10n),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             AppSpacing.gapXl,
             AppPrimaryButton(
-              label: 'Retry',
+              label: l10n.retry,
               expanded: true,
               trailingIcon: null,
               onPressed: () => context.read<DashboardCubit>().load(),
