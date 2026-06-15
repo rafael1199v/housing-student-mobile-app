@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/room_catalog.dart';
 import '../../domain/entities/selected_policy.dart';
+import '../utils/room_tag_resolver.dart';
 
 class PolicyPickerSheet extends StatefulWidget {
   const PolicyPickerSheet({super.key, required this.alreadyAddedIds});
@@ -55,6 +57,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final available =
         kRoomPolicies.where((p) => !widget.alreadyAddedIds.contains(p.id)).toList();
 
@@ -76,7 +79,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Add House Policy',
+                l10n.addHousePolicy,
                 style:
                     Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 20),
               ),
@@ -100,7 +103,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
             itemBuilder: (context, i) {
               final option = available[i];
               return AppSelectableOption(
-                label: option.name,
+                label: policyName(l10n, option.code),
                 icon: option.icon,
                 selected: _selected?.id == option.id,
                 onTap: () => setState(() => _selected = option),
@@ -110,8 +113,10 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
           if (_selected != null) ...[
             AppSpacing.gapXl,
             AppTextField(
-              label: '${_selected!.name} Description',
-              hintText: 'Be specific about your rule…',
+              label: l10n.policyDescriptionLabel(
+                policyName(l10n, _selected!.code),
+              ),
+              hintText: l10n.hintPolicyDescription,
               uppercaseLabel: false,
               controller: _description,
               maxLines: 3,
@@ -131,7 +136,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
                         borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
-                    child: const Text('Cancel'),
+                    child: Text(l10n.cancel),
                   ),
                 ),
               ),
@@ -149,7 +154,7 @@ class _PolicyPickerSheetState extends State<PolicyPickerSheet> {
                         borderRadius: BorderRadius.circular(AppRadii.mdValue),
                       ),
                     ),
-                    child: const Text('Add Policy'),
+                    child: Text(l10n.addPolicy),
                   ),
                 ),
               ),

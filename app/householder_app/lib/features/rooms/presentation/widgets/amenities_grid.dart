@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../utils/room_tag_resolver.dart';
 
 class AmenitiesGrid extends StatelessWidget {
@@ -17,12 +18,13 @@ class AmenitiesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final hasServices = serviceTags.isNotEmpty;
     final hasPolicies = policyTags.isNotEmpty;
 
     if (!hasServices && !hasPolicies) {
       return Text(
-        'No amenities or policies listed.',
+        l10n.noAmenitiesOrPolicies,
         style: theme.textTheme.bodyMedium,
       );
     }
@@ -33,7 +35,7 @@ class AmenitiesGrid extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (hasServices) ...[
-          Text('Amenities', style: headerStyle),
+          Text(l10n.amenities, style: headerStyle),
           AppSpacing.gapLg,
           _ServicesGrid(tags: serviceTags),
         ],
@@ -43,7 +45,7 @@ class AmenitiesGrid extends StatelessWidget {
           AppSpacing.gapXl,
         ],
         if (hasPolicies) ...[
-          Text('Policies', style: headerStyle),
+          Text(l10n.policies, style: headerStyle),
           AppSpacing.gapLg,
           for (var i = 0; i < policyTags.length; i++) ...[
             if (i > 0) AppSpacing.gapMd,

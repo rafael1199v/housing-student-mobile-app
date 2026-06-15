@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../../home/home.dart';
 
 import '../cubits/create_room_cubit.dart';
@@ -41,11 +42,12 @@ class _CreateRoomView extends StatelessWidget {
     return BlocConsumer<CreateRoomCubit, CreateRoomState>(
       listenWhen: (prev, curr) => prev.status != curr.status,
       listener: (context, state) {
+        final l10n = AppLocalizations.of(context);
         if (state.status == CreateRoomStatus.success) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Room published successfully.')),
+              SnackBar(content: Text(l10n.roomPublishedSuccess)),
             );
           _exit(context);
         } else if (state.status == CreateRoomStatus.failure) {
@@ -54,7 +56,7 @@ class _CreateRoomView extends StatelessWidget {
             ..showSnackBar(
               SnackBar(
                 backgroundColor: Theme.of(context).colorScheme.error,
-                content: Text(_errorMessage(state.errorCode)),
+                content: Text(_errorMessage(l10n, state.errorCode)),
               ),
             );
         }
@@ -97,11 +99,11 @@ class _CreateRoomView extends StatelessWidget {
     );
   }
 
-  String _errorMessage(String? code) => switch (code) {
-    'network.error' => 'No connection. Check your network and try again.',
-    'server.error' => 'Something went wrong on our side. Please try again.',
-    'validation.failed' => 'Some fields are invalid. Please review them.',
-    _ => 'Could not publish the room. Please try again.',
+  String _errorMessage(AppLocalizations l10n, String? code) => switch (code) {
+    'network.error' => l10n.errNetwork,
+    'server.error' => l10n.errServer,
+    'validation.failed' => l10n.errRoomPublishValidation,
+    _ => l10n.errRoomPublish,
   };
 }
 
@@ -134,13 +136,13 @@ class _Header extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Add New Room',
+                      AppLocalizations.of(context).addNewRoom,
                       style: Theme.of(
                         context,
                       ).textTheme.displaySmall?.copyWith(fontSize: 18),
                     ),
                     Text(
-                      'Step ${step + 1} of 3',
+                      AppLocalizations.of(context).stepOfThree(step + 1),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -195,13 +197,15 @@ class _BottomBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppRadii.pillValue),
                 ),
               ),
-              child: const Text('Back'),
+              child: Text(AppLocalizations.of(context).back),
             ),
           ),
           const SizedBox(width: AppSpacing.lg),
           Expanded(
             child: AppPrimaryButton(
-              label: isLast ? 'Publish' : 'Next Step',
+              label: isLast
+                  ? AppLocalizations.of(context).publish
+                  : AppLocalizations.of(context).nextStep,
               expanded: true,
               isLoading: submitting,
               trailingIcon: isLast ? Icons.check : Icons.arrow_forward,

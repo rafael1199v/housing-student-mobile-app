@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/room_image.dart';
 
 class PhotosPicker extends StatelessWidget {
@@ -35,6 +36,7 @@ class PhotosPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,12 +44,12 @@ class PhotosPicker extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Photos',
+              l10n.photos,
               style:
                   Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 18),
             ),
             Text(
-              '${images.length} / $maxImages Added',
+              l10n.photosAdded(images.length, maxImages),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -67,7 +69,7 @@ class PhotosPicker extends StatelessWidget {
         ),
         AppSpacing.gapSm,
         Text(
-          'Recommended size: 1200×800px or larger.',
+          l10n.recommendedSize,
           style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
@@ -93,7 +95,7 @@ class _UploadTile extends StatelessWidget {
             Icon(Icons.add_photo_alternate_outlined, color: cs.primary),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              'Upload Image',
+              AppLocalizations.of(context).uploadImage,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: cs.primary,

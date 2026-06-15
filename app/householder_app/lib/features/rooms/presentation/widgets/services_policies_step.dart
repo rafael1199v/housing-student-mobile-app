@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import '../../domain/entities/room_catalog.dart';
 import '../../domain/entities/selected_policy.dart';
 import '../cubits/create_room_cubit.dart';
+import '../utils/room_tag_resolver.dart';
 import 'policy_picker_sheet.dart';
 
 /// Step 2: select included amenities and attach house policies.
@@ -25,17 +27,17 @@ class ServicesPoliciesStep extends StatelessWidget {
     final cubit = context.read<CreateRoomCubit>();
     return BlocBuilder<CreateRoomCubit, CreateRoomState>(
       builder: (context, state) {
+        final l10n = AppLocalizations.of(context);
         return ListView(
           padding: const EdgeInsets.all(AppSpacing.xl),
           children: [
             Text(
-              'Services & Policies',
+              l10n.servicesPolicies,
               style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 24),
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Define what makes this space special and set clear expectations '
-              'for potential tenants.',
+              l10n.servicesPoliciesSubtitle,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             AppSpacing.gapXl,
@@ -44,7 +46,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Included Amenities',
+                    l10n.includedAmenities,
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
@@ -52,7 +54,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Select all services provided in this room.',
+                    l10n.includedAmenitiesSubtitle,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   AppSpacing.gapLg,
@@ -70,7 +72,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                     itemBuilder: (context, i) {
                       final service = kRoomServices[i];
                       return AppSelectableOption(
-                        label: service.name,
+                        label: serviceName(l10n, service.code),
                         icon: service.icon,
                         selected: state.serviceIds.contains(service.id),
                         onTap: () => cubit.toggleService(service.id),
@@ -86,7 +88,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'House Policies',
+                    l10n.housePolicies,
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
@@ -94,8 +96,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Provide detailed descriptions for your rules to ensure a '
-                    'good fit.',
+                    l10n.housePoliciesSubtitle,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   AppSpacing.gapLg,
@@ -111,7 +112,7 @@ class ServicesPoliciesStep extends StatelessWidget {
                         ? null
                         : () => _addPolicy(context, state),
                     icon: const Icon(Icons.add, size: 18),
-                    label: const Text('Add House Policy'),
+                    label: Text(l10n.addHousePolicy),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Theme.of(context).colorScheme.primary,
                       side: BorderSide(
@@ -145,6 +146,7 @@ class _PolicyTile extends StatelessWidget {
       orElse: () => kRoomPolicies.first,
     );
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -161,7 +163,7 @@ class _PolicyTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  policy.name,
+                  policyName(l10n, policy.code),
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge

@@ -27,7 +27,7 @@ class RoomLocationSection extends StatelessWidget {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text('Could not open Maps.')),
+          SnackBar(content: Text(AppLocalizations.of(context).couldNotOpenMaps)),
         );
     }
   }
@@ -35,6 +35,7 @@ class RoomLocationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final position = LatLng(latitude, longitude);
 
     return Column(
@@ -44,13 +45,13 @@ class RoomLocationSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Location',
+              l10n.location,
               style: theme.textTheme.displaySmall?.copyWith(fontSize: 18),
             ),
             GestureDetector(
               onTap: () => _openInMaps(context),
               child: Text(
-                'Open in Maps',
+                l10n.openInMaps,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.primary,
                   fontWeight: FontWeight.w700,
@@ -85,7 +86,7 @@ class RoomLocationSection extends StatelessWidget {
         if (kIsWeb) ...[
           AppSpacing.gapSm,
           Text(
-            'Tap "Open in Maps" for directions.',
+            l10n.tapOpenInMaps,
             style: theme.textTheme.bodyMedium?.copyWith(fontSize: 13),
           ),
         ],
