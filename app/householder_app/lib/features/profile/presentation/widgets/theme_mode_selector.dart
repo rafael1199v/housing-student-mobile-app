@@ -3,13 +3,22 @@ import 'package:housing_design_system/housing_design_system.dart';
 
 
 class ThemeModeSelector extends StatelessWidget {
-  final ValueChanged<String> onSelect;
-  const ThemeModeSelector({super.key, required this.onSelect});
+  final ThemeMode value;
+  final ValueChanged<ThemeMode> onChanged;
+  const ThemeModeSelector({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
 
-  static const _options = <({String label, IconData icon})>[
-    (label: 'System', icon: Icons.settings_suggest_outlined),
-    (label: 'Light', icon: Icons.light_mode_outlined),
-    (label: 'Dark', icon: Icons.dark_mode_outlined),
+  static const _options = <({ThemeMode mode, String label, IconData icon})>[
+    (
+      mode: ThemeMode.system,
+      label: 'System',
+      icon: Icons.settings_suggest_outlined,
+    ),
+    (mode: ThemeMode.light, label: 'Light', icon: Icons.light_mode_outlined),
+    (mode: ThemeMode.dark, label: 'Dark', icon: Icons.dark_mode_outlined),
   ];
 
   @override
@@ -24,13 +33,13 @@ class ThemeModeSelector extends StatelessWidget {
       ),
       child: Row(
         children: [
-          for (var i = 0; i < _options.length; i++)
+          for (final option in _options)
             Expanded(
               child: _Segment(
-                label: _options[i].label,
-                icon: _options[i].icon,
-                selected: i == 0,
-                onTap: () => onSelect(_options[i].label),
+                label: option.label,
+                icon: option.icon,
+                selected: option.mode == value,
+                onTap: () => onChanged(option.mode),
               ),
             ),
         ],
