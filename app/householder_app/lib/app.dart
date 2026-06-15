@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
 import 'core/core.dart';
@@ -16,11 +17,20 @@ class _ItersapiensHouseholderAppState extends State<ItersapiensHouseholderApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Itersapiens',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.householder,
-      routerConfig: _router,
+    return BlocProvider<ThemeCubit>.value(
+      value: getIt<ThemeCubit>(),
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return MaterialApp.router(
+            title: 'Itersapiens',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.householder,
+            darkTheme: AppTheme.householderDark,
+            themeMode: themeMode,
+            routerConfig: _router,
+          );
+        },
+      ),
     );
   }
 }
