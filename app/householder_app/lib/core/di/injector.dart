@@ -10,6 +10,8 @@ import '../network/dio_client.dart';
 import '../session/session_notifier.dart';
 import '../storage/secure_token_storage.dart';
 import '../storage/token_storage.dart';
+import '../theme/theme_cubit.dart';
+import '../theme/theme_preference_storage.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -19,6 +21,12 @@ Future<void> configureDependencies() async {
   final hasSession = await getIt<TokenStorage>().hasTokens();
   getIt.registerLazySingleton<SessionNotifier>(
     () => SessionNotifier(isAuthenticated: hasSession),
+  );
+
+  final themeStorage = ThemePreferenceStorage();
+  final savedThemeMode = await themeStorage.read();
+  getIt.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(storage: themeStorage, initial: savedThemeMode),
   );
 
   final refreshClient = DioClient.createRefreshClient();
