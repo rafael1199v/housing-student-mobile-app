@@ -209,7 +209,7 @@
   "addNewRoom": "Agregar habitación",
   "stepOfThree": "Paso {step} de 3",
   "back": "Atrás",
-  "nextStep": "Siguiente paso",
+  "nextStep": "Siguiente",
   "publish": "Publicar",
   "roomPublishedSuccess": "Habitación publicada correctamente.",
   "errRoomPublishValidation": "Algunos campos no son válidos. Revísalos.",
