@@ -113,8 +113,6 @@ class _Avatar extends StatelessWidget {
                     dimension: 28,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.6,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(cs.onPrimary),
                     ),
                   ),
                 ),

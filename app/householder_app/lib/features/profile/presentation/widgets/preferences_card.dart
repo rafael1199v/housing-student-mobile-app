@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
+import '../../../../core/core.dart';
 import 'theme_mode_selector.dart';
 
 class PreferencesCard extends StatelessWidget {
@@ -31,7 +33,13 @@ class PreferencesCard extends StatelessWidget {
           AppSpacing.gapXl,
           const AppFieldLabel(text: 'Theme Mode'),
           const SizedBox(height: AppSpacing.sm),
-          ThemeModeSelector(onSelect: (mode) => onComingSoon('$mode theme')),
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, mode) => ThemeModeSelector(
+              value: mode,
+              onChanged: (selected) =>
+                  context.read<ThemeCubit>().setMode(selected),
+            ),
+          ),
           AppSpacing.gapXl,
           const Divider(height: 1),
           AppSpacing.gapXl,
