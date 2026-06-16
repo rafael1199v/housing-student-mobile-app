@@ -1,4 +1,4 @@
-import '../../../../core/error/error_mapper.dart';
+import '../../../../core/core.dart';
 import '../../domain/entities/chat_message.dart';
 import '../../domain/entities/chat_summary.dart';
 import '../../domain/repositories/chat_repository.dart';
@@ -15,7 +15,9 @@ class ChatRepositoryImpl implements ChatRepository {
     required ChatLocalDataSource local,
   })  : _api = api,
         _socket = socket,
-        _local = local;
+        _local = local {
+    _socket.messages.listen((dto) => _local.appendMessage(dto.toEntity()));
+  }
 
   final ChatApi _api;
   final ChatSocketDataSource _socket;
@@ -29,7 +31,12 @@ class ChatRepositoryImpl implements ChatRepository {
       await _local.cacheChats(chats);
       return chats;
     } catch (error) {
-      throw ErrorMapper.map(error);
+      final failure = ErrorMapper.map(error);
+      if (failure is NetworkFailure) {
+        final cached = await _local.readChats();
+        if (cached.isNotEmpty) return cached;
+      }
+      throw failure;
     }
   }
 
@@ -61,7 +68,12 @@ class ChatRepositoryImpl implements ChatRepository {
       }
       return messages;
     } catch (error) {
-      throw ErrorMapper.map(error);
+      final failure = ErrorMapper.map(error);
+      if (failure is NetworkFailure && beforeMessageId == null) {
+        final cached = await _local.readMessages(chatId);
+        if (cached.isNotEmpty) return cached;
+      }
+      throw failure;
     }
   }
 
