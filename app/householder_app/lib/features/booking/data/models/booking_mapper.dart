@@ -19,6 +19,7 @@ extension BookingRequestDtoMapper on BookingRequestDto {
       bookerEmail: bookerEmail,
       phoneNumber: (phone == null || phone.isEmpty) ? null : phone,
       status: BookingStatus.fromBackend(bookingStatus),
+      studentUserId: bookerId,
     );
   }
 }
