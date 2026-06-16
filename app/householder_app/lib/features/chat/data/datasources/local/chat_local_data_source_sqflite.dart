@@ -133,6 +133,29 @@ class SqfliteChatLocalDataSource implements ChatLocalDataSource {
   }
 
   @override
+  Future<void> appendMessage(ChatMessage message) async {
+    final db = await _database();
+    await db.insert('messages', {
+      'id': message.id,
+      'chatId': message.chatId,
+      'senderId': message.senderId,
+      'senderName': message.senderName,
+      'message': message.message,
+      'createdAt': message.createdAt.millisecondsSinceEpoch,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  @override
+  Future<void> clear() async {
+    final db = await _database();
+    final batch = db.batch();
+    batch.delete('chats');
+    batch.delete('messages');
+    batch.delete('outbox');
+    await batch.commit(noResult: true);
+  }
+
+  @override
   Future<void> enqueueOutgoing(int chatId, String message) async {
     final db = await _database();
     await db.insert('outbox', {
