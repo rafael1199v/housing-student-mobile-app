@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core.dart';
 import '../../domain/entities/chat_message.dart';
 import '../../domain/usecases/get_messages_usecase.dart';
+import '../../domain/usecases/join_chat_usecase.dart';
 import '../../domain/usecases/mark_chat_read_usecase.dart';
 import '../../domain/usecases/send_message_usecase.dart';
 import '../../domain/usecases/watch_messages_usecase.dart';
@@ -18,11 +19,13 @@ class ChatConversationCubit extends Cubit<ChatConversationState> {
     required SendMessageUseCase sendMessageUseCase,
     required MarkChatReadUseCase markChatReadUseCase,
     required WatchMessagesUseCase watchMessagesUseCase,
+    required JoinChatUseCase joinChatUseCase,
     required CurrentUserService currentUser,
   })  : _getMessagesUseCase = getMessagesUseCase,
         _sendMessageUseCase = sendMessageUseCase,
         _markChatReadUseCase = markChatReadUseCase,
         _watchMessagesUseCase = watchMessagesUseCase,
+        _joinChatUseCase = joinChatUseCase,
         _currentUser = currentUser,
         super(const ChatConversationLoading());
 
@@ -30,6 +33,7 @@ class ChatConversationCubit extends Cubit<ChatConversationState> {
   final SendMessageUseCase _sendMessageUseCase;
   final MarkChatReadUseCase _markChatReadUseCase;
   final WatchMessagesUseCase _watchMessagesUseCase;
+  final JoinChatUseCase _joinChatUseCase;
   final CurrentUserService _currentUser;
 
   late int _chatId;
@@ -42,6 +46,7 @@ class ChatConversationCubit extends Cubit<ChatConversationState> {
     _chatId = chatId;
     emit(const ChatConversationLoading());
     _myId = await _currentUser.currentUserId();
+    _joinChatUseCase(chatId).ignore();
     try {
       final messages = await _getMessagesUseCase(chatId);
       emit(ChatConversationLoaded(messages: messages, currentUserId: _myId));

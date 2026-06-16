@@ -12,6 +12,7 @@ import '../data/repositories/chat_repository_impl.dart';
 import '../domain/repositories/chat_repository.dart';
 import '../domain/usecases/get_chats_usecase.dart';
 import '../domain/usecases/get_messages_usecase.dart';
+import '../domain/usecases/join_chat_usecase.dart';
 import '../domain/usecases/mark_chat_read_usecase.dart';
 import '../domain/usecases/send_message_usecase.dart';
 import '../domain/usecases/start_chat_usecase.dart';
@@ -52,6 +53,9 @@ void registerChatDependencies(GetIt getIt) {
     ..registerLazySingleton<MarkChatReadUseCase>(
       () => MarkChatReadUseCase(getIt<ChatRepository>()),
     )
+    ..registerLazySingleton<JoinChatUseCase>(
+      () => JoinChatUseCase(getIt<ChatRepository>()),
+    )
     ..registerLazySingleton<WatchMessagesUseCase>(
       () => WatchMessagesUseCase(getIt<ChatRepository>()),
     )
@@ -67,6 +71,7 @@ void registerChatDependencies(GetIt getIt) {
         sendMessageUseCase: getIt<SendMessageUseCase>(),
         markChatReadUseCase: getIt<MarkChatReadUseCase>(),
         watchMessagesUseCase: getIt<WatchMessagesUseCase>(),
+        joinChatUseCase: getIt<JoinChatUseCase>(),
         currentUser: getIt<CurrentUserService>(),
       ),
     );
