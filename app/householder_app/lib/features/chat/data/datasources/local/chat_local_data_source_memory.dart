@@ -25,7 +25,21 @@ class InMemoryChatLocalDataSource implements ChatLocalDataSource {
       _messages[chatId] ?? const [];
 
   @override
+  Future<void> appendMessage(ChatMessage message) async {
+    final existing = _messages[message.chatId] ?? const [];
+    if (existing.any((m) => m.id == message.id)) return;
+    _messages[message.chatId] = List.unmodifiable([message, ...existing]);
+  }
+
+  @override
   Future<void> enqueueOutgoing(int chatId, String message) async {
     _outbox.add((chatId: chatId, message: message));
+  }
+
+  @override
+  Future<void> clear() async {
+    _chats = const [];
+    _messages.clear();
+    _outbox.clear();
   }
 }
