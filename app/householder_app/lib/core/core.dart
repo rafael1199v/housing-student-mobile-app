@@ -14,6 +14,7 @@ export 'platform/google_sign_in_service_factory.dart';
 export 'platform/location_service.dart';
 export 'platform/location_service_impl.dart';
 export 'router/app_router.dart';
+export 'session/current_user.dart';
 export 'session/session_notifier.dart';
 export 'storage/token_storage.dart';
 export 'theme/theme_cubit.dart';

@@ -108,6 +108,12 @@
   "errBookingRequestsLoad": "Não foi possível carregar estas solicitações. Tente novamente.",
   "errBookingRequestUpdate": "Não foi possível atualizar esta solicitação. Tente novamente.",
   "chatComingSoon": "O chat com um estudante estará disponível em breve.",
+  "chatListTitle": "Mensagens",
+  "chatEmpty": "Você ainda não tem conversas.",
+  "chatNoMessages": "Ainda não há mensagens. Diga olá!",
+  "chatConversationHint": "Escreva uma mensagem",
+  "chatLoadError": "Não foi possível carregar o chat. Tente novamente.",
+  "chatStartError": "Não foi possível abrir o chat. Tente novamente.",
   "bookingUnknownStudent": "Estudante desconhecido",
   "bookingContact": "Contato: {phone}",
 

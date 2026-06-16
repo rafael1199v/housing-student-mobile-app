@@ -5,12 +5,14 @@ import 'package:get_it/get_it.dart';
 
 import '../../features/auth/di/auth_module.dart';
 import '../../features/booking/booking.dart';
+import '../../features/chat/chat.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
 import '../i18n/locale_cubit.dart';
 import '../i18n/locale_preference_storage.dart';
 import '../network/dio_client.dart';
+import '../session/current_user.dart';
 import '../session/session_notifier.dart';
 import '../storage/secure_token_storage.dart';
 import '../storage/token_storage.dart';
@@ -21,6 +23,9 @@ final GetIt getIt = GetIt.instance;
 
 Future<void> configureDependencies() async {
   getIt.registerLazySingleton<TokenStorage>(SecureTokenStorage.new);
+  getIt.registerLazySingleton<CurrentUserService>(
+    () => CurrentUserService(getIt<TokenStorage>()),
+  );
 
   final hasSession = await getIt<TokenStorage>().hasTokens();
   getIt.registerLazySingleton<SessionNotifier>(
@@ -58,4 +63,5 @@ Future<void> configureDependencies() async {
   registerBookingDependencies(getIt);
   registerHomeDependencies(getIt);
   registerRoomDependencies(getIt);
+  registerChatDependencies(getIt);
 }
