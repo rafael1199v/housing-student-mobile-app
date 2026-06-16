@@ -72,4 +72,11 @@ void registerChatDependencies(GetIt getIt) {
     );
 
   getIt<ChatRepository>().connect().ignore();
+
+  final session = getIt<SessionNotifier>();
+  session.addListener(() {
+    if (!session.isAuthenticated) {
+      getIt<ChatLocalDataSource>().clear().ignore();
+    }
+  });
 }
