@@ -379,6 +379,30 @@
   "@chatComingSoon": {
     "description": "Snackbar shown when tapping the (not yet available) chat action"
   },
+  "chatListTitle": "Messages",
+  "@chatListTitle": {
+    "description": "Title of the chat list screen"
+  },
+  "chatEmpty": "You have no conversations yet.",
+  "@chatEmpty": {
+    "description": "Empty state of the chat list"
+  },
+  "chatNoMessages": "No messages yet. Say hello!",
+  "@chatNoMessages": {
+    "description": "Empty state inside a conversation"
+  },
+  "chatConversationHint": "Type a message",
+  "@chatConversationHint": {
+    "description": "Placeholder of the message composer input"
+  },
+  "chatLoadError": "We could not load the chat. Please try again.",
+  "@chatLoadError": {
+    "description": "Error shown when chats or messages fail to load"
+  },
+  "chatStartError": "We could not open the chat. Please try again.",
+  "@chatStartError": {
+    "description": "Error shown when starting a chat from a booking fails"
+  },
   "bookingUnknownStudent": "Unknown student",
   "@bookingUnknownStudent": {
     "description": "Placeholder name when a booker has no name"

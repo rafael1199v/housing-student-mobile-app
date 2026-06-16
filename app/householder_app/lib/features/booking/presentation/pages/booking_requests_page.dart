@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
 import '../../../../core/core.dart';
+import '../../../chat/chat.dart';
 import '../../domain/entities/booking_request.dart';
 import '../cubits/booking_requests_cubit.dart';
 import '../widgets/booking_request_tile.dart';
@@ -29,12 +31,32 @@ class _BookingRequestsView extends StatelessWidget {
 
   final int roomId;
 
-  void _showChatComingSoon(BuildContext context) {
+  Future<void> _onChat(BuildContext context, BookingRequest request) async {
+    final l10n = AppLocalizations.of(context);
+    final studentId = request.studentUserId.trim();
+
+    if (studentId.isEmpty) {
+      _showSnack(context, l10n.chatComingSoon);
+      return;
+    }
+
+    try {
+      final chatId = await GetIt.I<StartChatUseCase>()(studentId);
+      if (!context.mounted) return;
+      context.push(
+        ChatConversationPage.pathTo(chatId),
+        extra: request.bookerName,
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      _showSnack(context, l10n.chatStartError);
+    }
+  }
+
+  void _showSnack(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context).chatComingSoon)),
-      );
+      ..showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _showActionError(BuildContext context, String code) {
@@ -76,7 +98,7 @@ class _BookingRequestsView extends StatelessWidget {
                 onDecline: (id) => _onAction(context, () {
                   return context.read<BookingRequestsCubit>().reject(id);
                 }),
-                onChat: () => _showChatComingSoon(context),
+                onChat: (request) => _onChat(context, request),
               ),
             BookingRequestsFailureState(:final code) => _BookingRequestsError(
               code: code,
@@ -116,7 +138,7 @@ class _Content extends StatelessWidget {
   final String? actingBookingId;
   final void Function(String bookingId) onAccept;
   final void Function(String bookingId) onDecline;
-  final VoidCallback onChat;
+  final void Function(BookingRequest request) onChat;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +174,7 @@ class _Content extends StatelessWidget {
                     isBusy: actingBookingId == request.id,
                     onAccept: () => onAccept(request.id),
                     onDecline: () => onDecline(request.id),
-                    onChat: onChat,
+                    onChat: () => onChat(request),
                   ),
                   AppSpacing.gapLg,
                 ],
