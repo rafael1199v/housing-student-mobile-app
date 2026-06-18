@@ -3,6 +3,7 @@ import 'package:housing_design_system/housing_design_system.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/core.dart';
+import '../../domain/entities/room_detail.dart';
 import '../../domain/entities/room_image.dart';
 
 class PhotosPicker extends StatelessWidget {
@@ -11,16 +12,22 @@ class PhotosPicker extends StatelessWidget {
     required this.images,
     required this.onAdd,
     required this.onRemove,
+    this.existingImages = const [],
+    this.onRemoveExisting,
     this.maxImages = 5,
   });
 
   final List<RoomImage> images;
   final void Function(List<RoomImage> added) onAdd;
   final void Function(int index) onRemove;
+  final List<RoomImageRef> existingImages;
+  final void Function(int id)? onRemoveExisting;
   final int maxImages;
 
+  int get _totalCount => existingImages.length + images.length;
+
   Future<void> _pick(BuildContext context) async {
-    final remaining = maxImages - images.length;
+    final remaining = maxImages - _totalCount;
     if (remaining <= 0) return;
     final picked = await ImagePicker().pickMultiImage();
     if (picked.isEmpty) return;
@@ -49,7 +56,7 @@ class PhotosPicker extends StatelessWidget {
                   Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 18),
             ),
             Text(
-              l10n.photosAdded(images.length, maxImages),
+              l10n.photosAdded(_totalCount, maxImages),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -62,7 +69,14 @@ class PhotosPicker extends StatelessWidget {
           mainAxisSpacing: AppSpacing.md,
           crossAxisSpacing: AppSpacing.md,
           children: [
-            if (images.length < maxImages) _UploadTile(onTap: () => _pick(context)),
+            if (_totalCount < maxImages) _UploadTile(onTap: () => _pick(context)),
+            for (final existing in existingImages)
+              _NetworkPreviewTile(
+                image: existing,
+                onRemove: onRemoveExisting == null
+                    ? null
+                    : () => onRemoveExisting!(existing.id),
+              ),
             for (var i = 0; i < images.length; i++)
               _PreviewTile(image: images[i], onRemove: () => onRemove(i)),
           ],
@@ -135,6 +149,47 @@ class _PreviewTile extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+class _NetworkPreviewTile extends StatelessWidget {
+  const _NetworkPreviewTile({required this.image, this.onRemove});
+
+  final RoomImageRef image;
+  final VoidCallback? onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(AppRadii.mdValue),
+          child: Image.network(
+            image.url,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Container(
+              color: cs.surfaceContainerHighest,
+              child: Icon(Icons.broken_image_outlined, color: cs.outline),
+            ),
+          ),
+        ),
+        if (onRemove != null)
+          Positioned(
+            top: 4,
+            right: 4,
+            child: GestureDetector(
+              onTap: onRemove,
+              child: const CircleAvatar(
+                radius: 12,
+                backgroundColor: Colors.black54,
+                child: Icon(Icons.close, size: 14, color: Colors.white),
+              ),
+            ),
+          ),
       ],
     );
   }

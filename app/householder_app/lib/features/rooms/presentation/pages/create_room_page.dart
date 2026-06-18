@@ -15,12 +15,21 @@ import '../widgets/step_indicator.dart';
 
 class CreateRoomPage extends StatelessWidget {
   static const String routeName = '/rooms/new';
-  const CreateRoomPage({super.key});
+  static const String editRouteName = '/rooms/:roomId/edit';
+  static String editPathTo(int roomId) => '/rooms/$roomId/edit';
+
+  const CreateRoomPage({super.key, this.roomId});
+
+  final int? roomId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CreateRoomCubit>(
-      create: (_) => GetIt.I<CreateRoomCubit>(),
+      create: (_) {
+        final cubit = GetIt.I<CreateRoomCubit>();
+        if (roomId != null) cubit.loadForEdit(roomId!);
+        return cubit;
+      },
       child: const _CreateRoomView(),
     );
   }
@@ -47,7 +56,11 @@ class _CreateRoomView extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text(l10n.roomPublishedSuccess)),
+              SnackBar(
+                content: Text(state.isEditMode
+                    ? l10n.roomUpdatedSuccess
+                    : l10n.roomPublishedSuccess),
+              ),
             );
           _exit(context);
         } else if (state.status == CreateRoomStatus.failure) {
@@ -66,12 +79,21 @@ class _CreateRoomView extends StatelessWidget {
         final isLast = state.currentStep == CreateRoomState.lastStep;
         final submitting = state.status == CreateRoomStatus.submitting;
 
+        if (state.initializing) {
+          return const Scaffold(
+            body: SafeArea(
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
         return Scaffold(
           body: SafeArea(
             child: Column(
               children: [
                 _Header(
                   step: state.currentStep,
+                  isEditMode: state.isEditMode,
                   onBack: () =>
                       state.currentStep == 0 ? _exit(context) : cubit.back(),
                   onClose: () => _exit(context),
@@ -86,6 +108,7 @@ class _CreateRoomView extends StatelessWidget {
                 ),
                 _BottomBar(
                   isLast: isLast,
+                  isEditMode: state.isEditMode,
                   submitting: submitting,
                   onBack: () =>
                       state.currentStep == 0 ? _exit(context) : cubit.back(),
@@ -110,11 +133,13 @@ class _CreateRoomView extends StatelessWidget {
 class _Header extends StatelessWidget {
   const _Header({
     required this.step,
+    required this.isEditMode,
     required this.onBack,
     required this.onClose,
   });
 
   final int step;
+  final bool isEditMode;
   final VoidCallback onBack;
   final VoidCallback onClose;
 
@@ -136,7 +161,9 @@ class _Header extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context).addNewRoom,
+                      isEditMode
+                          ? AppLocalizations.of(context).editRoom
+                          : AppLocalizations.of(context).addNewRoom,
                       style: Theme.of(
                         context,
                       ).textTheme.displaySmall?.copyWith(fontSize: 18),
@@ -165,12 +192,14 @@ class _Header extends StatelessWidget {
 class _BottomBar extends StatelessWidget {
   const _BottomBar({
     required this.isLast,
+    required this.isEditMode,
     required this.submitting,
     required this.onBack,
     required this.onNext,
   });
 
   final bool isLast;
+  final bool isEditMode;
   final bool submitting;
   final VoidCallback onBack;
   final VoidCallback onNext;
@@ -204,7 +233,9 @@ class _BottomBar extends StatelessWidget {
           Expanded(
             child: AppPrimaryButton(
               label: isLast
-                  ? AppLocalizations.of(context).publish
+                  ? (isEditMode
+                      ? AppLocalizations.of(context).save
+                      : AppLocalizations.of(context).publish)
                   : AppLocalizations.of(context).nextStep,
               expanded: true,
               isLoading: submitting,

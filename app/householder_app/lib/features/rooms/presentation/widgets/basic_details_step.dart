@@ -107,6 +107,8 @@ class _BasicDetailsStepState extends State<BasicDetailsStep> {
                 images: state.images,
                 onAdd: _cubit.addImages,
                 onRemove: _cubit.removeImage,
+                existingImages: state.existingImages,
+                onRemoveExisting: _cubit.removeExistingImage,
               ),
             ),
             AppSpacing.gapXl,

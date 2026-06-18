@@ -7,6 +7,7 @@ import '../data/repositories/room_repository_impl.dart';
 import '../domain/repositories/room_repository.dart';
 import '../domain/usecases/create_room_usecase.dart';
 import '../domain/usecases/get_room_detail_usecase.dart';
+import '../domain/usecases/update_room_usecase.dart';
 import '../presentation/cubits/create_room_cubit.dart';
 import '../presentation/cubits/room_detail_cubit.dart';
 
@@ -23,10 +24,15 @@ void registerRoomDependencies(GetIt getIt) {
     ..registerLazySingleton<GetRoomDetailUseCase>(
       () => GetRoomDetailUseCase(getIt<RoomRepository>()),
     )
+    ..registerLazySingleton<UpdateRoomUseCase>(
+      () => UpdateRoomUseCase(getIt<RoomRepository>()),
+    )
     ..registerLazySingleton<LocationService>(LocationServiceImpl.new)
     ..registerFactory<CreateRoomCubit>(
       () => CreateRoomCubit(
         createRoomUseCase: getIt<CreateRoomUseCase>(),
+        updateRoomUseCase: getIt<UpdateRoomUseCase>(),
+        getRoomDetailUseCase: getIt<GetRoomDetailUseCase>(),
         locationService: getIt<LocationService>(),
       ),
     )

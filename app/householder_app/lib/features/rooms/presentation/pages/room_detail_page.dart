@@ -14,6 +14,7 @@ import '../widgets/amenities_grid.dart';
 import '../widgets/booking_requests_card.dart';
 import '../widgets/room_image_carousel.dart';
 import '../widgets/room_location_section.dart';
+import 'create_room_page.dart';
 
 class RoomDetailPage extends StatelessWidget {
   static const routeName = '/rooms/:roomId';
@@ -36,12 +37,10 @@ class _RoomDetailView extends StatelessWidget {
 
   final int roomId;
 
-  void _showEditComingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context).editRoomComingSoon)),
-      );
+  Future<void> _openEdit(BuildContext context) async {
+    final cubit = context.read<RoomDetailCubit>();
+    await context.push(CreateRoomPage.editPathTo(roomId));
+    if (context.mounted) cubit.load(roomId);
   }
 
   @override
@@ -63,7 +62,7 @@ class _RoomDetailView extends StatelessWidget {
             RoomDetailLoaded(:final detail, :final address) => _Content(
               detail: detail,
               address: address,
-              onEdit: () => _showEditComingSoon(context),
+              onEdit: () => _openEdit(context),
               onViewRequests: () =>
                   context.push(BookingRequestsPage.pathTo(roomId)),
             ),
