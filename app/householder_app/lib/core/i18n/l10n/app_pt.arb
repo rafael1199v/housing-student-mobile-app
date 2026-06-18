@@ -213,6 +213,9 @@
   "policyParking": "Estacionamento",
 
   "addNewRoom": "Adicionar quarto",
+  "editRoom": "Editar quarto",
+  "save": "Salvar",
+  "roomUpdatedSuccess": "Quarto atualizado com sucesso.",
   "stepOfThree": "Etapa {step} de 3",
   "back": "Voltar",
   "nextStep": "Próxima",

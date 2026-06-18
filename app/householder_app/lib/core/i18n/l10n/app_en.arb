@@ -607,6 +607,12 @@
 
   "addNewRoom": "Add New Room",
   "@addNewRoom": { "description": "Create-room wizard title" },
+  "editRoom": "Edit Room",
+  "@editRoom": { "description": "Edit-room wizard title" },
+  "save": "Save",
+  "@save": { "description": "Wizard save button (edit mode)" },
+  "roomUpdatedSuccess": "Room updated successfully.",
+  "@roomUpdatedSuccess": { "description": "Snackbar after updating a room" },
   "stepOfThree": "Step {step} of 3",
   "@stepOfThree": {
     "description": "Create-room wizard step counter",
