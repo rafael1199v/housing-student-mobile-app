@@ -17,4 +17,10 @@ abstract class RoomApi {
 
   @POST('/api/rooms')
   Future<CreatedRoomDto> createRoom(@Body() FormData body);
+
+  @PUT('/api/rooms/{roomId}')
+  Future<CreatedRoomDto> updateRoom(
+    @Path('roomId') int roomId,
+    @Body() FormData body,
+  );
 }
