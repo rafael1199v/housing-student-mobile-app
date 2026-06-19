@@ -8,7 +8,9 @@ import '../data/repositories/auth_repository_impl.dart';
 import '../domain/repositories/auth_repository.dart';
 import '../domain/usecases/confirm_email_usecase.dart';
 import '../domain/usecases/login_usecase.dart';
+import '../domain/usecases/login_with_google_usecase.dart';
 import '../domain/usecases/register_usecase.dart';
+import '../domain/usecases/register_with_google_usecase.dart';
 import '../presentation/blocs/auth_bloc.dart';
 import '../presentation/blocs/confirm_email_bloc.dart';
 import '../presentation/blocs/register_bloc.dart';
@@ -35,6 +37,12 @@ void registerAuthDependencies(GetIt getIt) {
     ..registerLazySingleton<LoginUseCase>(
       () => LoginUseCase(getIt<AuthRepository>()),
     )
+    ..registerLazySingleton<LoginWithGoogleUseCase>(
+      () => LoginWithGoogleUseCase(getIt<AuthRepository>()),
+    )
+    ..registerLazySingleton<RegisterWithGoogleUseCase>(
+      () => RegisterWithGoogleUseCase(getIt<AuthRepository>()),
+    )
     ..registerLazySingleton<RegisterUseCase>(
       () => RegisterUseCase(getIt<AuthRepository>()),
     )
@@ -42,7 +50,11 @@ void registerAuthDependencies(GetIt getIt) {
       () => ConfirmEmailUseCase(getIt<AuthRepository>()),
     )
     ..registerFactory<AuthBloc>(
-      () => AuthBloc(loginUseCase: getIt<LoginUseCase>()),
+      () => AuthBloc(
+        loginUseCase: getIt<LoginUseCase>(),
+        loginWithGoogleUseCase: getIt<LoginWithGoogleUseCase>(),
+        registerWithGoogleUseCase: getIt<RegisterWithGoogleUseCase>(),
+      ),
     )
     ..registerFactory<RegisterBloc>(
       () => RegisterBloc(registerUseCase: getIt<RegisterUseCase>()),
