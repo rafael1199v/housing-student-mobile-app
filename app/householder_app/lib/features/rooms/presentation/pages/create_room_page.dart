@@ -38,6 +38,8 @@ class CreateRoomPage extends StatelessWidget {
 class _CreateRoomView extends StatelessWidget {
   const _CreateRoomView();
 
+  static const double _maxContentWidth = 720;
+
   void _exit(BuildContext context) {
     if (context.canPop()) {
       context.pop();
@@ -57,9 +59,11 @@ class _CreateRoomView extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.isEditMode
-                    ? l10n.roomUpdatedSuccess
-                    : l10n.roomPublishedSuccess),
+                content: Text(
+                  state.isEditMode
+                      ? l10n.roomUpdatedSuccess
+                      : l10n.roomPublishedSuccess,
+                ),
               ),
             );
           _exit(context);
@@ -81,40 +85,45 @@ class _CreateRoomView extends StatelessWidget {
 
         if (state.initializing) {
           return const Scaffold(
-            body: SafeArea(
-              child: Center(child: CircularProgressIndicator()),
-            ),
+            body: SafeArea(child: Center(child: CircularProgressIndicator())),
           );
         }
 
         return Scaffold(
           body: SafeArea(
-            child: Column(
-              children: [
-                _Header(
-                  step: state.currentStep,
-                  isEditMode: state.isEditMode,
-                  onBack: () =>
-                      state.currentStep == 0 ? _exit(context) : cubit.back(),
-                  onClose: () => _exit(context),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: _maxContentWidth),
+                child: Column(
+                  children: [
+                    _Header(
+                      step: state.currentStep,
+                      isEditMode: state.isEditMode,
+                      onBack: () => state.currentStep == 0
+                          ? _exit(context)
+                          : cubit.back(),
+                      onClose: () => _exit(context),
+                    ),
+                    const Divider(height: 1),
+                    Expanded(
+                      child: switch (state.currentStep) {
+                        0 => const BasicDetailsStep(),
+                        1 => const ServicesPoliciesStep(),
+                        _ => const ReviewStep(),
+                      },
+                    ),
+                    _BottomBar(
+                      isLast: isLast,
+                      isEditMode: state.isEditMode,
+                      submitting: submitting,
+                      onBack: () => state.currentStep == 0
+                          ? _exit(context)
+                          : cubit.back(),
+                      onNext: isLast ? cubit.submit : cubit.next,
+                    ),
+                  ],
                 ),
-                const Divider(height: 1),
-                Expanded(
-                  child: switch (state.currentStep) {
-                    0 => const BasicDetailsStep(),
-                    1 => const ServicesPoliciesStep(),
-                    _ => const ReviewStep(),
-                  },
-                ),
-                _BottomBar(
-                  isLast: isLast,
-                  isEditMode: state.isEditMode,
-                  submitting: submitting,
-                  onBack: () =>
-                      state.currentStep == 0 ? _exit(context) : cubit.back(),
-                  onNext: isLast ? cubit.submit : cubit.next,
-                ),
-              ],
+              ),
             ),
           ),
         );
@@ -234,8 +243,8 @@ class _BottomBar extends StatelessWidget {
             child: AppPrimaryButton(
               label: isLast
                   ? (isEditMode
-                      ? AppLocalizations.of(context).save
-                      : AppLocalizations.of(context).publish)
+                        ? AppLocalizations.of(context).save
+                        : AppLocalizations.of(context).publish)
                   : AppLocalizations.of(context).nextStep,
               expanded: true,
               isLoading: submitting,
