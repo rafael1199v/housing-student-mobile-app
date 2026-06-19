@@ -1,4 +1,5 @@
 import '../entities/credentials.dart';
+import '../entities/google_auth_result.dart';
 
 abstract interface class AuthRepository {
   Future<Credentials> login({
@@ -22,5 +23,12 @@ abstract interface class AuthRepository {
     required String token,
   });
 
+  Future<GoogleAuthResult> loginWithGoogle(String idToken);
+
+  Future<Credentials> registerWithGoogle({
+    required String idToken,
+    required String role,
+  });
+  
   Future<void> logout();
 }

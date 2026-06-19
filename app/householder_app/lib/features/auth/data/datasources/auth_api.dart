@@ -4,6 +4,9 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/core.dart';
 import '../models/confirm_email_dto.dart';
 import '../models/credentials_dto.dart';
+import '../models/google_auth_response_dto.dart';
+import '../models/google_login_dto.dart';
+import '../models/google_register_dto.dart';
 import '../models/login_dto.dart';
 import '../models/register_dto.dart';
 import '../models/register_response_dto.dart';
@@ -29,4 +32,12 @@ abstract class AuthApi {
   @DELETE('/api/auth/logout')
   @Extra({AuthMeta.requiresAuthKey: false})
   Future<void> logout();
+
+  @POST('/api/login/google')
+  @Extra({AuthMeta.requiresAuthKey: false})
+  Future<GoogleAuthResponseDto> loginWithGoogle(@Body() GoogleLoginDto body);
+
+  @POST('/api/register/google')
+  @Extra({AuthMeta.requiresAuthKey: false})
+  Future<CredentialsDto> registerWithGoogle(@Body() GoogleRegisterDto body);
 }
