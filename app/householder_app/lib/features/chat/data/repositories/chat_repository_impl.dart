@@ -13,15 +13,43 @@ class ChatRepositoryImpl implements ChatRepository {
     required ChatApi api,
     required ChatSocketDataSource socket,
     required ChatLocalDataSource local,
+    required ConnectivityService connectivity,
   })  : _api = api,
         _socket = socket,
-        _local = local {
+        _local = local,
+        _connectivity = connectivity {
     _socket.messages.listen((dto) => _local.appendMessage(dto.toEntity()));
+    _connectivity.onStatusChanged().listen((status) {
+      if (status == ConnectionStatus.online) _flushOutbox();
+    });
+    _connectivity.currentStatus().then((status) {
+      if (status == ConnectionStatus.online) _flushOutbox();
+    });
   }
 
   final ChatApi _api;
   final ChatSocketDataSource _socket;
   final ChatLocalDataSource _local;
+  final ConnectivityService _connectivity;
+  bool _flushing = false;
+
+  Future<void> _flushOutbox() async {
+    if (_flushing) return;
+    _flushing = true;
+    try {
+      final pending = await _local.readOutgoing();
+      for (final outgoing in pending) {
+        try {
+          await _socket.sendMessage(outgoing.chatId, outgoing.message);
+          await _local.removeOutgoing(outgoing.id);
+        } catch (_) {
+          break;
+        }
+      }
+    } finally {
+      _flushing = false;
+    }
+  }
 
   @override
   Future<List<ChatSummary>> getChats() async {

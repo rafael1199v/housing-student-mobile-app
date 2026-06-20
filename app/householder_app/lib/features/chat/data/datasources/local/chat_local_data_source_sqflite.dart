@@ -165,6 +165,27 @@ class SqfliteChatLocalDataSource implements ChatLocalDataSource {
     });
   }
 
+  @override
+  Future<List<OutgoingMessage>> readOutgoing() async {
+    final db = await _database();
+    final rows = await db.query('outbox', orderBy: 'localId ASC');
+    return rows
+        .map(
+          (r) => OutgoingMessage(
+            id: r['localId'] as int,
+            chatId: r['chatId'] as int,
+            message: r['message'] as String? ?? '',
+          ),
+        )
+        .toList();
+  }
+
+  @override
+  Future<void> removeOutgoing(int id) async {
+    final db = await _database();
+    await db.delete('outbox', where: 'localId = ?', whereArgs: [id]);
+  }
+
   static DateTime? _toDate(int? millis) =>
       millis == null ? null : DateTime.fromMillisecondsSinceEpoch(millis);
 }

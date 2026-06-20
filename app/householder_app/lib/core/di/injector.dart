@@ -12,6 +12,8 @@ import '../../features/rooms/rooms.dart';
 import '../i18n/locale_cubit.dart';
 import '../i18n/locale_preference_storage.dart';
 import '../network/dio_client.dart';
+import '../platform/connectivity_service.dart';
+import '../platform/connectivity_service_factory.dart';
 import '../session/current_user.dart';
 import '../session/session_notifier.dart';
 import '../storage/secure_token_storage.dart';
@@ -57,6 +59,8 @@ Future<void> configureDependencies() async {
       onSessionExpired: () => getIt<SessionNotifier>().signedOut(),
     ),
   );
+
+  getIt.registerLazySingleton<ConnectivityService>(createConnectivityService);
 
   registerAuthDependencies(getIt);
   registerProfileDependencies(getIt);

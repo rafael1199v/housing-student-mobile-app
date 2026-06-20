@@ -9,6 +9,8 @@ export 'i18n/l10n/gen/app_localizations.dart';
 export 'i18n/locale_cubit.dart';
 export 'i18n/locale_preference_storage.dart';
 export 'network/auth_meta.dart';
+export 'platform/connectivity_service.dart';
+export 'platform/connectivity_service_factory.dart';
 export 'platform/google_sign_in_service.dart';
 export 'platform/google_sign_in_service_factory.dart';
 export 'platform/location_service.dart';
