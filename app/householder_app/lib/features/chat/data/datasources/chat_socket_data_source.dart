@@ -38,6 +38,7 @@ class SignalRChatSocketDataSource implements ChatSocketDataSource {
   }
 
   Future<void> _start() async {
+    await _connection?.stop();
     final connection = HubConnectionBuilder()
         .withUrl(
           '${AppConfig.baseUrl}/hubs/chat',
