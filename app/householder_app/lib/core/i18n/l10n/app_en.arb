@@ -88,12 +88,6 @@
   "@hintSelectNationality": {
     "description": "Placeholder hint for the nationality dropdown"
   },
-
-  "save": "Save",
-  "@save": {
-    "description": "Label for the save button in the edit profile form"
-  },
-
   "prefLanguage": "Language",
   "@prefLanguage": {
     "description": "Field label for the language selector in preferences"
@@ -217,6 +211,30 @@
   "avatarGeneric": "We could not update your photo. Please try again.",
   "@avatarGeneric": {
     "description": "Fallback error message when the avatar upload fails"
+  },
+  "avatarSourceTitle": "Update profile photo",
+  "@avatarSourceTitle": {
+    "description": "Title of the bottom sheet to choose the avatar image source"
+  },
+  "avatarTakePhoto": "Take a photo",
+  "@avatarTakePhoto": {
+    "description": "Bottom sheet option to capture a new avatar with the camera"
+  },
+  "avatarChooseFromGallery": "Choose from gallery",
+  "@avatarChooseFromGallery": {
+    "description": "Bottom sheet option to pick an avatar from the gallery"
+  },
+  "avatarCameraUnavailable": "We couldn't access the camera. Please try again or choose from your gallery.",
+  "@avatarCameraUnavailable": {
+    "description": "Avatar error shown when the camera cannot be opened (no camera or hardware error)"
+  },
+  "avatarCameraPermissionDenied": "Camera permission is needed to take a photo.",
+  "@avatarCameraPermissionDenied": {
+    "description": "Avatar message shown when the user denies the camera permission"
+  },
+  "openSettings": "Open settings",
+  "@openSettings": {
+    "description": "Action label that opens the app's system settings page"
   },
 
   "homeGreetingMorning": "Good morning, {name}",
@@ -610,7 +628,7 @@
   "editRoom": "Edit Room",
   "@editRoom": { "description": "Edit-room wizard title" },
   "save": "Save",
-  "@save": { "description": "Wizard save button (edit mode)" },
+  "@save": { "description": "Wizard save button (edit mode) or Label for the save button in the edit profile form" },
   "roomUpdatedSuccess": "Room updated successfully.",
   "@roomUpdatedSuccess": { "description": "Snackbar after updating a room" },
   "stepOfThree": "Step {step} of 3",
