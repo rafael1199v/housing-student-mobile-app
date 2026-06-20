@@ -36,6 +36,7 @@ void registerChatDependencies(GetIt getIt) {
         api: getIt<ChatApi>(),
         socket: getIt<ChatSocketDataSource>(),
         local: getIt<ChatLocalDataSource>(),
+        connectivity: getIt<ConnectivityService>(),
       ),
     )
     ..registerLazySingleton<GetChatsUseCase>(
