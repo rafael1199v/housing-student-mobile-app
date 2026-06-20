@@ -67,6 +67,12 @@
   "avatarFileMissing": "Nenhuma imagem foi selecionada. Tente novamente.",
   "avatarUserNotFound": "Não foi possível encontrar seu perfil.",
   "avatarGeneric": "Não foi possível atualizar sua foto. Tente novamente.",
+  "avatarSourceTitle": "Atualizar foto de perfil",
+  "avatarTakePhoto": "Tirar uma foto",
+  "avatarChooseFromGallery": "Escolher da galeria",
+  "avatarCameraUnavailable": "Não foi possível acessar a câmera. Tente novamente ou escolha da sua galeria.",
+  "avatarCameraPermissionDenied": "É necessária permissão de câmera para tirar uma foto.",
+  "openSettings": "Abrir configurações",
 
   "homeGreetingMorning": "Bom dia, {name}",
   "homeGreetingAfternoon": "Boa tarde, {name}",
@@ -214,7 +220,6 @@
 
   "addNewRoom": "Adicionar quarto",
   "editRoom": "Editar quarto",
-  "save": "Salvar",
   "roomUpdatedSuccess": "Quarto atualizado com sucesso.",
   "stepOfThree": "Etapa {step} de 3",
   "back": "Voltar",
