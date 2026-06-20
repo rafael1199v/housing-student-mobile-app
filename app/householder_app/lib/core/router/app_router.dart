@@ -99,14 +99,6 @@ GoRouter createAppRouter(SessionNotifier session) {
         ),
       ),
 
-      GoRoute(
-        path: ChatConversationPage.routeName,
-        builder: (context, state) => ChatConversationPage(
-          chatId: int.parse(state.pathParameters['chatId']!),
-          title: state.extra is String ? state.extra as String : null,
-        ),
-      ),
-
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             MainShell(navigationShell: navigationShell),
@@ -125,6 +117,16 @@ GoRouter createAppRouter(SessionNotifier session) {
               GoRoute(
                 path: ChatListPage.routeName,
                 builder: (context, state) => const ChatListPage(),
+                routes: [
+                  GoRoute(
+                    path: ':chatId',
+                    builder: (context, state) => ChatConversationPage(
+                      chatId: int.parse(state.pathParameters['chatId']!),
+                      title:
+                          state.extra is String ? state.extra as String : null,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
