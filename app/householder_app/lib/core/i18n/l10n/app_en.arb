@@ -405,6 +405,10 @@
   "@chatEmpty": {
     "description": "Empty state of the chat list"
   },
+  "chatSelectConversation": "Select a conversation to start messaging.",
+  "@chatSelectConversation": {
+    "description": "Empty state shown in the conversation pane when no chat is selected (wide screens)"
+  },
   "chatNoMessages": "No messages yet. Say hello!",
   "@chatNoMessages": {
     "description": "Empty state inside a conversation"

@@ -116,6 +116,7 @@
   "chatComingSoon": "El chat con un estudiante estará disponible pronto.",
   "chatListTitle": "Mensajes",
   "chatEmpty": "Aún no tienes conversaciones.",
+  "chatSelectConversation": "Selecciona una conversación para empezar a chatear.",
   "chatNoMessages": "Aún no hay mensajes. ¡Saluda!",
   "chatConversationHint": "Escribe un mensaje",
   "chatLoadError": "No pudimos cargar el chat. Inténtalo de nuevo.",
