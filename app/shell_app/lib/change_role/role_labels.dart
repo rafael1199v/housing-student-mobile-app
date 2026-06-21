@@ -1,24 +1,25 @@
+import 'package:householder_app/core/core.dart' show AppLocalizations;
 import 'package:housing_core/housing_core.dart';
 
-String roleLabel(AppRole role) => switch (role) {
-  AppRole.householder => 'Propietario',
-  AppRole.student => 'Estudiante',
-  AppRole.admin => 'Administrador',
+String roleLabel(AppLocalizations l10n, AppRole role) => switch (role) {
+  AppRole.householder => l10n.roleHouseholder,
+  AppRole.student => l10n.roleStudent,
+  AppRole.admin => l10n.roleAdmin,
 };
 
-String roleErrorMessage(Failure failure) {
+String roleErrorMessage(AppLocalizations l10n, Failure failure) {
   if (failure is BusinessFailure) {
     switch (failure.code) {
       case RoleErrorCodes.alreadyAssigned:
-        return 'Ya tienes ese rol.';
+        return l10n.roleErrAlreadyAssigned;
       case RoleErrorCodes.notAssignable:
-        return 'No puedes adquirir ese rol.';
+        return l10n.roleErrNotAssignable;
       case RoleErrorCodes.invalid:
-        return 'Rol no válido.';
+        return l10n.roleErrInvalid;
       case RoleErrorCodes.assignmentFailed:
-        return 'No se pudo asignar el rol. Inténtalo de nuevo.';
+        return l10n.roleErrAssignmentFailed;
     }
   }
-  if (failure is NetworkFailure) return 'Sin conexión. Revisa tu red.';
-  return 'Ocurrió un error. Inténtalo de nuevo.';
+  if (failure is NetworkFailure) return l10n.errNetwork;
+  return l10n.roleErrGeneric;
 }
