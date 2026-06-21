@@ -10,6 +10,7 @@ sealed class RegisterEvent extends Equatable {
 class RegisterSubmitted extends RegisterEvent {
   final String email;
   final String password;
+  final String role;
   final String firstName;
   final String lastName;
   final String phoneNumber;
@@ -20,6 +21,7 @@ class RegisterSubmitted extends RegisterEvent {
   const RegisterSubmitted({
     required this.email,
     required this.password,
+    required this.role,
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
@@ -32,6 +34,7 @@ class RegisterSubmitted extends RegisterEvent {
   List<Object?> get props => [
     email,
     password,
+    role,
     firstName,
     lastName,
     phoneNumber,
