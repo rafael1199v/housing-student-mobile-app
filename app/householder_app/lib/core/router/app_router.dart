@@ -17,6 +17,8 @@ const _publicRoutes = {
   ConfirmEmailPage.routeName,
 };
 
+const String householderInitialLocation = HomePage.routeName;
+
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 String _extractToken(Uri uri) {
@@ -29,9 +31,109 @@ String _extractToken(Uri uri) {
   return '';
 }
 
+List<RouteBase> householderExperienceRoutes() => [
+  GoRoute(
+    path: CreateRoomPage.routeName,
+    builder: (context, state) => const CreateRoomPage(),
+  ),
+
+  GoRoute(
+    path: CreateRoomPage.editRouteName,
+    builder: (context, state) =>
+        CreateRoomPage(roomId: int.parse(state.pathParameters['roomId']!)),
+  ),
+
+  GoRoute(
+    path: EditProfilePage.routeName,
+    builder: (context, state) =>
+        EditProfilePage(profile: state.extra as UserProfile),
+  ),
+
+  GoRoute(
+    path: RoomDetailPage.routeName,
+    builder: (context, state) =>
+        RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),
+  ),
+
+  GoRoute(
+    path: BookingRequestsPage.routeName,
+    builder: (context, state) => BookingRequestsPage(
+      roomId: int.parse(state.pathParameters['roomId']!),
+    ),
+  ),
+
+  StatefulShellRoute.indexedStack(
+    builder: (context, state, navigationShell) =>
+        MainShell(navigationShell: navigationShell),
+    branches: [
+      StatefulShellBranch(
+        navigatorKey: _shellNavigatorKey,
+        routes: [
+          GoRoute(
+            path: HomePage.routeName,
+            builder: (context, state) => const HomePage(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: ChatListPage.routeName,
+            builder: (context, state) => const ChatListPage(),
+            routes: [
+              GoRoute(
+                path: ':chatId',
+                builder: (context, state) => ChatConversationPage(
+                  chatId: int.parse(state.pathParameters['chatId']!),
+                  title: state.extra is String ? state.extra as String : null,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: ProfilePage.routeName,
+            builder: (context, state) => const ProfilePage(),
+          ),
+        ],
+      ),
+    ],
+  ),
+];
+
+List<RouteBase> _authRoutes() => [
+  GoRoute(
+    path: LoginPage.routeName,
+    builder: (context, state) => const LoginPage(),
+  ),
+
+  GoRoute(
+    path: RegisterPage.routeName,
+    builder: (context, state) => const RegisterPage(),
+  ),
+
+  GoRoute(
+    path: RegistrationEmailSentPage.routeName,
+    builder: (context, state) => RegistrationEmailSentPage(
+      email: state.extra is String ? state.extra as String : '',
+    ),
+  ),
+
+  GoRoute(
+    path: ConfirmEmailPage.routeName,
+    builder: (context, state) => ConfirmEmailPage(
+      userId: state.uri.queryParameters['userId'] ?? '',
+      token: _extractToken(state.uri),
+    ),
+  ),
+];
+
 GoRouter createAppRouter(SessionNotifier session) {
   return GoRouter(
-    initialLocation: HomePage.routeName,
+    initialLocation: householderInitialLocation,
     refreshListenable: session,
     redirect: (context, state) {
       if (state.matchedLocation == ConfirmEmailPage.routeName) return null;
@@ -40,106 +142,12 @@ GoRouter createAppRouter(SessionNotifier session) {
       final atPublic = _publicRoutes.contains(state.matchedLocation);
 
       if (!loggedIn) return atPublic ? null : LoginPage.routeName;
-      if (atPublic) return HomePage.routeName;
+      if (atPublic) return householderInitialLocation;
       return null;
     },
     routes: [
-      GoRoute(
-        path: LoginPage.routeName,
-        builder: (context, state) => const LoginPage(),
-      ),
-
-      GoRoute(
-        path: RegisterPage.routeName,
-        builder: (context, state) => const RegisterPage(),
-      ),
-
-      GoRoute(
-        path: RegistrationEmailSentPage.routeName,
-        builder: (context, state) => RegistrationEmailSentPage(
-          email: state.extra is String ? state.extra as String : '',
-        ),
-      ),
-
-      GoRoute(
-        path: ConfirmEmailPage.routeName,
-        builder: (context, state) => ConfirmEmailPage(
-          userId: state.uri.queryParameters['userId'] ?? '',
-          token: _extractToken(state.uri),
-        ),
-      ),
-
-      GoRoute(
-        path: CreateRoomPage.routeName,
-        builder: (context, state) => const CreateRoomPage(),
-      ),
-
-      GoRoute(
-        path: CreateRoomPage.editRouteName,
-        builder: (context, state) =>
-            CreateRoomPage(roomId: int.parse(state.pathParameters['roomId']!)),
-      ),
-
-      GoRoute(
-        path: EditProfilePage.routeName,
-        builder: (context, state) =>
-            EditProfilePage(profile: state.extra as UserProfile),
-      ),
-
-      GoRoute(
-        path: RoomDetailPage.routeName,
-        builder: (context, state) =>
-            RoomDetailPage(roomId: int.parse(state.pathParameters['roomId']!)),
-      ),
-
-      GoRoute(
-        path: BookingRequestsPage.routeName,
-        builder: (context, state) => BookingRequestsPage(
-          roomId: int.parse(state.pathParameters['roomId']!),
-        ),
-      ),
-
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) =>
-            MainShell(navigationShell: navigationShell),
-        branches: [
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorKey,
-            routes: [
-              GoRoute(
-                path: HomePage.routeName,
-                builder: (context, state) => const HomePage(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: ChatListPage.routeName,
-                builder: (context, state) => const ChatListPage(),
-                routes: [
-                  GoRoute(
-                    path: ':chatId',
-                    builder: (context, state) => ChatConversationPage(
-                      chatId: int.parse(state.pathParameters['chatId']!),
-                      title:
-                          state.extra is String ? state.extra as String : null,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: ProfilePage.routeName,
-                builder: (context, state) => const ProfilePage(),
-              ),
-            ],
-          ),
-        ],
-      ),
+      ..._authRoutes(),
+      ...householderExperienceRoutes(),
     ],
   );
 }
