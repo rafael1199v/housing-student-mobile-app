@@ -5,10 +5,12 @@ import 'package:housing_design_system/housing_design_system.dart';
 import '../../../../core/core.dart';
 import '../../../profile/presentation/utils/profile_form_options.dart';
 import '../utils/register_validators.dart';
+import '../utils/role_options.dart';
 import 'phone_field.dart';
 
 typedef RegisterSubmitCallback =
     void Function({
+      required String role,
       required String firstName,
       required String lastName,
       required String gender,
@@ -42,6 +44,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _confirmController = TextEditingController();
 
   String _dialCode = '+591';
+  String _role = kDefaultRoleValue;
   String? _gender;
   String? _nationality;
   DateTime? _birthDate;
@@ -121,6 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
     if (hasError) return;
 
     widget.onSubmit(
+      role: _role,
       firstName: firstName,
       lastName: lastName,
       gender: _gender!,
@@ -141,6 +145,15 @@ class _RegisterFormState extends State<RegisterForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        AppDropdownField<String>(
+          label: l10n.fieldRole,
+          hintText: l10n.hintSelectRole,
+          items: roleOptions(l10n),
+          value: _role,
+          enabled: enabled,
+          onChanged: (value) => setState(() => _role = value ?? _role),
+        ),
+        AppSpacing.gapLg,
         AppTextField(
           label: l10n.fieldFirstName,
           hintText: l10n.hintFirstName,
