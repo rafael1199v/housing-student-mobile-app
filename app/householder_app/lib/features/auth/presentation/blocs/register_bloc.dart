@@ -25,6 +25,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       await _registerUseCase(
         email: event.email,
         password: event.password,
+        role: event.role,
         firstName: event.firstName,
         lastName: event.lastName,
         phoneNumber: event.phoneNumber,

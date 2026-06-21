@@ -20,9 +20,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
        super(const AuthInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<GoogleAuthSubmitted>(_onGoogleAuthSubmitted);
+    on<GoogleRoleSelected>(_onGoogleRoleSelected);
   }
-
-  static const _googleSignUpRole = 'Householder';
 
   final LoginUseCase _loginUseCase;
   final LoginWithGoogleUseCase _loginWithGoogleUseCase;
@@ -61,9 +60,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(const AuthAuthenticated());
         return;
       }
+      emit(AuthNeedsGoogleRole(event.idToken));
+    } on Failure catch (failure) {
+      emit(AuthFailureState(code: failure.code));
+    } catch (error) {
+      emit(const AuthFailureState(code: 'unknown.error'));
+    }
+  }
+
+  Future<void> _onGoogleRoleSelected(
+    GoogleRoleSelected event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+    try {
       await _registerWithGoogleUseCase(
         idToken: event.idToken,
-        role: _googleSignUpRole,
+        role: event.role,
       );
       emit(const AuthAuthenticated());
     } on Failure catch (failure) {

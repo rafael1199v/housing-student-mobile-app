@@ -84,6 +84,7 @@ class _RegisterView extends StatelessWidget {
                 RegisterForm(
                   isLoading: isLoading,
                   onSubmit: ({
+                    required String role,
                     required String firstName,
                     required String lastName,
                     required String gender,
@@ -98,6 +99,7 @@ class _RegisterView extends StatelessWidget {
                       RegisterSubmitted(
                         email: email,
                         password: password,
+                        role: role,
                         firstName: firstName,
                         lastName: lastName,
                         phoneNumber: phoneNumber,
