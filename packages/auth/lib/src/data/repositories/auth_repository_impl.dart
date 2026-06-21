@@ -2,6 +2,7 @@ import 'package:housing_core/housing_core.dart' hide Credentials;
 import '../../domain/entities/credentials.dart';
 import '../../domain/entities/google_auth_result.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../domain/services/password_cipher.dart';
 import '../datasources/auth_api.dart';
 import '../models/confirm_email_dto.dart';
 import '../models/credentials_mapper.dart';
@@ -15,11 +16,14 @@ class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl({
     required AuthApi api,
     required TokenStorage tokenStorage,
+    required PasswordCipher passwordCipher,
   }) : _api = api,
-       _tokenStorage = tokenStorage;
+       _tokenStorage = tokenStorage,
+       _passwordCipher = passwordCipher;
 
   final AuthApi _api;
   final TokenStorage _tokenStorage;
+  final PasswordCipher _passwordCipher;
 
   @override
   Future<Credentials> login({
@@ -27,7 +31,9 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
-      final dto = await _api.login(LoginDto(email: email, password: password));
+      final dto = await _api.login(
+        LoginDto(email: email, password: _passwordCipher.encrypt(password)),
+      );
       final credentials = dto.toEntity();
       await _tokenStorage.saveTokens(
         accessToken: credentials.accessToken,
@@ -55,7 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final dto = await _api.register(
         RegisterDto(
           email: email,
-          password: password,
+          password: _passwordCipher.encrypt(password),
           role: role,
           firstName: firstName,
           lastName: lastName,
