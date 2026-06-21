@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:housing_auth/housing_auth.dart';
 import 'package:housing_core/housing_core.dart';
 
-import '../../features/auth/di/auth_module.dart';
 import '../../features/booking/booking.dart';
 import '../../features/chat/chat.dart';
 import '../../features/home/home.dart';
@@ -14,7 +14,6 @@ import '../i18n/locale_cubit.dart';
 import '../i18n/locale_preference_storage.dart';
 import '../platform/connectivity_service.dart';
 import '../platform/connectivity_service_factory.dart';
-import '../session/session_notifier.dart';
 import '../theme/theme_cubit.dart';
 import '../theme/theme_preference_storage.dart';
 

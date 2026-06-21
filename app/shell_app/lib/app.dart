@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:householder_app/core/core.dart'
-    show AppLocalizations, LocaleCubit, SessionNotifier, ThemeCubit, getIt;
+    show AppLocalizations, LocaleCubit, ThemeCubit, getIt;
+import 'package:housing_auth/housing_auth.dart' show AuthLocalizations;
 import 'package:housing_core/housing_core.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 import 'package:student_lib/student_experience.dart' as student;
@@ -91,6 +92,7 @@ class _ShellAppState extends State<ShellApp> {
                       locale: locale,
                       localizationsDelegates: [
                         ...AppLocalizations.localizationsDelegates,
+                        AuthLocalizations.delegate,
                         student.AppLocalizations.delegate,
                       ],
                       supportedLocales: AppLocalizations.supportedLocales,

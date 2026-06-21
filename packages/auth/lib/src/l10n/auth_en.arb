@@ -1,0 +1,394 @@
+{
+  "@@locale": "en",
+  "fieldGender": "Gender",
+  "@fieldGender": {
+    "description": "Label for the gender field"
+  },
+  "fieldNationality": "Nationality",
+  "@fieldNationality": {
+    "description": "Label for the nationality field"
+  },
+  "fieldDateOfBirth": "Date of Birth",
+  "@fieldDateOfBirth": {
+    "description": "Label for the date of birth field"
+  },
+  "fieldFirstName": "First Name",
+  "@fieldFirstName": {
+    "description": "Label for the first name input field"
+  },
+  "fieldLastName": "Last Name",
+  "@fieldLastName": {
+    "description": "Label for the last name input field"
+  },
+  "fieldPhoneNumber": "Phone Number",
+  "@fieldPhoneNumber": {
+    "description": "Label for the phone number input field in the edit profile form"
+  },
+  "fieldEmailAddress": "Email Address",
+  "@fieldEmailAddress": {
+    "description": "Label for the (read-only) email address field in the edit profile form"
+  },
+  "hintFirstName": "e.g. Jane",
+  "@hintFirstName": {
+    "description": "Placeholder hint for the first name input"
+  },
+  "hintLastName": "e.g. Doe",
+  "@hintLastName": {
+    "description": "Placeholder hint for the last name input"
+  },
+  "hintDateOfBirth": "mm/dd/yyyy",
+  "@hintDateOfBirth": {
+    "description": "Placeholder hint for the date of birth input"
+  },
+  "hintSelectGender": "Select gender",
+  "@hintSelectGender": {
+    "description": "Placeholder hint for the gender dropdown"
+  },
+  "hintSelectNationality": "Select nationality",
+  "@hintSelectNationality": {
+    "description": "Placeholder hint for the nationality dropdown"
+  },
+  "roleHouseholder": "Householder",
+  "@roleHouseholder": {
+    "description": "Display name of the householder role"
+  },
+  "roleStudent": "Student",
+  "@roleStudent": {
+    "description": "Display name of the student role"
+  },
+  "roleAdmin": "Administrator",
+  "@roleAdmin": {
+    "description": "Display name of the administrator role"
+  },
+  "validationRequired": "{field} is required.",
+  "@validationRequired": {
+    "description": "Validation error shown when a required field is empty",
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "First Name"
+      }
+    }
+  },
+  "validationPhoneRequired": "Phone number is required.",
+  "@validationPhoneRequired": {
+    "description": "Validation error shown when the phone number is empty"
+  },
+  "validationPhoneInvalid": "Enter a valid phone number.",
+  "@validationPhoneInvalid": {
+    "description": "Validation error shown when the phone number format is invalid"
+  },
+  "validationSelectGender": "Please select a gender.",
+  "@validationSelectGender": {
+    "description": "Validation error shown when no gender is selected"
+  },
+  "validationSelectNationality": "Please select a nationality.",
+  "@validationSelectNationality": {
+    "description": "Validation error shown when no nationality is selected"
+  },
+  "validationSelectBirthDate": "Please select your date of birth.",
+  "@validationSelectBirthDate": {
+    "description": "Validation error shown when no date of birth is selected"
+  },
+  "errNetwork": "No connection. Check your network and try again.",
+  "@errNetwork": {
+    "description": "Generic error message for network/connectivity failures"
+  },
+  "errServer": "Something went wrong on our side. Please try again.",
+  "@errServer": {
+    "description": "Generic error message for server-side (5xx) failures"
+  },
+  "errUnauthorized": "Your session expired. Please sign in again.",
+  "@errUnauthorized": {
+    "description": "Error message shown when the session expired (401/unauthorized)"
+  },
+  "authWelcomeBack": "Welcome back",
+  "@authWelcomeBack": {
+    "description": "Login screen heading"
+  },
+  "authLoginSubtitle": "Sign in to your householder dashboard to continue.",
+  "@authLoginSubtitle": {
+    "description": "Login screen subtitle"
+  },
+  "authSignInWithGoogle": "Sign in with Google",
+  "@authSignInWithGoogle": {
+    "description": "Label for the Google sign-in button"
+  },
+  "authNoAccount": "Don't have an account? ",
+  "@authNoAccount": {
+    "description": "Prompt before the sign-up link on the login screen"
+  },
+  "authSignUpAsHost": "Sign up",
+  "@authSignUpAsHost": {
+    "description": "Sign-up link on the login screen"
+  },
+  "authGoogleSignInFailed": "Google sign-in failed: {error}",
+  "@authGoogleSignInFailed": {
+    "description": "Snackbar shown when Google sign-in fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "orDivider": "or",
+  "@orDivider": {
+    "description": "Divider label between login methods"
+  },
+  "registerTitle": "Create your account",
+  "@registerTitle": {
+    "description": "Registration screen heading"
+  },
+  "registerSubtitle": "Create your profile to get started.",
+  "@registerSubtitle": {
+    "description": "Registration screen subtitle"
+  },
+  "fieldRole": "Account type",
+  "@fieldRole": {
+    "description": "Label for the account-type (role) selector on the registration form"
+  },
+  "hintSelectRole": "Select account type",
+  "@hintSelectRole": {
+    "description": "Placeholder hint for the account-type selector"
+  },
+  "googleRolePickerTitle": "Choose your account type",
+  "@googleRolePickerTitle": {
+    "description": "Title of the bottom sheet asking a new Google user which role to register as"
+  },
+  "googleRolePickerSubtitle": "Tell us how you'll use the app. You can add the other role later.",
+  "@googleRolePickerSubtitle": {
+    "description": "Subtitle of the Google role picker bottom sheet"
+  },
+  "authAlreadyHaveAccount": "Already have an account? ",
+  "@authAlreadyHaveAccount": {
+    "description": "Prompt before the log-in link on the registration screen"
+  },
+  "authLogIn": "Log in",
+  "@authLogIn": {
+    "description": "Log-in link on the registration screen"
+  },
+  "confirmEmailLoading": "Confirming your email…",
+  "@confirmEmailLoading": {
+    "description": "Shown while the email confirmation request is in flight"
+  },
+  "confirmEmailSuccessTitle": "Email confirmed",
+  "@confirmEmailSuccessTitle": {
+    "description": "Title shown after a successful email confirmation"
+  },
+  "confirmEmailSuccessBody": "Your account has been verified successfully. You can now log in to continue.",
+  "@confirmEmailSuccessBody": {
+    "description": "Body shown after a successful email confirmation"
+  },
+  "goToLogin": "Go to Login",
+  "@goToLogin": {
+    "description": "Button to navigate to the login screen"
+  },
+  "confirmEmailErrorTitle": "We couldn't confirm your email",
+  "@confirmEmailErrorTitle": {
+    "description": "Title shown when email confirmation fails"
+  },
+  "emailSentTitle": "Check your inbox",
+  "@emailSentTitle": {
+    "description": "Title on the registration-email-sent screen"
+  },
+  "emailSentBody1": "We sent a confirmation email to:",
+  "@emailSentBody1": {
+    "description": "Line before the email address on the email-sent screen"
+  },
+  "emailSentBody2": "Open the link in that email to confirm your account, then sign in to continue.",
+  "@emailSentBody2": {
+    "description": "Instructions on the email-sent screen"
+  },
+  "goToSignIn": "Go to sign in",
+  "@goToSignIn": {
+    "description": "Button to navigate to the sign-in screen"
+  },
+  "authEmailLabel": "Email address",
+  "@authEmailLabel": {
+    "description": "Label for the email field on the login form"
+  },
+  "hintEmail": "name@example.com",
+  "@hintEmail": {
+    "description": "Placeholder hint for email inputs"
+  },
+  "fieldPassword": "Password",
+  "@fieldPassword": {
+    "description": "Label for the password field"
+  },
+  "fieldConfirmPassword": "Confirm Password",
+  "@fieldConfirmPassword": {
+    "description": "Label for the confirm-password field"
+  },
+  "showPassword": "Show password",
+  "@showPassword": {
+    "description": "Tooltip for the show-password toggle"
+  },
+  "hidePassword": "Hide password",
+  "@hidePassword": {
+    "description": "Tooltip for the hide-password toggle"
+  },
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Label for the sign-in button"
+  },
+  "createAccount": "Create Account",
+  "@createAccount": {
+    "description": "Label for the create-account button"
+  },
+  "hintPhoneLocal": "000 000 000",
+  "@hintPhoneLocal": {
+    "description": "Placeholder hint for the local phone number input"
+  },
+  "validationEmailRequired": "Email is required.",
+  "@validationEmailRequired": {
+    "description": "Validation: email is empty"
+  },
+  "validationEmailInvalid": "Enter a valid email address.",
+  "@validationEmailInvalid": {
+    "description": "Validation: email format invalid"
+  },
+  "validationPasswordRequired": "Password is required.",
+  "@validationPasswordRequired": {
+    "description": "Validation: password is empty"
+  },
+  "validationPasswordMinLength": "At least 6 characters.",
+  "@validationPasswordMinLength": {
+    "description": "Validation: password too short"
+  },
+  "validationPasswordUppercase": "Add an uppercase letter.",
+  "@validationPasswordUppercase": {
+    "description": "Validation: password needs an uppercase letter"
+  },
+  "validationPasswordLowercase": "Add a lowercase letter.",
+  "@validationPasswordLowercase": {
+    "description": "Validation: password needs a lowercase letter"
+  },
+  "validationPasswordDigit": "Add a number.",
+  "@validationPasswordDigit": {
+    "description": "Validation: password needs a digit"
+  },
+  "validationPasswordSpecial": "Add a special character.",
+  "@validationPasswordSpecial": {
+    "description": "Validation: password needs a special character"
+  },
+  "validationConfirmPasswordRequired": "Please confirm your password.",
+  "@validationConfirmPasswordRequired": {
+    "description": "Validation: confirm-password is empty"
+  },
+  "validationPasswordsNoMatch": "Passwords do not match.",
+  "@validationPasswordsNoMatch": {
+    "description": "Validation: passwords differ"
+  },
+  "validationAcceptTerms": "You must accept the terms to continue.",
+  "@validationAcceptTerms": {
+    "description": "Validation: terms checkbox not accepted"
+  },
+  "termsAgreePrefix": "I agree to the ",
+  "@termsAgreePrefix": {
+    "description": "Terms agreement: text before the Terms link"
+  },
+  "termsAndConditions": "Terms and Conditions",
+  "@termsAndConditions": {
+    "description": "Terms agreement: the Terms and Conditions link"
+  },
+  "termsConnector": " and ",
+  "@termsConnector": {
+    "description": "Terms agreement: connector between the two links"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Terms agreement: the Privacy Policy link"
+  },
+  "termsSuffix": " of Itersapiens.",
+  "@termsSuffix": {
+    "description": "Terms agreement: text after the Privacy Policy link"
+  },
+  "errInvalidCredentials": "Wrong email or password.",
+  "@errInvalidCredentials": {
+    "description": "Auth error: invalid credentials"
+  },
+  "errEmailNotConfirmed": "Please confirm your email before signing in.",
+  "@errEmailNotConfirmed": {
+    "description": "Auth error: email not confirmed"
+  },
+  "errInvalidUserId": "We could not find your account.",
+  "@errInvalidUserId": {
+    "description": "Auth error: invalid user id"
+  },
+  "errValidationFailed": "Please check the highlighted fields.",
+  "@errValidationFailed": {
+    "description": "Auth error: server-side validation failed"
+  },
+  "errEmailAlreadyExists": "An account with this email already exists.",
+  "@errEmailAlreadyExists": {
+    "description": "Auth error: email already registered"
+  },
+  "errGoogleAuthFailed": "Google sign-in failed. Please try again.",
+  "@errGoogleAuthFailed": {
+    "description": "Auth error: Google sign-in failed"
+  },
+  "errInvalidConfirmationToken": "Invalid or expired confirmation token. Check the link or token.",
+  "@errInvalidConfirmationToken": {
+    "description": "Auth error: invalid/expired confirmation token"
+  },
+  "errEmailAlreadyConfirmed": "This email is already confirmed. You can sign in.",
+  "@errEmailAlreadyConfirmed": {
+    "description": "Auth error: email already confirmed"
+  },
+  "errTooManyAttempts": "Too many attempts. Please wait a moment and try again.",
+  "@errTooManyAttempts": {
+    "description": "Auth error: rate limited"
+  },
+  "errUnexpected": "Unexpected error. Please try again.",
+  "@errUnexpected": {
+    "description": "Auth error: unexpected/default"
+  },
+  "genderMale": "Male",
+  "@genderMale": {
+    "description": "Gender option: male"
+  },
+  "genderFemale": "Female",
+  "@genderFemale": {
+    "description": "Gender option: female"
+  },
+  "genderOther": "Other",
+  "@genderOther": {
+    "description": "Gender option: other"
+  },
+  "nationalityBolivian": "Bolivian",
+  "@nationalityBolivian": {
+    "description": "Nationality option"
+  },
+  "nationalityArgentinian": "Argentinian",
+  "@nationalityArgentinian": {
+    "description": "Nationality option"
+  },
+  "nationalityChilean": "Chilean",
+  "@nationalityChilean": {
+    "description": "Nationality option"
+  },
+  "nationalityColombian": "Colombian",
+  "@nationalityColombian": {
+    "description": "Nationality option"
+  },
+  "nationalityMexican": "Mexican",
+  "@nationalityMexican": {
+    "description": "Nationality option"
+  },
+  "nationalityPeruvian": "Peruvian",
+  "@nationalityPeruvian": {
+    "description": "Nationality option"
+  },
+  "nationalitySpanish": "Spanish",
+  "@nationalitySpanish": {
+    "description": "Nationality option"
+  },
+  "nationalityAmerican": "American",
+  "@nationalityAmerican": {
+    "description": "Nationality option"
+  },
+  "nationalityOther": "Other",
+  "@nationalityOther": {
+    "description": "Nationality option: other"
+  }
+}
