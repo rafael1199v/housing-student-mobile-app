@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:housing_core/housing_core.dart';
 
-import '../../../../core/error/failure.dart';
 import '../../domain/entities/room_bookings.dart';
 import '../../domain/usecases/approve_booking_usecase.dart';
 import '../../domain/usecases/get_room_bookings_usecase.dart';
