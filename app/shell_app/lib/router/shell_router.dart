@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:householder_app/core/core.dart' show SessionNotifier;
-import 'package:householder_app/features/auth/auth.dart';
 import 'package:householder_app/householder_experience.dart';
+import 'package:housing_auth/housing_auth.dart';
 import 'package:housing_core/housing_core.dart';
 import 'package:student_lib/student_experience.dart' as student;
 
