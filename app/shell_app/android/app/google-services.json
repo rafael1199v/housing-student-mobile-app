@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "322152413164",
+    "project_id": "itersapiens-dc688",
+    "storage_bucket": "itersapiens-dc688.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322152413164:android:eeb31608b2172335feb2c9",
+        "android_client_info": {
+          "package_name": "com.itersapiens.shell_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJwyY7Yy6vwVOpPVc3xsYnWdfNRJmSXX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

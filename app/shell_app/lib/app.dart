@@ -10,6 +10,7 @@ import 'package:housing_design_system/housing_design_system.dart';
 import 'package:student_lib/student_experience.dart' as student;
 
 import 'bootstrap.dart' show rootNavigatorKey;
+import 'observability/crash_keys.dart';
 import 'role/role_cubit.dart';
 import 'router/shell_router.dart';
 
@@ -32,15 +33,23 @@ class _ShellAppState extends State<ShellApp> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _roleCubit.refreshFromToken();
       });
+      _syncCrashUser();
     }
   }
 
   void _onSessionChanged() {
     if (_session.isAuthenticated) {
       _roleCubit.refreshFromToken();
+      _syncCrashUser();
     } else {
       _roleCubit.reset();
+      CrashKeys.setUser(null);
     }
+  }
+
+  Future<void> _syncCrashUser() async {
+    final userId = await getIt<CurrentUserService>().currentUserId();
+    await CrashKeys.setUser(userId);
   }
 
   @override
@@ -70,7 +79,14 @@ class _ShellAppState extends State<ShellApp> {
           BlocProvider<LocaleCubit>.value(value: getIt<LocaleCubit>()),
           BlocProvider<RoleCubit>.value(value: _roleCubit),
         ],
-        child: BlocBuilder<RoleCubit, RoleState>(
+        child: BlocConsumer<RoleCubit, RoleState>(
+          listenWhen: (prev, curr) => prev.activeRole != curr.activeRole,
+          listener: (context, roleState) {
+            CrashKeys.setActiveRole(
+              roleState.activeRole?.name ?? 'none',
+              isStudent: _isStudent(roleState.activeRole),
+            );
+          },
           buildWhen: (prev, curr) => prev.activeRole != curr.activeRole,
           builder: (context, roleState) {
             final router = buildShellRouter(
