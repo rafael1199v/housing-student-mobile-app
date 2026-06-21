@@ -12,13 +12,15 @@ class RoleCubit extends Cubit<RoleState> {
   final CurrentUserService _currentUser;
 
   Future<void> refreshFromToken() async {
-    final held = AppRole.fromWireList(await _currentUser.currentRoles());
+    final raw = await _currentUser.currentRoles();
+    final held = AppRole.fromWireList(raw);
     final keepCurrent =
         state.activeRole != null && held.contains(state.activeRole);
-    emit(RoleState(
+    final next = RoleState(
       heldRoles: held,
       activeRole: keepCurrent ? state.activeRole : RoleHierarchy.defaultActive(held),
-    ));
+    );
+    emit(next);
   }
 
   void setActive(AppRole role) {
