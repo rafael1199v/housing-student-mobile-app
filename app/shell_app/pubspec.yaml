@@ -1,0 +1,69 @@
+name: shell_app
+description: "Neutral host app: single login, shared session, active-role switch and change-role, mounting the householder (and later student) experience."
+publish_to: 'none'
+version: 0.1.0+1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+  # Web URL strategy + runtime secret injection (reused from householder).
+  flutter_web_plugins:
+    sdk: flutter
+
+  # Shared plumbing (session, network, storage, roles, errors, config).
+  # Consumed from its own repo; pinned to a release branch.
+  housing_core:
+    git:
+      url: https://github.com/rafael1199v/housing-core-mobile.git
+      ref: release/1.0.0
+
+
+  student_lib:
+    git:
+      url: https://github.com/DanyElAlgo/StudentHousingApp-Student.git
+      ref: feature/microapp-surface
+
+  # The shell references the shared Dio when wiring RoleApi.
+  dio: ^5.7.0
+
+  # The householder experience, mounted by the shell.
+  householder_app: ^0.1.0
+
+  housing_design_system:
+    git:
+      url: https://github.com/rafael1199v/housing-design-system.git
+      ref: main
+
+  # State management (shell-owned cubits: RoleCubit + reused theme/locale).
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # Dependency injection (shared global GetIt with the experience).
+  get_it: ^8.0.3
+
+  # Routing
+  go_router: ^17.3.0
+
+  # ProviderScope host so the deferred student (Riverpod) bridge needs no
+  # structural change to the root widget. Pinned to v3 to match student_lib
+  # (flutter_riverpod ^3.3.2) — one version per resolution.
+  flutter_riverpod: ^3.3.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
