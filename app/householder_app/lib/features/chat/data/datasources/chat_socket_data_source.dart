@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:housing_core/housing_core.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
-import '../../../../core/config/app_config.dart';
-import '../../../../core/storage/token_storage.dart';
 import '../models/chat_dtos.dart';
 
 abstract interface class ChatSocketDataSource {

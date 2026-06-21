@@ -11,34 +11,36 @@ GoogleSignInService createGoogleSignInServiceImpl({
 
 class GoogleSignInServiceMobile implements GoogleSignInService {
   GoogleSignInServiceMobile({String? serverClientId})
-      : _google = GoogleSignIn(
-          serverClientId: serverClientId,
-          scopes: const ['email', 'profile'],
-        );
+      : _serverClientId = serverClientId;
 
-  final GoogleSignIn _google;
+  final String? _serverClientId;
+
+  Future<void>? _initialization;
+
+  Future<void> _ensureInitialized() => _initialization ??=
+      GoogleSignIn.instance.initialize(serverClientId: _serverClientId);
 
   @override
   bool get usesRenderedButton => false;
 
   @override
   Future<String?> signIn() async {
-    await _google.signOut();
-    final account = await _google.signIn();
-
-    if (account == null) return null;
-    final auth = await account.authentication;
-
-    final idToken = auth.idToken;
-    
-    if (idToken == null) {
-      throw StateError(
-        'Google returned no ID token. Pass '
-        '--dart-define=GOOGLE_WEB_CLIENT_ID=<your web client id> so Android can '
-        'mint a token (used as serverClientId) for the backend.',
-      );
+    await _ensureInitialized();
+    try {
+      final account = await GoogleSignIn.instance.authenticate();
+      final idToken = account.authentication.idToken;
+      if (idToken == null) {
+        throw StateError(
+          'Google returned no ID token. Pass '
+          '--dart-define=GOOGLE_WEB_CLIENT_ID=<your web client id> so Android can '
+          'mint a token (used as serverClientId) for the backend.',
+        );
+      }
+      return idToken;
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) return null;
+      rethrow;
     }
-    return idToken;
   }
 
   @override

@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';
-import 'package:google_sign_in_web/google_sign_in_web.dart';
+import 'package:google_sign_in_web/web_only.dart' as web;
 
 import 'google_sign_in_service.dart';
 
@@ -14,55 +13,64 @@ GoogleSignInService createGoogleSignInServiceImpl({
     GoogleSignInServiceWeb(clientId: webClientId);
 
 class GoogleSignInServiceWeb implements GoogleSignInService {
-  GoogleSignInServiceWeb({String? clientId})
-      : _google = GoogleSignIn(
-          clientId: clientId,
-          scopes: const ['email', 'profile'],
-        );
+  GoogleSignInServiceWeb({String? clientId}) : _clientId = clientId;
 
-  final GoogleSignIn _google;
+  final String? _clientId;
+
+  Future<void>? _initialization;
+
+  Future<void> ensureInitialized() => _initialization ??=
+      GoogleSignIn.instance.initialize(clientId: _clientId);
 
   @override
   bool get usesRenderedButton => true;
 
   @override
   Future<String?> signIn() async {
-    final account = await _google.signInSilently();
-    if (account == null) return null;
-    final auth = await account.authentication;
-    return auth.idToken;
+    await ensureInitialized();
+    final account =
+        await GoogleSignIn.instance.attemptLightweightAuthentication();
+    return account?.authentication.idToken;
   }
 
   @override
   Widget buildButton({required ValueChanged<String> onIdToken}) =>
-      _WebGoogleButton(google: _google, onIdToken: onIdToken);
+      _WebGoogleButton(onIdToken: onIdToken, ensureInitialized: ensureInitialized);
 }
 
 class _WebGoogleButton extends StatefulWidget {
-  const _WebGoogleButton({required this.google, required this.onIdToken});
+  const _WebGoogleButton({
+    required this.onIdToken,
+    required this.ensureInitialized,
+  });
 
-  final GoogleSignIn google;
   final ValueChanged<String> onIdToken;
+  final Future<void> Function() ensureInitialized;
 
   @override
   State<_WebGoogleButton> createState() => _WebGoogleButtonState();
 }
 
 class _WebGoogleButtonState extends State<_WebGoogleButton> {
-  StreamSubscription<GoogleSignInAccount?>? _sub;
+  StreamSubscription<GoogleSignInAuthenticationEventSignIn>? _sub;
+  bool _ready = false;
 
   @override
   void initState() {
     super.initState();
-    _sub = widget.google.onCurrentUserChanged.listen(_handleAccount);
-    widget.google.signInSilently();
+    _start();
   }
 
-  Future<void> _handleAccount(GoogleSignInAccount? account) async {
-    if (account == null) return;
-    final auth = await account.authentication;
-    final token = auth.idToken;
-    if (token != null && mounted) widget.onIdToken(token);
+  Future<void> _start() async {
+    await widget.ensureInitialized();
+    _sub = GoogleSignIn.instance.authenticationEvents
+        .where((e) => e is GoogleSignInAuthenticationEventSignIn)
+        .cast<GoogleSignInAuthenticationEventSignIn>()
+        .listen((event) {
+      final token = event.user.authentication.idToken;
+      if (token != null && mounted) widget.onIdToken(token);
+    });
+    if (mounted) setState(() => _ready = true);
   }
 
   @override
@@ -73,25 +81,7 @@ class _WebGoogleButtonState extends State<_WebGoogleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final plugin = GoogleSignInPlatform.instance as GoogleSignInPlugin;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = constraints.maxWidth.isFinite
-            ? constraints.maxWidth.clamp(200.0, 400.0)
-            : 360.0;
-        return Align(
-          child: plugin.renderButton(
-            configuration: GSIButtonConfiguration(
-              minimumWidth: width,
-              theme: GSIButtonTheme.outline,
-              size: GSIButtonSize.large,
-              text: GSIButtonText.signinWith,
-              shape: GSIButtonShape.rectangular,
-              logoAlignment: GSIButtonLogoAlignment.left,
-            ),
-          ),
-        );
-      },
-    );
+    if (!_ready) return const SizedBox(height: 44);
+    return Align(child: web.renderButton());
   }
 }

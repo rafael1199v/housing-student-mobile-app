@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:housing_core/housing_core.dart';
 
 import 'app.dart';
-import 'core/config/app_config.dart';
 import 'core/config/web_runtime_config.dart';
 import 'core/di/injector.dart';
 

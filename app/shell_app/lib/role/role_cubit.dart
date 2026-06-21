@@ -1,0 +1,30 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:housing_core/housing_core.dart';
+
+part 'role_state.dart';
+
+class RoleCubit extends Cubit<RoleState> {
+  RoleCubit({required CurrentUserService currentUser})
+      : _currentUser = currentUser,
+        super(const RoleState());
+
+  final CurrentUserService _currentUser;
+
+  Future<void> refreshFromToken() async {
+    final held = AppRole.fromWireList(await _currentUser.currentRoles());
+    final keepCurrent =
+        state.activeRole != null && held.contains(state.activeRole);
+    emit(RoleState(
+      heldRoles: held,
+      activeRole: keepCurrent ? state.activeRole : RoleHierarchy.defaultActive(held),
+    ));
+  }
+
+  void setActive(AppRole role) {
+    if (role == state.activeRole || !state.heldRoles.contains(role)) return;
+    emit(RoleState(heldRoles: state.heldRoles, activeRole: role));
+  }
+
+  void reset() => emit(const RoleState());
+}
