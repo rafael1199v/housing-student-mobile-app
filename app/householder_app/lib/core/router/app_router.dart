@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:housing_auth/housing_auth.dart';
+import 'package:housing_core/housing_core.dart';
 
-import '../../features/auth/auth.dart';
 import '../../features/booking/booking.dart';
 import '../../features/chat/chat.dart';
 import '../../features/home/home.dart';
 import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
-import '../session/session_notifier.dart';
 import 'main_shell.dart';
 
 const _publicRoutes = {
