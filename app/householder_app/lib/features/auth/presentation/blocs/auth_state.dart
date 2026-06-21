@@ -19,6 +19,15 @@ class AuthAuthenticated extends AuthState {
   const AuthAuthenticated();
 }
 
+class AuthNeedsGoogleRole extends AuthState {
+  const AuthNeedsGoogleRole(this.idToken);
+
+  final String idToken;
+
+  @override
+  List<Object?> get props => [idToken];
+}
+
 class AuthFailureState extends AuthState {
   final String code;
   final Map<String, String> fieldErrors;

@@ -25,3 +25,13 @@ class GoogleAuthSubmitted extends AuthEvent {
   @override
   List<Object?> get props => [idToken];
 }
+
+class GoogleRoleSelected extends AuthEvent {
+  const GoogleRoleSelected({required this.idToken, required this.role});
+
+  final String idToken;
+  final String role;
+
+  @override
+  List<Object?> get props => [idToken, role];
+}
