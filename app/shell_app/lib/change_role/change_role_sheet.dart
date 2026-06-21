@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:housing_core/housing_core.dart';
 
 import '../role/role_cubit.dart';
+import '../role/role_state.dart';
 import 'role_labels.dart';
 
 /// Opens the change-role bottom sheet: switch the active experience locally and

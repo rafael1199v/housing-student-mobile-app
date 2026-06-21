@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../role/role_cubit.dart';
+import '../role/role_state.dart';
 import 'change_role_sheet.dart';
 
 class ChangeRoleFab extends StatelessWidget {
