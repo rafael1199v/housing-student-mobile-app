@@ -38,11 +38,58 @@ class PreferencesCard extends StatelessWidget {
             ),
           ),
           AppSpacing.gapXl,
+          const _ChangeRoleEntry(),
           const Divider(height: 1),
           AppSpacing.gapXl,
           _SignOutButton(label: l10n.signOut, onPressed: onSignOut),
         ],
       ),
+    );
+  }
+}
+
+class _ChangeRoleEntry extends StatelessWidget {
+  const _ChangeRoleEntry();
+
+  @override
+  Widget build(BuildContext context) {
+    if (!getIt.isRegistered<RoleSwitchController>()) {
+      return const SizedBox.shrink();
+    }
+    final controller = getIt<RoleSwitchController>();
+    final l10n = AppLocalizations.of(context);
+    final cs = Theme.of(context).colorScheme;
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (context, _) {
+        if (!controller.canChangeRole) return const SizedBox.shrink();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: OutlinedButton.icon(
+                onPressed: () => controller.open(context),
+                icon: const Icon(Icons.swap_horiz, size: 20),
+                label: Text(l10n.changeRole),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: cs.primary,
+                  side: BorderSide(color: cs.primary),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppRadii.mdValue),
+                  ),
+                ),
+              ),
+            ),
+            AppSpacing.gapXl,
+          ],
+        );
+      },
     );
   }
 }
