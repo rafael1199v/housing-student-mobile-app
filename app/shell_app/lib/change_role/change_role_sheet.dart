@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:householder_app/core/core.dart' show AppLocalizations;
 import 'package:housing_core/housing_core.dart';
 
 import '../role/role_cubit.dart';
@@ -30,6 +31,7 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
   String? _error;
 
   Future<void> _acquire(AppRole role) async {
+    final l10n = AppLocalizations.of(context);
     setState(() {
       _busy = true;
       _error = null;
@@ -40,13 +42,15 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
       if (!mounted) return;
       setState(() => _busy = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Ahora también eres ${roleLabel(role)}.')),
+        SnackBar(
+          content: Text(l10n.changeRoleAcquiredSnack(roleLabel(l10n, role))),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
       setState(() {
         _busy = false;
-        _error = roleErrorMessage(ErrorMapper.map(e));
+        _error = roleErrorMessage(l10n, ErrorMapper.map(e));
       });
     }
   }
@@ -59,6 +63,7 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return SafeArea(
       child: BlocBuilder<RoleCubit, RoleState>(
         builder: (context, state) {
@@ -68,11 +73,14 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Cambiar de rol', style: theme.textTheme.titleLarge),
+                Text(l10n.changeRole, style: theme.textTheme.titleLarge),
                 const SizedBox(height: 16),
 
                 if (state.canSwitch) ...[
-                  Text('Experiencia activa', style: theme.textTheme.labelLarge),
+                  Text(
+                    l10n.changeRoleActiveExperience,
+                    style: theme.textTheme.labelLarge,
+                  ),
                   const SizedBox(height: 8),
                   for (final role in state.heldRoles)
                     ListTile(
@@ -83,7 +91,7 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
                             : Icons.radio_button_unchecked,
                         color: theme.colorScheme.primary,
                       ),
-                      title: Text(roleLabel(role)),
+                      title: Text(roleLabel(l10n, role)),
                       enabled: !_busy && role != state.activeRole,
                       onTap: () => _switchTo(role),
                     ),
@@ -91,7 +99,10 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
                 ],
 
                 if (state.assignable.isNotEmpty) ...[
-                  Text('Adquirir un rol', style: theme.textTheme.labelLarge),
+                  Text(
+                    l10n.changeRoleAcquireSection,
+                    style: theme.textTheme.labelLarge,
+                  ),
                   const SizedBox(height: 8),
                   for (final role in state.assignable)
                     Padding(
@@ -99,7 +110,7 @@ class _ChangeRoleSheetState extends State<_ChangeRoleSheet> {
                       child: FilledButton.tonalIcon(
                         onPressed: _busy ? null : () => _acquire(role),
                         icon: const Icon(Icons.add),
-                        label: Text('Convertirme en ${roleLabel(role)}'),
+                        label: Text(l10n.changeRoleBecome(roleLabel(l10n, role))),
                       ),
                     ),
                 ],

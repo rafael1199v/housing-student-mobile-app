@@ -101,6 +101,65 @@
     "description": "Label for the sign out button"
   },
 
+  "changeRole": "Change role",
+  "@changeRole": {
+    "description": "Title of the change-role sheet and label of the profile entry that opens it"
+  },
+  "changeRoleActiveExperience": "Active experience",
+  "@changeRoleActiveExperience": {
+    "description": "Section header in the change-role sheet listing the roles the user already holds"
+  },
+  "changeRoleAcquireSection": "Acquire a role",
+  "@changeRoleAcquireSection": {
+    "description": "Section header in the change-role sheet listing roles the user can acquire"
+  },
+  "changeRoleBecome": "Become a {role}",
+  "@changeRoleBecome": {
+    "description": "Label of the button that acquires a new role in the change-role sheet",
+    "placeholders": {
+      "role": { "type": "String", "example": "Student" }
+    }
+  },
+  "changeRoleAcquiredSnack": "You are now also a {role}.",
+  "@changeRoleAcquiredSnack": {
+    "description": "Snackbar shown after successfully acquiring a new role",
+    "placeholders": {
+      "role": { "type": "String", "example": "Student" }
+    }
+  },
+  "roleHouseholder": "Householder",
+  "@roleHouseholder": {
+    "description": "Display name of the householder role"
+  },
+  "roleStudent": "Student",
+  "@roleStudent": {
+    "description": "Display name of the student role"
+  },
+  "roleAdmin": "Administrator",
+  "@roleAdmin": {
+    "description": "Display name of the administrator role"
+  },
+  "roleErrAlreadyAssigned": "You already have that role.",
+  "@roleErrAlreadyAssigned": {
+    "description": "Change-role error: the role is already assigned to the user"
+  },
+  "roleErrNotAssignable": "You can't acquire that role.",
+  "@roleErrNotAssignable": {
+    "description": "Change-role error: the role is not self-assignable"
+  },
+  "roleErrInvalid": "Invalid role.",
+  "@roleErrInvalid": {
+    "description": "Change-role error: the requested role is invalid"
+  },
+  "roleErrAssignmentFailed": "Could not assign the role. Please try again.",
+  "@roleErrAssignmentFailed": {
+    "description": "Change-role error: the role assignment failed"
+  },
+  "roleErrGeneric": "Something went wrong. Please try again.",
+  "@roleErrGeneric": {
+    "description": "Change-role error: generic fallback"
+  },
+
   "themeSystem": "System",
   "@themeSystem": {
     "description": "Theme mode option that follows the system setting"

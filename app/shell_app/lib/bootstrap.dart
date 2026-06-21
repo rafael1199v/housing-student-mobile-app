@@ -7,6 +7,9 @@ import 'package:housing_core/housing_core.dart';
 
 import 'app.dart';
 import 'role/role_cubit.dart';
+import 'role/role_switch_controller_impl.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellRoot');
 
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,12 @@ Future<void> bootstrap() async {
     )
     ..registerLazySingleton<RoleCubit>(
       () => RoleCubit(currentUser: getIt<CurrentUserService>()),
+    )
+    ..registerLazySingleton<RoleSwitchController>(
+      () => RoleSwitchControllerImpl(
+        roleCubit: getIt<RoleCubit>(),
+        rootNavigatorContext: () => rootNavigatorKey.currentContext,
+      ),
     );
 
   runApp(const ShellApp());
