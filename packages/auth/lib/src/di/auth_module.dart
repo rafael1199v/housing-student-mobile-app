@@ -5,7 +5,9 @@ import 'package:housing_core/housing_core.dart' hide Credentials;
 
 import '../data/datasources/auth_api.dart';
 import '../data/repositories/auth_repository_impl.dart';
+import '../data/services/rsa_password_cipher.dart';
 import '../domain/repositories/auth_repository.dart';
+import '../domain/services/password_cipher.dart';
 import '../domain/usecases/confirm_email_usecase.dart';
 import '../domain/usecases/login_usecase.dart';
 import '../domain/usecases/login_with_google_usecase.dart';
@@ -20,10 +22,14 @@ import '../presentation/blocs/register_bloc.dart';
 void registerAuthDependencies(GetIt getIt) {
   getIt
     ..registerLazySingleton<AuthApi>(() => AuthApi(getIt<Dio>()))
+    ..registerLazySingleton<PasswordCipher>(
+      () => RsaPasswordCipher(AppConfig.passwordPublicKeyOrNull),
+    )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(
         api: getIt<AuthApi>(),
         tokenStorage: getIt<TokenStorage>(),
+        passwordCipher: getIt<PasswordCipher>(),
       ),
     )
     ..registerLazySingleton<GoogleSignInService>(
