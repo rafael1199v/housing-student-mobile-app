@@ -43,6 +43,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<String> register({
     required String email,
     required String password,
+    required String role,
     required String firstName,
     required String lastName,
     required String phoneNumber,
@@ -55,6 +56,7 @@ class AuthRepositoryImpl implements AuthRepository {
         RegisterDto(
           email: email,
           password: password,
+          role: role,
           firstName: firstName,
           lastName: lastName,
           phoneNumber: phoneNumber,
