@@ -39,6 +39,9 @@ dependencies:
   # The householder experience, mounted by the shell.
   householder_app: ^0.1.0
 
+  # Role-neutral auth feature (single login for both experiences).
+  housing_auth: ^0.1.0
+
   housing_design_system:
     git:
       url: https://github.com/rafael1199v/housing-design-system.git
