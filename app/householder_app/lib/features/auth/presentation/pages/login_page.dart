@@ -8,6 +8,7 @@ import '../../../../core/core.dart';
 import '../blocs/auth_bloc.dart';
 import '../utils/auth_error_messages.dart';
 import '../widgets/google_auth_button.dart';
+import '../widgets/google_role_picker.dart';
 import '../widgets/login_form.dart';
 import 'register_page.dart';
 
@@ -32,10 +33,19 @@ class _LoginView extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listenWhen: (prev, curr) =>
-            curr is AuthAuthenticated || curr is AuthFailureState,
-        listener: (context, state) {
+            curr is AuthAuthenticated ||
+            curr is AuthFailureState ||
+            curr is AuthNeedsGoogleRole,
+        listener: (context, state) async {
           if (state is AuthAuthenticated) {
             GetIt.I<SessionNotifier>().signedIn();
+          } else if (state is AuthNeedsGoogleRole) {
+            final bloc = context.read<AuthBloc>();
+            final role = await showGoogleRolePicker(context);
+            if (role == null) return;
+            bloc.add(
+              GoogleRoleSelected(idToken: state.idToken, role: role),
+            );
           } else if (state is AuthFailureState) {
             debugPrint('Auth failure code: ${state.code}');
             ScaffoldMessenger.of(context)
