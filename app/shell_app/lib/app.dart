@@ -8,7 +8,7 @@ import 'package:housing_core/housing_core.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 import 'package:student_lib/student_experience.dart' as student;
 
-import 'change_role/change_role_fab.dart';
+import 'bootstrap.dart' show rootNavigatorKey;
 import 'role/role_cubit.dart';
 import 'router/shell_router.dart';
 
@@ -20,8 +20,6 @@ class ShellApp extends StatefulWidget {
 }
 
 class _ShellAppState extends State<ShellApp> {
-  final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellRoot');
-
   late final SessionNotifier _session = getIt<SessionNotifier>();
   late final RoleCubit _roleCubit = getIt<RoleCubit>();
 
@@ -72,7 +70,7 @@ class _ShellAppState extends State<ShellApp> {
           buildWhen: (prev, curr) => prev.activeRole != curr.activeRole,
           builder: (context, roleState) {
             final router = buildShellRouter(
-              navigatorKey: _rootNavigatorKey,
+              navigatorKey: rootNavigatorKey,
               session: _session,
               activeRole: roleState.activeRole,
             );
@@ -97,15 +95,6 @@ class _ShellAppState extends State<ShellApp> {
                       ],
                       supportedLocales: AppLocalizations.supportedLocales,
                       routerConfig: router,
-                      builder: (context, child) => Stack(
-                        children: [
-                          ?child,
-                          ChangeRoleFab(
-                            rootNavigatorContext: () =>
-                                _rootNavigatorKey.currentContext,
-                          ),
-                        ],
-                      ),
                     );
                   },
                 );
