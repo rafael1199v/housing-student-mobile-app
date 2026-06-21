@@ -1525,7 +1525,7 @@ packages:
     description:
       path: "."
       ref: "feature/microapp-surface"
-      resolved-ref: "07db2e4cb7021c97b090024b0fa63189f5b135c8"
+      resolved-ref: d50188eb2357b319b0d944e407a3c770c67de457
       url: "https://github.com/DanyElAlgo/StudentHousingApp-Student.git"
     source: git
     version: "1.1.0+2"

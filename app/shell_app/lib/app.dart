@@ -60,6 +60,9 @@ class _ShellAppState extends State<ShellApp> {
             .overrideWithValue((locale) => getIt<LocaleCubit>().setLocale(locale)),
         student.logoutHookProvider
             .overrideWithValue(() => getIt<SessionNotifier>().signedOut()),
+        student.changeRoleHookProvider.overrideWithValue(
+          (context) => getIt<RoleSwitchController>().open(context),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
