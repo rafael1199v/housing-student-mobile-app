@@ -19,6 +19,10 @@ dependencies:
       url: https://github.com/rafael1199v/housing-core-mobile.git
       ref: release/1.0.0
 
+  # Role-neutral auth feature (login/register/Google/confirm-email), shared
+  # with the shell. Local workspace member.
+  housing_auth: ^0.1.0
+
   # Localization (gen-l10n: ARB files -> AppLocalizations).
   flutter_localizations:
     sdk: flutter
@@ -79,11 +83,6 @@ dependencies:
   # Local chat cache
   sqflite: ^2.3.3
   path: ^1.9.0
-
-  # Google Sign-In (ID token for /api/login/google). v7 to match the bundle
-  # (student_lib uses v7); platform_interface resolves transitively.
-  google_sign_in: ^7.2.0
-  google_sign_in_web: ^1.1.3
 
 dev_dependencies:
   flutter_test:
