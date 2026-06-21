@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:housing_core/housing_core.dart' hide Credentials;
 import 'package:retrofit/retrofit.dart';
 
-import 'package:housing_core/housing_core.dart' hide Credentials;
 import '../models/confirm_email_dto.dart';
 import '../models/credentials_dto.dart';
 import '../models/google_auth_response_dto.dart';
