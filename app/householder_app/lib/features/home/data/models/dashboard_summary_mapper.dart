@@ -21,5 +21,6 @@ extension DashboardBookingRequestDtoMapper on DashboardBookingRequestDto {
         id: id,
         requesterName: requesterName,
         propertyName: propertyName,
+        bookerImageUrl: bookerImageUrl,
       );
 }
