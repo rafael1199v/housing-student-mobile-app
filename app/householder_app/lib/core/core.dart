@@ -14,3 +14,4 @@ export 'platform/location_service_impl.dart';
 export 'router/app_router.dart';
 export 'theme/theme_cubit.dart';
 export 'theme/theme_preference_storage.dart';
+export 'utils/avatar_image.dart';
