@@ -315,5 +315,6 @@
   "roomDetails": "Detalhes do quarto",
   "noDescriptionProvided": "Nenhuma descrição fornecida.",
   "errRoomLoad": "Não foi possível carregar este quarto. Tente novamente.",
-  "editRoomComingSoon": "A edição de quartos estará disponível em breve."
+  "editRoomComingSoon": "A edição de quartos estará disponível em breve.",
+  "deepLinkRoleUnavailable": "Este conteúdo não está disponível para o seu perfil."
 }

@@ -14,14 +14,28 @@ import 'app.dart';
 import 'firebase_options.dart';
 import 'role/role_cubit.dart';
 import 'role/role_switch_controller_impl.dart';
+import 'router/pending_deep_link.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shellRoot');
+
+class _OsDeepLinkBlocker with WidgetsBindingObserver {
+  @override
+  Future<bool> didPushRouteInformation(RouteInformation routeInformation) async =>
+      true;
+
+  @override
+  Future<bool> didPushRoute(String route) async => true;
+}
 
 Future<void> bootstrap() async {
   runZonedGuarded(
     () async {
       final binding = WidgetsFlutterBinding.ensureInitialized();
       usePathUrlStrategy();
+
+      if (!kIsWeb) {
+        binding.addObserver(_OsDeepLinkBlocker());
+      }
 
       if (!kIsWeb) {
         await Firebase.initializeApp(
@@ -43,6 +57,7 @@ Future<void> bootstrap() async {
       await configureDependencies();
 
       getIt
+        ..registerLazySingleton<PendingDeepLink>(() => PendingDeepLink())
         ..registerLazySingleton<RoleApi>(() => RoleApi(getIt<Dio>()))
         ..registerLazySingleton<RoleService>(
           () => RoleService(

@@ -862,5 +862,7 @@
   "errRoomLoad": "We could not load this room. Please try again.",
   "@errRoomLoad": { "description": "Room detail load error" },
   "editRoomComingSoon": "Editing a room is coming soon.",
-  "@editRoomComingSoon": { "description": "Snackbar for the not-yet-available edit room action" }
+  "@editRoomComingSoon": { "description": "Snackbar for the not-yet-available edit room action" },
+  "deepLinkRoleUnavailable": "This content isn't available for your role.",
+  "@deepLinkRoleUnavailable": { "description": "Snackbar shown when a /room deep link is opened by a user who lacks the student role" }
 }

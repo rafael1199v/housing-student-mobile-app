@@ -19,13 +19,14 @@ class RoleCubit extends Cubit<RoleState> {
     final next = RoleState(
       heldRoles: held,
       activeRole: keepCurrent ? state.activeRole : RoleHierarchy.defaultActive(held),
+      loaded: true,
     );
     emit(next);
   }
 
   void setActive(AppRole role) {
     if (role == state.activeRole || !state.heldRoles.contains(role)) return;
-    emit(RoleState(heldRoles: state.heldRoles, activeRole: role));
+    emit(RoleState(heldRoles: state.heldRoles, activeRole: role, loaded: true));
   }
 
   void reset() => emit(const RoleState());

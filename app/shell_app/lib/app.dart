@@ -1,7 +1,12 @@
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:householder_app/core/core.dart'
     show AppLocalizations, LocaleCubit, ThemeCubit, getIt;
 import 'package:housing_auth/housing_auth.dart' show AuthLocalizations;
@@ -12,6 +17,7 @@ import 'package:student_lib/student_experience.dart' as student;
 import 'bootstrap.dart' show rootNavigatorKey;
 import 'observability/crash_keys.dart';
 import 'role/role_cubit.dart';
+import 'router/pending_deep_link.dart';
 import 'router/shell_router.dart';
 
 class ShellApp extends StatefulWidget {
@@ -25,6 +31,11 @@ class _ShellAppState extends State<ShellApp> {
   late final SessionNotifier _session = getIt<SessionNotifier>();
   late final RoleCubit _roleCubit = getIt<RoleCubit>();
 
+  final AppLinks _appLinks = AppLinks();
+  StreamSubscription<Uri>? _linkSub;
+  Uri? _handledInitial;
+  bool _initialEchoSkipped = false;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +46,40 @@ class _ShellAppState extends State<ShellApp> {
       });
       _syncCrashUser();
     }
+    if (!kIsWeb) {
+      _initDeepLinks();
+    }
+  }
+
+  Future<void> _initDeepLinks() async {
+    _handledInitial = await _appLinks.getInitialLink();
+    if (_handledInitial != null) {
+      _routeDeepLink(_handledInitial!);
+    }
+    _linkSub = _appLinks.uriLinkStream.listen((uri) {
+      if (!_initialEchoSkipped && uri == _handledInitial) {
+        _initialEchoSkipped = true;
+        return;
+      }
+      _initialEchoSkipped = true;
+      _routeDeepLink(uri);
+    });
+  }
+
+  void _routeDeepLink(Uri uri) {
+    final context = rootNavigatorKey.currentContext;
+    if (context == null) {
+      return;
+    }
+    final location =
+        uri.query.isEmpty ? uri.path : '${uri.path}?${uri.query}';
+    final router = GoRouter.of(context);
+
+    if (uri.path.startsWith('/room/')) {
+      router.push(location);
+    } else {
+      router.go(location);
+    }
   }
 
   void _onSessionChanged() {
@@ -43,6 +88,7 @@ class _ShellAppState extends State<ShellApp> {
       _syncCrashUser();
     } else {
       _roleCubit.reset();
+      getIt<PendingDeepLink>().clear();
       CrashKeys.setUser(null);
     }
   }
@@ -54,6 +100,7 @@ class _ShellAppState extends State<ShellApp> {
 
   @override
   void dispose() {
+    _linkSub?.cancel();
     _session.removeListener(_onSessionChanged);
     super.dispose();
   }
