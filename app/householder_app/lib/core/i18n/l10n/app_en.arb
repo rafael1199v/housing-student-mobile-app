@@ -88,12 +88,6 @@
   "@hintSelectNationality": {
     "description": "Placeholder hint for the nationality dropdown"
   },
-
-  "save": "Save",
-  "@save": {
-    "description": "Label for the save button in the edit profile form"
-  },
-
   "prefLanguage": "Language",
   "@prefLanguage": {
     "description": "Field label for the language selector in preferences"
@@ -105,6 +99,65 @@
   "signOut": "Sign Out",
   "@signOut": {
     "description": "Label for the sign out button"
+  },
+
+  "changeRole": "Change role",
+  "@changeRole": {
+    "description": "Title of the change-role sheet and label of the profile entry that opens it"
+  },
+  "changeRoleActiveExperience": "Active experience",
+  "@changeRoleActiveExperience": {
+    "description": "Section header in the change-role sheet listing the roles the user already holds"
+  },
+  "changeRoleAcquireSection": "Acquire a role",
+  "@changeRoleAcquireSection": {
+    "description": "Section header in the change-role sheet listing roles the user can acquire"
+  },
+  "changeRoleBecome": "Become a {role}",
+  "@changeRoleBecome": {
+    "description": "Label of the button that acquires a new role in the change-role sheet",
+    "placeholders": {
+      "role": { "type": "String", "example": "Student" }
+    }
+  },
+  "changeRoleAcquiredSnack": "You are now also a {role}.",
+  "@changeRoleAcquiredSnack": {
+    "description": "Snackbar shown after successfully acquiring a new role",
+    "placeholders": {
+      "role": { "type": "String", "example": "Student" }
+    }
+  },
+  "roleHouseholder": "Householder",
+  "@roleHouseholder": {
+    "description": "Display name of the householder role"
+  },
+  "roleStudent": "Student",
+  "@roleStudent": {
+    "description": "Display name of the student role"
+  },
+  "roleAdmin": "Administrator",
+  "@roleAdmin": {
+    "description": "Display name of the administrator role"
+  },
+  "roleErrAlreadyAssigned": "You already have that role.",
+  "@roleErrAlreadyAssigned": {
+    "description": "Change-role error: the role is already assigned to the user"
+  },
+  "roleErrNotAssignable": "You can't acquire that role.",
+  "@roleErrNotAssignable": {
+    "description": "Change-role error: the role is not self-assignable"
+  },
+  "roleErrInvalid": "Invalid role.",
+  "@roleErrInvalid": {
+    "description": "Change-role error: the requested role is invalid"
+  },
+  "roleErrAssignmentFailed": "Could not assign the role. Please try again.",
+  "@roleErrAssignmentFailed": {
+    "description": "Change-role error: the role assignment failed"
+  },
+  "roleErrGeneric": "Something went wrong. Please try again.",
+  "@roleErrGeneric": {
+    "description": "Change-role error: generic fallback"
   },
 
   "themeSystem": "System",
@@ -217,6 +270,30 @@
   "avatarGeneric": "We could not update your photo. Please try again.",
   "@avatarGeneric": {
     "description": "Fallback error message when the avatar upload fails"
+  },
+  "avatarSourceTitle": "Update profile photo",
+  "@avatarSourceTitle": {
+    "description": "Title of the bottom sheet to choose the avatar image source"
+  },
+  "avatarTakePhoto": "Take a photo",
+  "@avatarTakePhoto": {
+    "description": "Bottom sheet option to capture a new avatar with the camera"
+  },
+  "avatarChooseFromGallery": "Choose from gallery",
+  "@avatarChooseFromGallery": {
+    "description": "Bottom sheet option to pick an avatar from the gallery"
+  },
+  "avatarCameraUnavailable": "We couldn't access the camera. Please try again or choose from your gallery.",
+  "@avatarCameraUnavailable": {
+    "description": "Avatar error shown when the camera cannot be opened (no camera or hardware error)"
+  },
+  "avatarCameraPermissionDenied": "Camera permission is needed to take a photo.",
+  "@avatarCameraPermissionDenied": {
+    "description": "Avatar message shown when the user denies the camera permission"
+  },
+  "openSettings": "Open settings",
+  "@openSettings": {
+    "description": "Action label that opens the app's system settings page"
   },
 
   "homeGreetingMorning": "Good morning, {name}",
@@ -387,6 +464,10 @@
   "@chatEmpty": {
     "description": "Empty state of the chat list"
   },
+  "chatSelectConversation": "Select a conversation to start messaging.",
+  "@chatSelectConversation": {
+    "description": "Empty state shown in the conversation pane when no chat is selected (wide screens)"
+  },
   "chatNoMessages": "No messages yet. Say hello!",
   "@chatNoMessages": {
     "description": "Empty state inside a conversation"
@@ -444,7 +525,7 @@
   "@authSignInWithGoogle": { "description": "Label for the Google sign-in button" },
   "authNoAccount": "Don't have an account? ",
   "@authNoAccount": { "description": "Prompt before the sign-up link on the login screen" },
-  "authSignUpAsHost": "Sign up as a Host",
+  "authSignUpAsHost": "Sign up",
   "@authSignUpAsHost": { "description": "Sign-up link on the login screen" },
   "authGoogleSignInFailed": "Google sign-in failed: {error}",
   "@authGoogleSignInFailed": {
@@ -454,10 +535,20 @@
   "orDivider": "or",
   "@orDivider": { "description": "Divider label between login methods" },
 
-  "registerTitle": "Householder Registration",
+  "registerTitle": "Create your account",
   "@registerTitle": { "description": "Registration screen heading" },
-  "registerSubtitle": "Create your secure profile to begin managing your space.",
+  "registerSubtitle": "Create your profile to get started.",
   "@registerSubtitle": { "description": "Registration screen subtitle" },
+  "fieldRole": "Account type",
+  "@fieldRole": { "description": "Label for the account-type (role) selector on the registration form" },
+  "hintSelectRole": "Select account type",
+  "@hintSelectRole": { "description": "Placeholder hint for the account-type selector" },
+  "validationSelectRole": "Please select an account type.",
+  "@validationSelectRole": { "description": "Validation error shown when no account type is selected" },
+  "googleRolePickerTitle": "Choose your account type",
+  "@googleRolePickerTitle": { "description": "Title of the bottom sheet asking a new Google user which role to register as" },
+  "googleRolePickerSubtitle": "Tell us how you'll use the app. You can add the other role later.",
+  "@googleRolePickerSubtitle": { "description": "Subtitle of the Google role picker bottom sheet" },
   "authAlreadyHaveAccount": "Already have an account? ",
   "@authAlreadyHaveAccount": { "description": "Prompt before the log-in link on the registration screen" },
   "authLogIn": "Log in",
@@ -607,6 +698,12 @@
 
   "addNewRoom": "Add New Room",
   "@addNewRoom": { "description": "Create-room wizard title" },
+  "editRoom": "Edit Room",
+  "@editRoom": { "description": "Edit-room wizard title" },
+  "save": "Save",
+  "@save": { "description": "Wizard save button (edit mode) or Label for the save button in the edit profile form" },
+  "roomUpdatedSuccess": "Room updated successfully.",
+  "@roomUpdatedSuccess": { "description": "Snackbar after updating a room" },
   "stepOfThree": "Step {step} of 3",
   "@stepOfThree": {
     "description": "Create-room wizard step counter",

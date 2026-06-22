@@ -12,6 +12,7 @@ class RoomHouseholderDetailDto {
   final double price;
   final String roomStatus;
   final List<String> imageRoomUrls;
+  final List<RoomImageDto> images;
   final List<String> services;
   final List<RoomPolicyDto> policies;
   final List<RoomBookingDto> bookings;
@@ -25,6 +26,7 @@ class RoomHouseholderDetailDto {
     this.description = '',
     this.price = 0,
     this.imageRoomUrls = const [],
+    this.images = const [],
     this.services = const [],
     this.policies = const [],
     this.bookings = const [],
@@ -32,6 +34,17 @@ class RoomHouseholderDetailDto {
 
   factory RoomHouseholderDetailDto.fromJson(Map<String, dynamic> json) =>
       _$RoomHouseholderDetailDtoFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class RoomImageDto {
+  final int id;
+  final String url;
+
+  const RoomImageDto({this.id = 0, this.url = ''});
+
+  factory RoomImageDto.fromJson(Map<String, dynamic> json) =>
+      _$RoomImageDtoFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)

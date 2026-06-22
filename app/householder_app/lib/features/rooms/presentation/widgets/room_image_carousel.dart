@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
@@ -25,9 +26,18 @@ class _RoomImageCarouselState extends State<RoomImageCarousel> {
     super.dispose();
   }
 
+  void _goTo(int page) {
+    _controller.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final urls = widget.imageUrls;
+    final showArrows = urls.length > 1 && !Breakpoints.isCompact(context);
     return SizedBox(
       height: 280,
       width: double.infinity,
@@ -36,18 +46,54 @@ class _RoomImageCarouselState extends State<RoomImageCarousel> {
           if (urls.isEmpty)
             const _ImagePlaceholder()
           else
-            PageView.builder(
-              controller: _controller,
-              itemCount: urls.length,
-              onPageChanged: (i) => setState(() => _page = i),
-              itemBuilder: (_, i) => Image.network(
-                urls[i],
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, progress) =>
-                    progress == null ? child : const _ImagePlaceholder(loading: true),
-                errorBuilder: (_, _, _) => const _ImagePlaceholder(),
+            ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                  PointerDeviceKind.trackpad,
+                },
+              ),
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: urls.length,
+                onPageChanged: (i) => setState(() => _page = i),
+                itemBuilder: (_, i) => Image.network(
+                  urls[i],
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, progress) => progress == null
+                      ? child
+                      : const _ImagePlaceholder(loading: true),
+                  errorBuilder: (_, _, _) => const _ImagePlaceholder(),
+                ),
               ),
             ),
+          if (showArrows) ...[
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: AppSpacing.lg,
+              child: Center(
+                child: _ArrowButton(
+                  icon: Icons.chevron_left,
+                  onTap: _page == 0 ? null : () => _goTo(_page - 1),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: AppSpacing.lg,
+              child: Center(
+                child: _ArrowButton(
+                  icon: Icons.chevron_right,
+                  onTap: _page == urls.length - 1
+                      ? null
+                      : () => _goTo(_page + 1),
+                ),
+              ),
+            ),
+          ],
           if (urls.length > 1)
             Positioned(
               bottom: AppSpacing.lg,
@@ -61,6 +107,37 @@ class _RoomImageCarouselState extends State<RoomImageCarousel> {
             child: _EditButton(onTap: widget.onEdit),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ArrowButton extends StatelessWidget {
+  const _ArrowButton({required this.icon, required this.onTap});
+
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Material(
+      color: cs.surfaceContainerLowest,
+      shape: const CircleBorder(),
+      elevation: 2,
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.sm),
+          child: Icon(
+            icon,
+            size: 24,
+            color: onTap == null
+                ? cs.onSurface.withValues(alpha: 0.3)
+                : cs.primary,
+          ),
+        ),
       ),
     );
   }

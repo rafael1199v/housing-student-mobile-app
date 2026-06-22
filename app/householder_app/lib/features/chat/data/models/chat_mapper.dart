@@ -10,6 +10,7 @@ extension ChatSummaryDtoMapper on ChatSummaryDto {
         lastMessage: lastMessage,
         lastMessageAt: lastMessageAt?.toLocal(),
         unreadCount: unreadCount,
+        otherParticipantImageUrl: otherParticipantImageUrl,
       );
 }
 

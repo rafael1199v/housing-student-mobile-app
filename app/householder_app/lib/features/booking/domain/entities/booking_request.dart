@@ -7,6 +7,7 @@ class BookingRequest {
   final String? phoneNumber;
   final BookingStatus status;
   final String studentUserId;
+  final String? bookerImageUrl;
 
   const BookingRequest({
     required this.id,
@@ -15,5 +16,6 @@ class BookingRequest {
     required this.status,
     this.phoneNumber,
     this.studentUserId = '',
+    this.bookerImageUrl,
   });
 }

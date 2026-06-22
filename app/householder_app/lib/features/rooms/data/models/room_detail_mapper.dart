@@ -12,6 +12,8 @@ extension RoomHouseholderDetailDtoMapper on RoomHouseholderDetailDto {
         longitude: longitude,
         status: RoomStatus.fromBackend(roomStatus),
         imageUrls: imageRoomUrls,
+        images:
+            images.map((i) => RoomImageRef(id: i.id, url: i.url)).toList(),
         services: services,
         policies: policies
             .map((p) => RoomPolicyTag(code: p.code, description: p.description))

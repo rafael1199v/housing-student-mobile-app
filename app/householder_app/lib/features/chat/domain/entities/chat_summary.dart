@@ -5,6 +5,7 @@ class ChatSummary {
   final String? lastMessage;
   final DateTime? lastMessageAt;
   final int unreadCount;
+  final String? otherParticipantImageUrl;
 
   const ChatSummary({
     required this.chatId,
@@ -13,5 +14,6 @@ class ChatSummary {
     this.lastMessage,
     this.lastMessageAt,
     this.unreadCount = 0,
+    this.otherParticipantImageUrl,
   });
 }

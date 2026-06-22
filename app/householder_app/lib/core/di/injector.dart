@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:housing_auth/housing_auth.dart';
+import 'package:housing_core/housing_core.dart';
 
-import '../../features/auth/di/auth_module.dart';
 import '../../features/booking/booking.dart';
 import '../../features/chat/chat.dart';
 import '../../features/home/home.dart';
@@ -11,11 +12,8 @@ import '../../features/profile/profile.dart';
 import '../../features/rooms/rooms.dart';
 import '../i18n/locale_cubit.dart';
 import '../i18n/locale_preference_storage.dart';
-import '../network/dio_client.dart';
-import '../session/current_user.dart';
-import '../session/session_notifier.dart';
-import '../storage/secure_token_storage.dart';
-import '../storage/token_storage.dart';
+import '../platform/connectivity_service.dart';
+import '../platform/connectivity_service_factory.dart';
 import '../theme/theme_cubit.dart';
 import '../theme/theme_preference_storage.dart';
 
@@ -58,7 +56,13 @@ Future<void> configureDependencies() async {
     ),
   );
 
+  getIt.registerLazySingleton<ConnectivityService>(createConnectivityService);
+
   registerAuthDependencies(getIt);
+  registerHouseholderDependencies(getIt);
+}
+
+void registerHouseholderDependencies(GetIt getIt) {
   registerProfileDependencies(getIt);
   registerBookingDependencies(getIt);
   registerHomeDependencies(getIt);
