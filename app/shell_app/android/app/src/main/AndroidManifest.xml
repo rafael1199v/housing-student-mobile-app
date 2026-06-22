@@ -38,13 +38,26 @@
                       android:host="itersapiens.rafael-vargas.dev"
                       android:pathPrefix="/confirm-email" />
             </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                      android:host="itersapiens.rafael-vargas.dev"
+                      android:pathPattern="/room/.*"/>
+            </intent-filter>
         </activity>
 
-        <!-- Route incoming App Links through Flutter/go_router (the shell routes
-             via go_router; the email confirmation deep link is handled there). -->
+        <!-- Deep links are handled entirely in Dart via app_links (see app.dart),
+             which gives a single, predictable navigation per link (cold + warm).
+             Flutter's built-in deep linking is disabled on purpose: when enabled
+             it re-routes the link as a stack-replacing `go` on warm/background
+             resume, which clashed with our `push` and left detail pages with no
+             Back target. The intent-filters above still deliver links to us. -->
         <meta-data
             android:name="flutter_deeplinking_enabled"
-            android:value="true" />
+            android:value="false" />
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
