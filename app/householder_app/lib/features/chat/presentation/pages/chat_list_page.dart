@@ -36,6 +36,7 @@ class _ChatListViewState extends State<_ChatListView> {
 
   int? _selectedChatId;
   String? _selectedTitle;
+  String? _selectedImageUrl;
 
   void _onSelect(BuildContext context, ChatSummary chat, {required bool expanded}) {
     final title = chat.otherParticipantName.isEmpty
@@ -45,10 +46,17 @@ class _ChatListViewState extends State<_ChatListView> {
       setState(() {
         _selectedChatId = chat.chatId;
         _selectedTitle = title;
+        _selectedImageUrl = chat.otherParticipantImageUrl;
       });
       return;
     }
-    context.push(ChatConversationPage.pathTo(chat.chatId), extra: title);
+    context.push(
+      ChatConversationPage.pathTo(chat.chatId),
+      extra: ChatConversationArgs(
+        title: title,
+        imageUrl: chat.otherParticipantImageUrl,
+      ),
+    );
   }
 
   @override
@@ -105,6 +113,7 @@ class _ChatListViewState extends State<_ChatListView> {
                       key: ValueKey(_selectedChatId),
                       chatId: _selectedChatId!,
                       title: _selectedTitle,
+                      imageUrl: _selectedImageUrl,
                       showHeader: true,
                     ),
             ),
@@ -190,6 +199,7 @@ class _ChatList extends StatelessWidget {
           subtitle: chat.lastMessage,
           timeLabel: _formatTime(chat.lastMessageAt),
           unreadCount: chat.unreadCount,
+          avatar: avatarImageFromUrl(chat.otherParticipantImageUrl),
           onTap: () => onSelect(chat),
         );
         if (chat.chatId == selectedChatId) {
