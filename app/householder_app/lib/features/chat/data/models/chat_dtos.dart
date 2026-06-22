@@ -21,6 +21,7 @@ class ChatSummaryDto {
   final String? lastMessage;
   final DateTime? lastMessageAt;
   final int unreadCount;
+  final String? otherParticipantImageUrl;
 
   const ChatSummaryDto({
     this.chatId = 0,
@@ -29,6 +30,7 @@ class ChatSummaryDto {
     this.lastMessage,
     this.lastMessageAt,
     this.unreadCount = 0,
+    this.otherParticipantImageUrl,
   });
 
   factory ChatSummaryDto.fromJson(Map<String, dynamic> json) =>
