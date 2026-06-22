@@ -33,10 +33,10 @@ class RequestCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                AppAvatar(
+                  image: avatarImageFromUrl(request.bookerImageUrl),
+                  name: request.requesterName,
                   radius: 22,
-                  backgroundColor: cs.surfaceContainerLow,
-                  child: Icon(Icons.person_outline, color: cs.outline),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
