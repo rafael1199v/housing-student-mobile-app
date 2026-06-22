@@ -64,10 +64,18 @@ List<RouteBase> householderExperienceRoutes() => [
 
   GoRoute(
     path: ChatConversationPage.routeName,
-    builder: (context, state) => ChatConversationPage(
-      chatId: int.parse(state.pathParameters['chatId']!),
-      title: state.extra is String ? state.extra as String : null,
-    ),
+    builder: (context, state) {
+      final args = state.extra;
+      return ChatConversationPage(
+        chatId: int.parse(state.pathParameters['chatId']!),
+        title: switch (args) {
+          ChatConversationArgs(:final title) => title,
+          final String title => title,
+          _ => null,
+        },
+        imageUrl: args is ChatConversationArgs ? args.imageUrl : null,
+      );
+    },
   ),
 
   StatefulShellRoute.indexedStack(

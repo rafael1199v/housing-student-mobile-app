@@ -11,6 +11,13 @@ import '../cubits/chat_conversation_cubit.dart';
 const double kChatContentMaxWidth = 720;
 const double kChatPaneHeaderHeight = 64;
 
+class ChatConversationArgs {
+  const ChatConversationArgs({this.title, this.imageUrl});
+
+  final String? title;
+  final String? imageUrl;
+}
+
 class ChatConversationPage extends StatelessWidget {
   static const routeName = '/messages/:chatId';
   static String pathTo(int chatId) => '/messages/$chatId';
@@ -19,10 +26,12 @@ class ChatConversationPage extends StatelessWidget {
     super.key,
     required this.chatId,
     this.title,
+    this.imageUrl,
   });
 
   final int chatId;
   final String? title;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +42,22 @@ class ChatConversationPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         elevation: 0,
-        title: Text(
-          (title?.trim().isNotEmpty ?? false) ? title! : l10n.chatListTitle,
-          style: theme.textTheme.titleLarge,
+        title: Row(
+          children: [
+            AppAvatar(image: avatarImageFromUrl(imageUrl), name: title, radius: 18),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Text(
+                (title?.trim().isNotEmpty ?? false) ? title! : l10n.chatListTitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleLarge,
+              ),
+            ),
+          ],
         ),
       ),
-      body: ChatConversationView(chatId: chatId, title: title),
+      body: ChatConversationView(chatId: chatId, title: title, imageUrl: imageUrl),
     );
   }
 }
@@ -48,26 +67,37 @@ class ChatConversationView extends StatelessWidget {
     super.key,
     required this.chatId,
     this.title,
+    this.imageUrl,
     this.showHeader = false,
   });
 
   final int chatId;
   final String? title;
+  final String? imageUrl;
   final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChatConversationCubit>(
       create: (_) => GetIt.I<ChatConversationCubit>()..load(chatId),
-      child: _ChatConversationView(title: title, showHeader: showHeader),
+      child: _ChatConversationView(
+        title: title,
+        imageUrl: imageUrl,
+        showHeader: showHeader,
+      ),
     );
   }
 }
 
 class _ChatConversationView extends StatefulWidget {
-  const _ChatConversationView({this.title, this.showHeader = false});
+  const _ChatConversationView({
+    this.title,
+    this.imageUrl,
+    this.showHeader = false,
+  });
 
   final String? title;
+  final String? imageUrl;
   final bool showHeader;
 
   @override
@@ -94,7 +124,8 @@ class _ChatConversationViewState extends State<_ChatConversationView> {
 
     return Column(
       children: [
-        if (widget.showHeader) _PaneHeader(title: widget.title),
+        if (widget.showHeader)
+          _PaneHeader(title: widget.title, imageUrl: widget.imageUrl),
         Expanded(
           child: BlocBuilder<ChatConversationCubit, ChatConversationState>(
             builder: (context, state) {
@@ -129,9 +160,10 @@ class _ChatConversationViewState extends State<_ChatConversationView> {
 }
 
 class _PaneHeader extends StatelessWidget {
-  const _PaneHeader({this.title});
+  const _PaneHeader({this.title, this.imageUrl});
 
   final String? title;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -151,10 +183,10 @@ class _PaneHeader extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             child: Row(
               children: [
-                CircleAvatar(
+                AppAvatar(
+                  image: avatarImageFromUrl(imageUrl),
+                  name: title,
                   radius: 18,
-                  backgroundColor: cs.surfaceContainerLow,
-                  child: Icon(Icons.person_outline, color: cs.outline),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
