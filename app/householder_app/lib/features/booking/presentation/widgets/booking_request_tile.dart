@@ -39,10 +39,10 @@ class BookingRequestTile extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
+              AppAvatar(
+                image: avatarImageFromUrl(request.bookerImageUrl),
+                name: request.bookerName,
                 radius: 24,
-                backgroundColor: cs.surfaceContainerLow,
-                child: Icon(Icons.person_outline, color: cs.outline),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(

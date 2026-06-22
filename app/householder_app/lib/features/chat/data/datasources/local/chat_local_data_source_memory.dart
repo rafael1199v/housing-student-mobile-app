@@ -5,7 +5,8 @@ import 'chat_local_data_source.dart';
 class InMemoryChatLocalDataSource implements ChatLocalDataSource {
   List<ChatSummary> _chats = const [];
   final Map<int, List<ChatMessage>> _messages = {};
-  final List<({int chatId, String message})> _outbox = [];
+  final List<OutgoingMessage> _outbox = [];
+  int _nextOutboxId = 1;
 
   @override
   Future<void> cacheChats(List<ChatSummary> chats) async {
@@ -33,7 +34,18 @@ class InMemoryChatLocalDataSource implements ChatLocalDataSource {
 
   @override
   Future<void> enqueueOutgoing(int chatId, String message) async {
-    _outbox.add((chatId: chatId, message: message));
+    _outbox.add(
+      OutgoingMessage(id: _nextOutboxId++, chatId: chatId, message: message),
+    );
+  }
+
+  @override
+  Future<List<OutgoingMessage>> readOutgoing() async =>
+      List.unmodifiable(_outbox);
+
+  @override
+  Future<void> removeOutgoing(int id) async {
+    _outbox.removeWhere((m) => m.id == id);
   }
 
   @override

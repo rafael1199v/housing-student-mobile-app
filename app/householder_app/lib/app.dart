@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:housing_auth/housing_auth.dart';
 import 'package:housing_design_system/housing_design_system.dart';
 
 import 'core/core.dart';
@@ -33,7 +34,10 @@ class _ItersapiensHouseholderAppState extends State<ItersapiensHouseholderApp> {
                 darkTheme: AppTheme.householderDark,
                 themeMode: themeMode,
                 locale: locale,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                localizationsDelegates: [
+                  ...AppLocalizations.localizationsDelegates,
+                  AuthLocalizations.delegate,
+                ],
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: _router,
               );

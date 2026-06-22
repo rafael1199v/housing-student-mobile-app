@@ -1,0 +1,71 @@
+name: housing_auth
+description: "Shared, role-neutral authentication feature (login, register, Google sign-in, confirm email) consumed by the shell and by each standalone experience."
+publish_to: 'none'
+version: 0.1.0+1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Localization (gen-l10n: ARB files -> AuthLocalizations).
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+  # Shared framework-agnostic plumbing (session, network, storage, roles,
+  # errors, config). SessionNotifier now lives here too.
+  housing_core:
+    git:
+      url: https://github.com/rafael1199v/housing-core-mobile.git
+      ref: release/1.0.0
+
+  housing_design_system:
+    git:
+      url: https://github.com/rafael1199v/housing-design-system.git
+      ref: main
+
+  # Networking (Retrofit over Dio)
+  dio: ^5.7.0
+  retrofit: ^4.9.0
+  json_annotation: ^4.9.0
+
+  # Password encryption (RSA-OAEP/SHA-256) before login/register.
+  # pointycastle is pure Dart (web + mobile); basic_utils parses the SPKI PEM.
+  pointycastle: ^3.9.1
+  basic_utils: ^5.7.0
+
+  # Dependency injection
+  get_it: ^8.0.3
+
+  # State management
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # Routing (context.go from auth pages)
+  go_router: ^17.3.0
+
+  # Avatar selection on register (gallery/camera, handles web).
+  image_picker: ^1.1.0
+
+  # Google Sign-In (ID token for /api/login/google). v7 to match the bundle.
+  google_sign_in: ^7.2.0
+  google_sign_in_web: ^1.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  # Code generation (Retrofit *_api.g.dart + json_serializable DTOs).
+  build_runner: ^2.4.13
+  retrofit_generator: ^10.2.3
+  json_serializable: ^6.9.0
+
+flutter:
+  uses-material-design: true
+  generate: true

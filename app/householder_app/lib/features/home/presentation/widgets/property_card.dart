@@ -63,9 +63,15 @@ class _PropertyCardState extends State<PropertyCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  property.name,
-                  style: theme.textTheme.displaySmall?.copyWith(fontSize: 18),
+                Tooltip(
+                  message: property.name,
+                  child: Text(
+                    property.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: theme.textTheme.displaySmall?.copyWith(fontSize: 18),
+                  ),
                 ),
                 if (description.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.sm),

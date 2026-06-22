@@ -33,17 +33,22 @@ class RequestCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                AppAvatar(
+                  image: avatarImageFromUrl(request.bookerImageUrl),
+                  name: request.requesterName,
                   radius: 22,
-                  backgroundColor: cs.surfaceContainerLow,
-                  child: Icon(Icons.person_outline, color: cs.outline),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
-                  child: Text(
-                    request.requesterName,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                  child: Tooltip(
+                    message: request.requesterName,
+                    child: Text(
+                      request.requesterName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
@@ -65,10 +70,15 @@ class RequestCard extends StatelessWidget {
                     style: theme.textTheme.labelSmall,
                   ),
                   const SizedBox(height: AppSpacing.xs),
-                  Text(
-                    request.propertyName,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                  Tooltip(
+                    message: request.propertyName,
+                    child: Text(
+                      request.propertyName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
@@ -83,6 +93,7 @@ class RequestCard extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: cs.onSurface,
                       side: BorderSide(color: cs.outlineVariant),
+                      minimumSize: const Size.fromHeight(48),
                       padding:
                           const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
@@ -101,6 +112,7 @@ class RequestCard extends StatelessWidget {
                       backgroundColor: cs.primary,
                       foregroundColor: cs.onPrimary,
                       elevation: 0,
+                      minimumSize: const Size.fromHeight(48),
                       padding:
                           const EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(

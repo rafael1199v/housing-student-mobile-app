@@ -5,6 +5,8 @@ enum CreateRoomStatus { idle, submitting, success, failure }
 class CreateRoomState extends Equatable {
   const CreateRoomState({
     this.currentStep = 0,
+    this.roomId,
+    this.initializing = false,
     this.name = '',
     this.description = '',
     this.price = '',
@@ -15,6 +17,7 @@ class CreateRoomState extends Equatable {
     this.serviceIds = const {},
     this.policies = const [],
     this.images = const [],
+    this.existingImages = const [],
     this.showStepErrors = false,
     this.status = CreateRoomStatus.idle,
     this.errorCode,
@@ -23,6 +26,12 @@ class CreateRoomState extends Equatable {
   static const lastStep = 2;
 
   final int currentStep;
+
+  /// Non-null when the wizard is editing an existing room.
+  final int? roomId;
+
+  /// True while the edit form is fetching/seeding the existing room data.
+  final bool initializing;
 
   final String name;
   final String description;
@@ -37,6 +46,9 @@ class CreateRoomState extends Equatable {
   // Step 1 — photos.
   final List<RoomImage> images;
 
+  /// Existing server-side images (with ids) kept when editing.
+  final List<RoomImageRef> existingImages;
+
   // Step 2 — services & policies.
   final Set<int> serviceIds;
   final List<SelectedPolicy> policies;
@@ -49,6 +61,9 @@ class CreateRoomState extends Equatable {
 
   bool get hasLocation => latitude != null && longitude != null;
   double? get priceValue => double.tryParse(price.trim());
+
+  bool get isEditMode => roomId != null;
+  int get totalPhotoCount => existingImages.length + images.length;
 
   bool get isCurrentStepValid {
     switch (currentStep) {
@@ -66,6 +81,8 @@ class CreateRoomState extends Equatable {
 
   CreateRoomState copyWith({
     int? currentStep,
+    int? roomId,
+    bool? initializing,
     String? name,
     String? description,
     String? price,
@@ -74,6 +91,7 @@ class CreateRoomState extends Equatable {
     double? longitude,
     String? address,
     List<RoomImage>? images,
+    List<RoomImageRef>? existingImages,
     Set<int>? serviceIds,
     List<SelectedPolicy>? policies,
     bool? showStepErrors,
@@ -82,6 +100,8 @@ class CreateRoomState extends Equatable {
   }) {
     return CreateRoomState(
       currentStep: currentStep ?? this.currentStep,
+      roomId: roomId ?? this.roomId,
+      initializing: initializing ?? this.initializing,
       name: name ?? this.name,
       description: description ?? this.description,
       price: price ?? this.price,
@@ -90,6 +110,7 @@ class CreateRoomState extends Equatable {
       longitude: longitude ?? this.longitude,
       address: address ?? this.address,
       images: images ?? this.images,
+      existingImages: existingImages ?? this.existingImages,
       serviceIds: serviceIds ?? this.serviceIds,
       policies: policies ?? this.policies,
       showStepErrors: showStepErrors ?? this.showStepErrors,
@@ -101,6 +122,8 @@ class CreateRoomState extends Equatable {
   @override
   List<Object?> get props => [
         currentStep,
+        roomId,
+        initializing,
         name,
         description,
         price,
@@ -109,6 +132,7 @@ class CreateRoomState extends Equatable {
         longitude,
         address,
         images,
+        existingImages,
         serviceIds,
         policies,
         showStepErrors,

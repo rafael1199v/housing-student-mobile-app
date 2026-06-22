@@ -4,8 +4,13 @@ environment:
   sdk: ^3.11.5
 
 workspace:
+  - app/shell_app
   - app/householder_app
+  - packages/auth
 
 dependency_overrides:
   housing_design_system:
     path: ../proyecto-final-design-system
+
+  housing_core:
+    path: ../housing-core

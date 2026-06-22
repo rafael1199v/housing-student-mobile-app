@@ -7,6 +7,13 @@ class RoomPolicyTag {
   const RoomPolicyTag({required this.code, required this.description});
 }
 
+class RoomImageRef {
+  final int id;
+  final String url;
+
+  const RoomImageRef({required this.id, required this.url});
+}
+
 class RoomDetail {
   final int id;
   final String name;
@@ -16,6 +23,7 @@ class RoomDetail {
   final double longitude;
   final RoomStatus status;
   final List<String> imageUrls;
+  final List<RoomImageRef> images;
   final List<String> services;
   final List<RoomPolicyTag> policies;
   final int pendingBookingsCount;
@@ -29,6 +37,7 @@ class RoomDetail {
     required this.longitude,
     required this.status,
     required this.imageUrls,
+    required this.images,
     required this.services,
     required this.policies,
     required this.pendingBookingsCount,

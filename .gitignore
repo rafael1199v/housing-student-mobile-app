@@ -67,3 +67,4 @@ app.*.map.json
 *.g.dart
 # gen-l10n output (generated from the .arb files; ARBs are the source of truth)
 **/lib/core/i18n/l10n/gen/
+**/l10n/gen/

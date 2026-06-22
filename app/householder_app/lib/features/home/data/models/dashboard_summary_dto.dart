@@ -31,11 +31,13 @@ class DashboardBookingRequestDto {
   final String id;
   final String requesterName;
   final String propertyName;
+  final String? bookerImageUrl;
 
   const DashboardBookingRequestDto({
     required this.id,
     required this.requesterName,
     required this.propertyName,
+    this.bookerImageUrl,
   });
 
   factory DashboardBookingRequestDto.fromJson(Map<String, dynamic> json) =>

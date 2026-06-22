@@ -51,8 +51,10 @@ class ReviewStep extends StatelessWidget {
                 ],
               ),
             ),
-            AppSpacing.gapXl,
-            _ReadyBanner(),
+            if (!state.isEditMode) ...[
+              AppSpacing.gapXl,
+              _ReadyBanner(),
+            ],
             AppSpacing.gapXl,
             AppCard(
               child: Column(
@@ -126,7 +128,7 @@ class ReviewStep extends StatelessWidget {
             ),
             AppSpacing.gapXl,
             Text(
-              l10n.photosAttached(state.images.length),
+              l10n.photosAttached(state.totalPhotoCount),
               style: theme.textTheme.bodyMedium,
             ),
           ],

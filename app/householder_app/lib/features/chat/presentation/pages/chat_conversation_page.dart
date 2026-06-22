@@ -8,6 +8,16 @@ import '../../../../core/core.dart';
 import '../../domain/entities/chat_message.dart';
 import '../cubits/chat_conversation_cubit.dart';
 
+const double kChatContentMaxWidth = 720;
+const double kChatPaneHeaderHeight = 64;
+
+class ChatConversationArgs {
+  const ChatConversationArgs({this.title, this.imageUrl});
+
+  final String? title;
+  final String? imageUrl;
+}
+
 class ChatConversationPage extends StatelessWidget {
   static const routeName = '/messages/:chatId';
   static String pathTo(int chatId) => '/messages/$chatId';
@@ -16,24 +26,79 @@ class ChatConversationPage extends StatelessWidget {
     super.key,
     required this.chatId,
     this.title,
+    this.imageUrl,
   });
 
   final int chatId;
   final String? title;
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: theme.colorScheme.surface,
+        elevation: 0,
+        title: Row(
+          children: [
+            AppAvatar(image: avatarImageFromUrl(imageUrl), name: title, radius: 18),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Text(
+                (title?.trim().isNotEmpty ?? false) ? title! : l10n.chatListTitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleLarge,
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: ChatConversationView(chatId: chatId, title: title, imageUrl: imageUrl),
+    );
+  }
+}
+
+class ChatConversationView extends StatelessWidget {
+  const ChatConversationView({
+    super.key,
+    required this.chatId,
+    this.title,
+    this.imageUrl,
+    this.showHeader = false,
+  });
+
+  final int chatId;
+  final String? title;
+  final String? imageUrl;
+  final bool showHeader;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChatConversationCubit>(
       create: (_) => GetIt.I<ChatConversationCubit>()..load(chatId),
-      child: _ChatConversationView(title: title),
+      child: _ChatConversationView(
+        title: title,
+        imageUrl: imageUrl,
+        showHeader: showHeader,
+      ),
     );
   }
 }
 
 class _ChatConversationView extends StatefulWidget {
-  const _ChatConversationView({this.title});
+  const _ChatConversationView({
+    this.title,
+    this.imageUrl,
+    this.showHeader = false,
+  });
 
   final String? title;
+  final String? imageUrl;
+  final bool showHeader;
 
   @override
   State<_ChatConversationView> createState() => _ChatConversationViewState();
@@ -55,46 +120,89 @@ class _ChatConversationViewState extends State<_ChatConversationView> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.colorScheme.surface,
-        elevation: 0,
-        title: Text(
-          (widget.title?.trim().isNotEmpty ?? false)
-              ? widget.title!
-              : l10n.chatListTitle,
-          style: theme.textTheme.titleLarge,
+    return Column(
+      children: [
+        if (widget.showHeader)
+          _PaneHeader(title: widget.title, imageUrl: widget.imageUrl),
+        Expanded(
+          child: BlocBuilder<ChatConversationCubit, ChatConversationState>(
+            builder: (context, state) {
+              return switch (state) {
+                ChatConversationLoaded(:final messages, :final currentUserId) =>
+                  messages.isEmpty
+                      ? Center(child: Text(l10n.chatNoMessages))
+                      : _MessageList(
+                          messages: messages,
+                          currentUserId: currentUserId,
+                        ),
+                ChatConversationFailureState() =>
+                  Center(child: Text(l10n.chatLoadError)),
+                _ => const Center(child: CircularProgressIndicator()),
+              };
+            },
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: BlocBuilder<ChatConversationCubit, ChatConversationState>(
-              builder: (context, state) {
-                return switch (state) {
-                  ChatConversationLoaded(:final messages, :final currentUserId) =>
-                    messages.isEmpty
-                        ? Center(child: Text(l10n.chatNoMessages))
-                        : _MessageList(
-                            messages: messages,
-                            currentUserId: currentUserId,
-                          ),
-                  ChatConversationFailureState() =>
-                    Center(child: Text(l10n.chatLoadError)),
-                  _ => const Center(child: CircularProgressIndicator()),
-                };
-              },
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: kChatContentMaxWidth),
+            child: AppMessageComposer(
+              controller: _controller,
+              hintText: l10n.chatConversationHint,
+              onSend: _onSend,
             ),
           ),
-          AppMessageComposer(
-            controller: _controller,
-            hintText: l10n.chatConversationHint,
-            onSend: _onSend,
+        ),
+      ],
+    );
+  }
+}
+
+class _PaneHeader extends StatelessWidget {
+  const _PaneHeader({this.title, this.imageUrl});
+
+  final String? title;
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: cs.surface,
+        border: Border(bottom: BorderSide(color: cs.outlineVariant, width: 1)),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: kChatPaneHeaderHeight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Row(
+              children: [
+                AppAvatar(
+                  image: avatarImageFromUrl(imageUrl),
+                  name: title,
+                  radius: 18,
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    (title?.trim().isNotEmpty ?? false)
+                        ? title!
+                        : l10n.chatListTitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleLarge,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -110,7 +218,7 @@ class _MessageList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 720),
+        constraints: const BoxConstraints(maxWidth: kChatContentMaxWidth),
         child: ListView.builder(
           reverse: true,
           padding: const EdgeInsets.all(AppSpacing.lg),

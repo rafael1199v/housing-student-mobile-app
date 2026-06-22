@@ -84,7 +84,7 @@ class _ActionNeededSectionState extends State<ActionNeededSection> {
   Widget _buildCarousel(BuildContext context, List<BookingRequest> requests) {
     final showScrollbar = !Breakpoints.isCompact(context);
     final list = SizedBox(
-      height: 250,
+      height: 274,
       child: ListView.separated(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,

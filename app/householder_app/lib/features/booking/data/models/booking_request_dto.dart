@@ -21,6 +21,7 @@ class BookingRequestDto {
   final String? bookerPhoneNumber;
   final String bookingStatus;
   final String bookerId;
+  final String? bookerImageUrl;
 
   const BookingRequestDto({
     this.id = 0,
@@ -29,6 +30,7 @@ class BookingRequestDto {
     this.bookerPhoneNumber,
     this.bookingStatus = '',
     this.bookerId = '',
+    this.bookerImageUrl,
   });
 
   factory BookingRequestDto.fromJson(Map<String, dynamic> json) =>
