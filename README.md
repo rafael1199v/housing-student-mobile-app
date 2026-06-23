@@ -28,9 +28,9 @@ proyecto-final/
 
 | Package | Source | Purpose |
 | --- | --- | --- |
-| `housing_core` | [`rafael1199v/housing-core-mobile`](https://github.com/rafael1199v/housing-core-mobile) `@release/1.0.0` | Shared framework-agnostic plumbing: session, network, storage, roles, errors, config. |
-| `housing_design_system` | [`rafael1199v/housing-design-system`](https://github.com/rafael1199v/housing-design-system) `@main` | Shared UI/design system (themes, components). |
-| `student_lib` | [`DanyElAlgo/StudentHousingApp-Student`](https://github.com/DanyElAlgo/StudentHousingApp-Student) `@feature/microapp-surface` | The **student** microapp experience (Riverpod-based). |
+| `housing_core` | [`rafael1199v/housing-core-mobile`](https://github.com/rafael1199v/housing-core-mobile) `@release/1.1.2` | Shared framework-agnostic plumbing: session, network, storage, roles, errors, config. |
+| `housing_design_system` | [`rafael1199v/housing-design-system`](https://github.com/rafael1199v/housing-design-system) `@release/1.2.1` | Shared UI/design system (themes, components). |
+| `student_lib` | [`DanyElAlgo/StudentHousingApp-Student`](https://github.com/DanyElAlgo/StudentHousingApp-Student) `@release/1.2.3` | The **student** microapp experience (Riverpod-based). |
 
 > **Local development of shared packages:** the root `pubspec.yaml` declares
 > `dependency_overrides` pointing `housing_design_system → ../proyecto-final-design-system`
@@ -110,6 +110,91 @@ flutter test        # run tests
 
 > The householder experience can also be run **standalone** from `app/householder_app`
 > (it has its own `lib/main.dart`), using the same `--dart-define` set.
+
+### Running on Android (emulator or physical device)
+
+`flutter run` targets a device id with `-d`. List what's currently attached:
+
+```bash
+flutter devices            # shows running emulators + connected phones
+```
+
+The Android Crashlytics/Firebase config means the **shell app builds for Android out of the box** —
+use the same `--dart-define` set as above, except **`BASE_URL` must point at your backend in a way
+the device can actually reach** (a device/emulator's `localhost` is itself, *not* your dev machine):
+
+| Target | `BASE_URL` to use |
+| --- | --- |
+| Android **emulator** | `http://10.0.2.2:5065` (the emulator's alias for the host machine's `localhost`) |
+| **Physical phone** (USB cable or same Wi-Fi) | `http://<your-dev-machine-LAN-IP>:5065` (e.g. `http://192.168.1.42:5065`) |
+
+#### A) Android emulator
+
+```bash
+# Start an emulator (or launch one from Android Studio's Device Manager):
+flutter emulators                       # list available AVDs
+flutter emulators --launch <emulator_id>
+
+cd app/shell_app
+flutter pub get
+
+flutter run -d emulator-5554 \
+  --dart-define=BASE_URL=http://10.0.2.2:5065 \
+  --dart-define=GOOGLE_WEB_CLIENT_ID=... \
+  --dart-define=GOOGLE_SERVER_CLIENT_ID=... \
+  --dart-define=MAPS_WEB_API_KEY=... \
+  --dart-define=MAPS_CLOUD_MAP_ID=... \
+  --dart-define=PASSWORD_PUBLIC_KEY=...
+```
+
+#### B) Physical phone — USB cable
+
+1. On the phone, enable **Developer options** → **USB debugging**.
+2. Connect the cable and accept the "Allow USB debugging" prompt. Confirm it shows up:
+   ```bash
+   flutter devices            # your phone should be listed (or: adb devices)
+   ```
+3. Find your dev machine's LAN IP (Windows: `ipconfig` → IPv4 address; macOS/Linux: `ifconfig` / `ip addr`),
+   and make sure the backend is bound to it (not only `localhost`).
+4. Run, using that IP for `BASE_URL`:
+   ```bash
+   cd app/shell_app && flutter pub get
+
+   flutter run -d <device-id> \
+     --dart-define=BASE_URL=http://192.168.1.42:5065 \
+     --dart-define=GOOGLE_WEB_CLIENT_ID=... \
+     --dart-define=GOOGLE_SERVER_CLIENT_ID=... \
+     --dart-define=MAPS_WEB_API_KEY=... \
+     --dart-define=MAPS_CLOUD_MAP_ID=... \
+     --dart-define=PASSWORD_PUBLIC_KEY=...
+   ```
+
+#### C) Physical phone — Wi-Fi (wireless debugging)
+
+The phone and your dev machine must be on the **same Wi-Fi network**. Pair once over USB, then unplug:
+
+```bash
+# Android 11+: enable Developer options → Wireless debugging on the phone, then:
+adb pair <phone-ip>:<pair-port>        # use the code shown under "Pair device with pairing code"
+adb connect <phone-ip>:<port>          # port shown on the Wireless debugging screen
+
+# Older devices: connect via USB first, then switch to TCP/IP:
+#   adb tcpip 5555
+#   adb connect <phone-ip>:5555
+
+flutter devices                        # confirm the phone is now listed over Wi-Fi
+```
+
+Then run exactly as in option B (same LAN-IP `BASE_URL`, since traffic still goes over the network).
+
+> **Common pitfalls on a real device/emulator:**
+> - Using `http://localhost:5065` — it resolves to the device itself and the request never reaches your backend.
+> - Backend bound only to `localhost`/`127.0.0.1` — bind it to `0.0.0.0` (or your LAN IP) so the device can connect.
+> - A firewall on the dev machine blocking the backend port — allow inbound connections on it.
+> - **Cleartext `http://` is blocked by default on Android** (targetSdk ≥ 28). The manifest does *not*
+>   currently opt in, so a plain-HTTP `BASE_URL` will fail with a cleartext-not-permitted error. To talk
+>   to a local HTTP backend, either add `android:usesCleartextTraffic="true"` to the `<application>` in
+>   `app/shell_app/android/app/src/debug/AndroidManifest.xml` (debug only), or serve the backend over `https://`.
 
 ---
 
