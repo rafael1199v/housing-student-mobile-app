@@ -8,9 +8,9 @@ workspace:
   - app/householder_app
   - packages/auth
 
-dependency_overrides:
-  housing_design_system:
-    path: ../proyecto-final-design-system
+# dependency_overrides:
+#   housing_design_system:
+#     path: ../proyecto-final-design-system
 
-  housing_core:
-    path: ../housing-core
+#   housing_core:
+#     path: ../housing-core

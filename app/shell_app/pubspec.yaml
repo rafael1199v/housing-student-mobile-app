@@ -25,13 +25,13 @@ dependencies:
   housing_core:
     git:
       url: https://github.com/rafael1199v/housing-core-mobile.git
-      ref: release/1.1.0
+      ref: release/1.1.2
 
 
   student_lib:
     git:
       url: https://github.com/DanyElAlgo/StudentHousingApp-Student.git
-      ref: develop
+      ref: release/1.2.3
 
   # The shell references the shared Dio when wiring RoleApi.
   dio: ^5.7.0
@@ -45,7 +45,7 @@ dependencies:
   housing_design_system:
     git:
       url: https://github.com/rafael1199v/housing-design-system.git
-      ref: release/1.2.0
+      ref: release/1.2.1
 
   # State management (shell-owned cubits: RoleCubit + reused theme/locale).
   flutter_bloc: ^9.1.1
