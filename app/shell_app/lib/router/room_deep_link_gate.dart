@@ -9,6 +9,7 @@ import 'pending_deep_link.dart';
 import 'shell_router.dart' show homeLocationFor;
 
 class RoomDeepLinkGate extends StatefulWidget {
+  static const String path = '/room/:id';
   const RoomDeepLinkGate({super.key, required this.roomId});
 
   final String roomId;
