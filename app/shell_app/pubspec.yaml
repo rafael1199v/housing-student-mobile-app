@@ -25,13 +25,13 @@ dependencies:
   housing_core:
     git:
       url: https://github.com/rafael1199v/housing-core-mobile.git
-      ref: release/1.0.0
+      ref: release/1.1.2
 
 
   student_lib:
     git:
       url: https://github.com/DanyElAlgo/StudentHousingApp-Student.git
-      ref: feature/microapp-surface
+      ref: release/1.2.3
 
   # The shell references the shared Dio when wiring RoleApi.
   dio: ^5.7.0
@@ -45,7 +45,7 @@ dependencies:
   housing_design_system:
     git:
       url: https://github.com/rafael1199v/housing-design-system.git
-      ref: main
+      ref: release/1.2.1
 
   # State management (shell-owned cubits: RoleCubit + reused theme/locale).
   flutter_bloc: ^9.1.1
@@ -56,6 +56,12 @@ dependencies:
 
   # Routing
   go_router: ^17.3.0
+
+  # Deep links received while the app is already running (warm/background).
+  # flutter_deeplinking_enabled only reliably routes the cold-start link, so we
+  # drive go_router from this stream for subsequent links. Already resolved
+  # transitively at 6.4.1; pinned here as a direct dependency.
+  app_links: ^6.4.1
 
   # ProviderScope host so the deferred student (Riverpod) bridge needs no
   # structural change to the root widget. Pinned to v3 to match student_lib

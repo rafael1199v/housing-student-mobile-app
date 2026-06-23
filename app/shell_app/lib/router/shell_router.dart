@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:householder_app/core/core.dart' show getIt;
 import 'package:householder_app/householder_experience.dart';
 import 'package:housing_auth/housing_auth.dart';
 import 'package:housing_core/housing_core.dart';
 import 'package:student_lib/student_experience.dart' as student;
+
+import 'pending_deep_link.dart';
+import 'room_deep_link_gate.dart';
 
 const _publicRoutes = {
   LoginPage.routeName,
@@ -64,12 +68,32 @@ GoRouter buildShellRouter({
   required AppRole? activeRole,
 }) {
   final home = homeLocationFor(activeRole);
+  final pending = getIt<PendingDeepLink>();
+
+  var initialLocation = home;
+  if (activeRole == AppRole.student) {
+    final target = pending.consume();
+    if (target != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        navigatorKey.currentContext?.push(target);
+      });
+    }
+  } else {
+    final target = pending.peek();
+    if (target != null) initialLocation = target;
+  }
+
   return GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: home,
+    initialLocation: initialLocation,
     refreshListenable: session,
     redirect: (context, state) {
       if (state.matchedLocation == ConfirmEmailPage.routeName) return null;
+
+      if (activeRole != AppRole.student &&
+          state.matchedLocation.startsWith('/room/')) {
+        pending.set(state.uri.toString());
+      }
 
       final loggedIn = session.isAuthenticated;
       final atPublic = _publicRoutes.contains(state.matchedLocation);
@@ -80,6 +104,12 @@ GoRouter buildShellRouter({
     },
     routes: [
       ..._authRoutes(),
+      if (activeRole != AppRole.student)
+        GoRoute(
+          path: RoomDeepLinkGate.path,
+          builder: (context, state) =>
+              RoomDeepLinkGate(roomId: state.pathParameters['id'] ?? ''),
+        ),
       ..._experienceRoutesFor(activeRole),
     ],
   );

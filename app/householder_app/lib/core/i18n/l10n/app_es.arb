@@ -316,5 +316,6 @@
   "roomDetails": "Detalles de la habitación",
   "noDescriptionProvided": "No se proporcionó una descripción.",
   "errRoomLoad": "No pudimos cargar esta habitación. Inténtalo de nuevo.",
-  "editRoomComingSoon": "La edición de habitaciones estará disponible pronto."
+  "editRoomComingSoon": "La edición de habitaciones estará disponible pronto.",
+  "deepLinkRoleUnavailable": "Este contenido no está disponible para tu rol."
 }
