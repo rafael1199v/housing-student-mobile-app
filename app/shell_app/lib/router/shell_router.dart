@@ -106,7 +106,7 @@ GoRouter buildShellRouter({
       ..._authRoutes(),
       if (activeRole != AppRole.student)
         GoRoute(
-          path: '/room/:id',
+          path: RoomDeepLinkGate.path,
           builder: (context, state) =>
               RoomDeepLinkGate(roomId: state.pathParameters['id'] ?? ''),
         ),
